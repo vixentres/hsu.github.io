@@ -88,7 +88,7 @@
     /* --- Nuevo Estilo para el título SuperKlub parpadeante --- */
     #superklub-title {
       position: fixed;
-      top: 100px; /* Ajustado para estar debajo del temporizador y la barra superior */
+      top: 200px; /* Ajustado para estar debajo del temporizador y la barra superior */
       width: 100%;
       text-align: center;
       z-index: 999;
@@ -553,43 +553,61 @@
       const djMiddle = document.getElementById('dj-middle');
       const djBottom = document.getElementById('dj-bottom');
 
-      // Calcular los índices para el ciclo actual
-      // El DJ "superior" será el que estaba en el medio en el ciclo anterior
-      const topIdx = (currentIndex - 1 + djNamesList.length) % djNamesList.length;
-      // El DJ "central" (con zoom) es el actual
-      const middleIdx = currentIndex % djNamesList.length;
-      // El DJ "inferior" es el siguiente en la lista
-      const bottomIdx = (currentIndex + 1) % djNamesList.length;
+      // Fase 1: Iniciar las transiciones visuales (0.5s)
+      // El DJ actual del medio se 'deszoomea' (pasa a ser el de arriba, más pequeño)
+      djMiddle.classList.remove('center');
+      // El DJ actual de abajo se 'zoomea' (pasa a ser el del medio, más grande)
+      djBottom.classList.add('center');
 
-      // Actualizar el contenido de texto para los slots
-      djTop.textContent = djNamesList[topIdx];
-      djMiddle.textContent = djNamesList[middleIdx];
-      djBottom.textContent = djNamesList[bottomIdx];
-
-      // Reiniciar todas las clases 'center' para que la transición se aplique correctamente
-      [djTop, djMiddle, djBottom].forEach(el => {
-        el.classList.remove('center');
-      });
-
-      // Aplicar la clase 'center' al elemento del medio, lo que activará su transición de zoom y opacidad
-      djMiddle.classList.add('center');
-
-      // Programar la próxima actualización
-      // Espera el tiempo de la transición (0.5s) + un tiempo de pausa deseado para que se vea el DJ central
+      // Después de que las transiciones de la Fase 1 hayan terminado (0.5 segundos)
       setTimeout(() => {
-        // Prepara para el siguiente ciclo: avanza el índice central
+        // Fase 2: Actualizar el contenido de texto para los slots
+        // Avanza al siguiente DJ para que sea el nuevo centro
         currentIndex = (currentIndex + 1) % djNamesList.length;
-        updateDjSlots(); // Llama a la función recursivamente para continuar el bucle
-      }, 2500); // Duración total del ciclo: 0.5s (transición) + 2s (pausa) = 2.5 segundos
+
+        const topIdx = (currentIndex - 1 + djNamesList.length) % djNamesList.length;
+        const middleIdx = currentIndex % djNamesList.length;
+        const bottomIdx = (currentIndex + 1) % djNamesList.length;
+
+        djTop.textContent = djNamesList[topIdx];
+        djMiddle.textContent = djNamesList[middleIdx];
+        djBottom.textContent = djNamesList[bottomIdx];
+
+        // Asegurarse de que el nuevo 'djTop' y 'djBottom' no tengan la clase 'center'
+        djTop.classList.remove('center');
+        djBottom.classList.remove('center');
+        // El 'djMiddle' ya tendrá la clase 'center' de la fase anterior
+
+        // Programar la próxima iteración después de una pausa para el nuevo DJ central
+        setTimeout(() => {
+          updateDjSlots(); // Llamada recursiva para continuar el bucle
+        }, 2000); // Pausa de 2 segundos para que el DJ central se vea claramente
+      }, 500); // Tiempo de la transición CSS (0.5s)
     }
 
     // Combinar todas las inicializaciones en window.onload
     window.onload = function() {
       initCountdown();
-      // Llamada inicial para configurar el primer estado de los DJs
-      // Esto mostrará el primer DJ de la lista en la posición central (con zoom)
-      // y los otros en las posiciones superior e inferior.
-      updateDjSlots();
+      // Inicializar el contenido de los DJs antes de iniciar el bucle de animación
+      const djTop = document.getElementById('dj-top');
+      const djMiddle = document.getElementById('dj-middle');
+      const djBottom = document.getElementById('dj-bottom');
+
+      // Establecer el estado inicial con el primer DJ en el medio
+      const initialTopIdx = (currentIndex - 1 + djNamesList.length) % djNamesList.length;
+      const initialMiddleIdx = currentIndex % djNamesList.length;
+      const initialBottomIdx = (currentIndex + 1) % djNamesList.length;
+
+      djTop.textContent = djNamesList[initialTopIdx];
+      djMiddle.textContent = djNamesList[initialMiddleIdx];
+      djBottom.textContent = djNamesList[initialBottomIdx];
+      
+      djMiddle.classList.add('center'); // Aplicar zoom al DJ inicial del medio
+
+      // Iniciar el bucle de animación después de un breve retraso inicial
+      setTimeout(() => {
+        updateDjSlots();
+      }, 1500); // Retraso inicial de 1.5 segundos
     };
   </script>
 </body>
