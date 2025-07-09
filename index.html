@@ -5,32 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>| HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._</title>
   
-  <!-- Meta Tags recomendadas por Glitch para SEO y canonicalización -->
-  <link rel="canonical" href="https://hsu-vixentres.glitch.me/" /> <!-- URL canónica de tu sitio en Glitch -->
-  <meta name="description" content="Página oficial de HSU y SUPERKLUB con información de eventos, entradas sin cargo y el perfil de Instagram de vixentres._."/>
+  <link rel="canonical" href="https://vixentres.github.io/hsu.github.io/" /> <meta name="description" content="Página oficial de HSU y SUPERKLUB con información de eventos, entradas sin cargo y el perfil de Instagram de vixentres._."/>
   <meta name="robots" content="index,follow" />
 
-  <!-- Open Graph Meta Tags para previsualización en redes sociales -->
   <meta property="og:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._" />
   <meta property="og:description" content="⛓️ Vicente 🌹 (@vixentres._) 3,928 seguidores, 1,349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram" />
-  <meta property="og:image" content="https://vixentres.github.io/hsu.github.io/banner%201.jpg" />
-  <meta property="og:image:width" content="1200" /> <!-- Ancho recomendado para OG Image (ajustar si la imagen es diferente) -->
-  <meta property="og:image:height" content="630" /> <!-- Alto recomendado para OG Image (ajustar si la imagen es diferente) -->
-  <meta property="og:url" content="https://hsu-vixentres.glitch.me/" /> <!-- Asegúrate de que esta URL sea la de tu página de Glitch -->
-  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://vixentres.github.io/hsu.github.io/banner%201.jpg" /> <meta property="og:image:width" content="1200" /> <meta property="og:image:height" content="630" /> <meta property="og:url" content="https://vixentres.github.io/hsu.github.io/" /> <meta property="og:type" content="website" />
   <meta property="og:site_name" content="HSU / SUPERKLUB" />
 
-  <!-- Twitter Card Meta Tags (útiles para previsualizaciones en otras plataformas también) -->
-  <meta name="twitter:card" content="summary_large_image" /> <!-- Se mantuvo summary_large_image para una imagen grande -->
-  <meta name="twitter:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._" />
+  <meta name="twitter:card" content="summary_large_image" /> <meta name="twitter:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._" />
   <meta name="twitter:description" content="⛓️ Vicente 🌹 (@vixentres._) 3,928 seguidores, 1,349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram" />
-  <meta name="twitter:image" content="https://vixentres.github.io/hsu.github.io/banner%201.jpg" />
-  
-  <!-- Importar librerías de A-Frame y del contador -->
-  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <meta name="twitter:image" content="https://vixentres.github.io/hsu.github.io/banner%201.jpg" /> <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   <script src="https://cdn.logwork.com/widget/countdown.js"></script>
   
-  <!-- Componente para giroscopio mejorado -->
   <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
 
   <style>
@@ -240,7 +227,7 @@
     }
 
     #scrolling-banner-content {
-      background-image: url("https://vixentres.github.io/hsu.github.io/banda.png");
+      background-image: url("https://vixentres.github.io/hsu.github.io/banda.png"); /* Actualizado para GitHub Pages */
       background-size: auto 100%;
       background-repeat: repeat-x;
       animation: scrollBanner 70s linear infinite;
@@ -316,23 +303,18 @@
 </head>
 
 <body>
-  <!-- Nuevo contador de tiempo -->
   <div id="countdown-container">
     <a href="https://logwork.com/countdown-timer" class="countdown-timer" data-style="columns" data-timezone="America/Santiago" data-language="es" data-date="2025-09-06 00:00" data-digitscolor="#ffffff" data-unitscolor="#ffffff">
       06/09/2025
     </a>
   </div>
 
-  <!-- Título SuperKlub parpadeante -->
   <div id="superklub-title">SUPERKLUB</div>
 
-  <!-- Escena 3D con logos correctamente orientados -->
   <a-scene embedded vr-mode-ui="enabled: false" id="scene-container">
     <a-assets>
-      <a-asset-item id="logo3d" src="https://github.com/vixentres/hsu.github.io/blob/main/Crown_Emblem_HSU_0605150407_texture.glb"></a-asset-item>
-    </a-assets>
+      <a-asset-item id="logo3d" src="https://vixentres.github.io/hsu.github.io/Crown.glb"></a-asset-item> </a-assets>
 
-    <!-- Define el nuevo componente 'clickable-link' -->
     <script>
       AFRAME.registerComponent('clickable-link', {
         schema: {
@@ -367,7 +349,6 @@
       });
     </script>
 
-    <!-- Logo frontal (1.5m adelante, altura 1.6m) - Orientación normal -->
     <a-entity 
       id="front-logo"
       gltf-model="#logo3d"
@@ -379,7 +360,6 @@
       clickable-link="href: https://forms.gle/npmPGCvZEQiSFqGy9">
     </a-entity>
 
-    <!-- Logo a la derecha (1.5m derecha, altura 1.6m) - Rotado 90° a la izquierda -->
     <a-entity 
       id="right-logo"
       gltf-model="#logo3d"
@@ -391,7 +371,6 @@
       clickable-link="href: https://forms.gle/npmPGCvZEQiSFqGy9">
     </a-entity>
 
-    <!-- Logo a la izquierda (1.5m izquierda, altura 1.6m) - Rotado 90° a la derecha -->
     <a-entity 
       id="left-logo"
       gltf-model="#logo3d"
@@ -403,7 +382,6 @@
       clickable-link="href: https://forms.gle/npmPGCvZEQiSFqGy9">
     </a-entity>
 
-    <!-- Logo atrás (1.5m atrás, altura 1.6m) - Rotado 180° -->
     <a-entity 
       id="back-logo"
       gltf-model="#logo3d"
@@ -415,7 +393,6 @@
       clickable-link="href: https://forms.gle/npmPGCvZEQiSFqGy9">
     </a-entity>
 
-    <!-- Cámara a altura estándar (1.6m) -->
     <a-entity position="0 0.5 0"
               rotation="0 90 0">
       <a-camera 
@@ -426,33 +403,27 @@
     </a-entity>
   </a-scene>
 
-  <!-- Barra animada -->
   <div id="scrolling-banner">
     <div id="scrolling-banner-content"></div>
   </div>
 
-  <!-- Contenedor para los nombres de los DJs con scroll -->
   <div id="dj-scroller-container">
       <div class="dj-name-item" id="dj-top"></div>
       <div class="dj-name-item" id="dj-middle"></div>
       <div class="dj-name-item" id="dj-bottom"></div>
   </div>
 
-  <!-- Contenedor para todos los botones SVG -->
   <div id="all-buttons-container">
-    <!-- Botón de Registro -->
     <a href="https://forms.gle/npmPGCvZEQiSFqGy9" target="_blank" class="svg-button">
       <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"><path d="M19.732,13.732l-6.732,6.732v3.536h3.536l6.732-6.732c.472-.472,.732-1.1,.732-1.768s-.26-1.296-.732-1.768c-.943-.944-2.592-.944-3.535,0Zm2.828,2.828l-6.439,6.439h-2.122v-2.122l6.439-6.439c.566-.566,1.555-.566,2.121,0,.283,.283,.439,.66,.439,1.061s-.156,.777-.439,1.061Zm-5.924-2.561H5v-1h12.637l-1,1ZM21.5,2h-3.5V0h-1V2H7V0h-1V2H2.5C1.122,2,0,3.122,0,4.5V24H11v-1H1V9H23v2.294c.352,.122,.692,.27,1,.472V4.5c0-1.378-1.122-2.5-2.5-2.5ZM1,8v-3.5c0-.827,.673-1.5,1.5-1.5H21.5c.827,0,1.5,.673,1.5,1.5v3.5H1Zm4,10h7.636l-1,1H5v-1Z"/></svg>
     </a>
 
-    <!-- Botón de Compra -->
     <a href="https://www.ticketmaster.cl/event/superklub-vicente-medel" target="_blank" class="svg-button">
       <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24">
         <path d="m22,15v-.5c0-2.481-2.019-4.5-4.5-4.5s-4.5,2.019-4.5,4.5v.5h-2.05l.972,6.619c.2,1.357,1.385,2.381,2.756,2.381h5.65c1.372,0,2.557-1.023,2.756-2.381l.972-6.619h-2.056Zm-8-.5c0-1.93,1.57-3.5,3.5-3.5s3.5,1.57,3.5,3.5v.5h-7v-.5Zm8.095,6.974c-.128.87-.888,1.526-1.767,1.526h-5.65c-.879,0-1.639-.656-1.767-1.526l-.804-5.474h10.792l-.804,5.474ZM3,4c0-.552.448-1,1-1s1,.448,1,1-.448,1-1,1-1-.448-1-1Zm3,0c0-.552.448-1,1-1s1,.448,1,1-.448,1-1,1-1-.448-1-1Zm3,0c0-.552.448-1,1-1s1,.448,1,1-.448,1-1,1-1-.448-1-1Zm.809,17H1v-13h22v3.052c.372.591.639,1.251.807,1.948h.193V2.5c0-1.378-1.122-2.5-2.5-2.5H2.5C1.122,0,0,1.122,0,2.5v19.5h9.965c-.005-.031-.155-1-.155-1ZM2.5,1h19c.827,0,1.5.673,1.5,1.5v4.5H1V2.5c0-.827.673-1.5,1.5-1.5Z"/>
       </svg>
     </a>
 
-    <!-- Botón de Instagram -->
     <a href="https://www.instagram.com/vixentres._/" target="_blank" class="svg-button">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
         <g>
@@ -463,7 +434,6 @@
       </svg>
     </a>
 
-    <!-- Botón de WhatsApp -->
     <a href="http://wa.me/56987421967?text=Hola%20!!!%20tienes%20entradas%20para%20HSU%20%3F%3F" target="_blank" class="svg-button">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
         <g id="WA_Logo">
@@ -475,7 +445,6 @@
     </a>
   </div>
 
-  <!-- Flecha y texto "Regístrate" -->
   <div id="register-hint-container">
     <p id="register-text">Regístrate</p>
     <div id="register-arrow">
@@ -490,9 +459,9 @@
     document.addEventListener('click', function (e) {
       const allButtonsContainer = document.getElementById('all-buttons-container');
       const countdownContainer = document.getElementById('countdown-container');
-      const djScrollerContainer = document.getElementById('dj-scroller-container'); // Usar el nuevo ID
-      const superklubTitle = document.getElementById('superklub-title'); // Nuevo elemento
-      const registerHintContainer = document.getElementById('register-hint-container'); // Nuevo elemento
+      const djScrollerContainer = document.getElementById('dj-scroller-container');
+      const superklubTitle = document.getElementById('superklub-title');
+      const registerHintContainer = document.getElementById('register-hint-container');
 
       // Check if the clicked target is within the A-Frame scene,
       // and not one of the explicitly handled UI elements.
