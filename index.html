@@ -75,28 +75,10 @@
       }
     }
 
-    /* --- Estilos del Contador --- */
-    #countdown-container {
-      position: fixed;
-      top: 40px; /* Debajo de la nueva barra superior */
-      width: 100%;
-      text-align: center;
-      padding: 10px 0;
-      background-color: rgba(0, 0, 0, 0.7);
-      z-index: 1000;
-      pointer-events: none;
-    }
-
-    .countdown-timer {
-      font-size: 1.5em;
-      color: #ffffff;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-    }
-
     /* --- Nuevo Estilo para el título SuperKlub parpadeante --- */
     #superklub-title {
       position: fixed;
-      top: 1500px; /* Ajustado para estar debajo del temporizador y la barra superior */
+      top: 50px; /* MODIFICADO: Ahora debajo de la banda superior */
       width: 100%;
       text-align: center;
       z-index: 999;
@@ -114,6 +96,24 @@
       0% { opacity: 0.8; }
       80% { opacity: 0.4; } /* La opacidad mínima para que siempre sea visible */
       100% { opacity: 0.8; }
+    }
+
+    /* --- Estilos del Contador --- */
+    #countdown-container {
+      position: fixed;
+      top: 140px; /* MODIFICADO: Ahora debajo del título SuperKlub */
+      width: 100%;
+      text-align: center;
+      padding: 10px 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .countdown-timer {
+      font-size: 1.5em;
+      color: #ffffff;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
     }
 
     /* --- Contenedor para los nombres de los DJs con scroll (anteriormente alternating-text-container) --- */
@@ -284,16 +284,17 @@
       #top-scrolling-banner {
         height: 30px;
       }
+      
+      #superklub-title {
+        font-size: 1.5em;
+        top: 40px; /* MODIFICADO: Ajustado para móvil */
+      }
+
       #countdown-container {
-        top: 30px;
+        top: 80px; /* MODIFICADO: Ajustado para móvil */
       }
       .countdown-timer {
         font-size: 1.2em;
-      }
-
-      #superklub-title {
-        font-size: 1.5em;
-        top: 90px; /* Ajustado para móvil */
       }
 
       #dj-scroller-container {
@@ -347,13 +348,13 @@
     <div id="top-scrolling-banner-content"></div>
   </div>
 
+  <div id="superklub-title">SUPERKLUB</div>
+
   <div id="countdown-container">
     <a href="https://logwork.com/countdown-timer" class="countdown-timer" data-style="columns" data-timezone="America/Santiago" data-language="es" data-date="2025-09-06 00:00" data-digitscolor="#ffffff" data-unitscolor="#ffffff">
       06/09/2025
     </a>
   </div>
-
-  <div id="superklub-title">SUPERKLUB</div>
 
   <a-scene embedded vr-mode-ui="enabled: false" id="scene-container">
     <a-assets>
