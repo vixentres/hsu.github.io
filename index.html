@@ -205,23 +205,24 @@
       }
     }
 
-    /* --- Flecha y texto "Reg¨ªstrate" --- */
+    /* --- Flecha y texto "Registrate" --- */
     #register-hint-container {
       position: fixed;
-      /* Calcular posicion para que quede encima del primer boton (formulario) */
-      /* El primer boton (form) tiene height: 70px, y el gap es 15px. El container de botones esta a bottom: 60px.
-         La parte superior del primer boton es 60px (bottom del container) + 70px (height del boton) = 130px.
-         Queremos que el container de la flecha y texto este sobre 130px. */
-      bottom: 135px; /* Ajusta este valor para que quede justo encima del primer boton */
+      /* La parte inferior de la flecha debe estar 15px sobre el boton de formulario (el mas alto).
+         El boton de formulario termina en 385px desde abajo (desktop).
+         Asi que la flecha debe empezar en 385 + 15 = 400px.
+         Como el contenedor tiene flex-direction: column (flecha abajo del texto),
+         el 'bottom' del contenedor sera el 'bottom' de la flecha. */
+      bottom: 400px; /* Ajustado para posicionar la flecha correctamente sobre el boton de formulario */
       right: 20px; /* Alineado con el borde derecho de los botones */
       left: auto;
       z-index: 1000;
       display: flex;
-      flex-direction: column-reverse; /* Cambiado para que el texto quede arriba de la flecha */
-      align-items: center; /* Centra horizontalmente el texto y la flecha */
+      flex-direction: column; /* Texto arriba, flecha abajo (orden del HTML) */
+      align-items: flex-end; /* Alinea el contenido a la derecha para que el texto rotado se alinee con los botones */
       pointer-events: none; /* Permite clics a traves de este elemento */
       gap: 5px; /* Espacio entre texto y flecha */
-      width: 70px; /* Ancho para centrar el texto con el boton */
+      width: auto; /* Ajusta el ancho automaticamente al contenido */
       transform-origin: center; /* Asegura que las transformaciones se centren */
     }
 
@@ -232,8 +233,8 @@
       text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
       white-space: nowrap; /* Evita que el texto se rompa */
       transform: rotate(-90deg); /* Rotar 90 grados a la izquierda (vertical de abajo hacia arriba) */
-      transform-origin: left bottom; /* Cambiado para que el texto rote desde su esquina inferior izquierda */
-      margin-bottom: 20px; /* Ajusta este margen para separar el texto de la flecha */
+      transform-origin: right bottom; /* Punto de pivote para la rotacion: esquina inferior derecha del texto original */
+      /* No es necesario margin-bottom aqui, el 'gap' del flex container lo maneja */
     }
 
     #register-arrow {
@@ -246,7 +247,7 @@
       width: 100%;
       height: 100%;
       color: #00ffff; /* Color cian ne¨®n */
-      transform: rotate(180deg); /* MODIFICADO: Flecha apuntando hacia arriba */
+      transform: rotate(180deg); /* Flecha apuntando hacia arriba */
     }
 
     @keyframes bounceArrow {
@@ -337,14 +338,17 @@
       }
 
       #register-hint-container {
-        /* Ajustar la posicion para que quede encima del primer boton (formulario) en moviles */
-        bottom: 115px; /* Ajusta este valor segun el tamaño de los botones y el gap en moviles */
+        /* En moviles, el boton de formulario (el mas alto) termina en 300px desde abajo.
+           Asi que la flecha debe empezar en 300 + 10 = 310px.
+           Como el contenedor tiene flex-direction: column (flecha abajo del texto),
+           el 'bottom' del contenedor sera el 'bottom' de la flecha. */
+        bottom: 310px; /* Ajusta este valor segun el tamaño de los botones y el gap en moviles */
         right: 15px; /* Alineado con el borde derecho de los botones en moviles */
-        width: 55px; /* Ancho para centrar el texto con el boton en moviles */
+        width: auto; /* Ajusta el ancho automaticamente al contenido */
       }
       #register-text {
         font-size: 1em;
-        margin-bottom: 15px; /* Ajusta este margen para separar el texto de la flecha en moviles */
+        /* No es necesario margin-bottom aqui, el 'gap' del flex container lo maneja */
       }
       #register-arrow {
         width: 30px;
@@ -408,7 +412,7 @@
   </div>
 
   <div id="register-hint-container">
-    <p id="register-text">Reg¨ªstrate</p>
+    <p id="register-text">Registrate</p>
     <div id="register-arrow">
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 21L12 3M12 21L18 15M12 21L6 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
