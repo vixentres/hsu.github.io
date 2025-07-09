@@ -121,7 +121,7 @@
       position: fixed;
       bottom: 200px; /* Ajusta esta posición para que esté encima de los botones */
       width: 100%;
-      height: 120px; /* Altura para mostrar 3 elementos (aprox. 40px cada uno) */
+      height: 150px; /* MODIFICADO: Altura aumentada para nombres más grandes */
       overflow: hidden;
       text-align: center;
       z-index: 1000;
@@ -136,11 +136,11 @@
     }
 
     .dj-name-item {
-      font-size: 1.8em; /* Tamaño base */
+      font-size: 2em; /* MODIFICADO: Tamaño base de los nombres */
       transition: all 0.5s ease-in-out; /* Transición suave para tamaño/posición/opacidad */
       white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
       line-height: 1.2; /* Ajusta la altura de línea para el espaciado vertical */
-      height: 40px; /* Altura fija para cada elemento */
+      height: 50px; /* MODIFICADO: Altura fija para cada elemento */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -149,7 +149,7 @@
     }
 
     .dj-name-item.center {
-      font-size: 2.5em; /* Tamaño más grande para el centro */
+      font-size: 3.5em; /* MODIFICADO: Tamaño más grande para el centro */
       opacity: 1; /* Opacidad completa para el centro */
     }
 
@@ -235,7 +235,7 @@
       width: 100%;
       height: 100%;
       color: #00ffff; /* Color cian neón */
-      transform: rotate(90deg); /* Flecha apuntando a la derecha */
+      transform: rotate(90deg); /* MODIFICADO: Flecha apuntando a la derecha */
     }
 
     @keyframes bounceArrow {
@@ -298,14 +298,14 @@
 
       #dj-scroller-container {
         bottom: 180px; /* Ajuste para móviles */
-        height: 90px; /* Ajuste para mostrar 3 elementos más pequeños */
+        height: 120px; /* MODIFICADO: Ajuste para mostrar 3 elementos más grandes */
       }
       .dj-name-item {
-        font-size: 1.5em; /* Tamaño base más pequeño */
-        height: 30px;
+        font-size: 1.8em; /* MODIFICADO: Tamaño base más pequeño */
+        height: 40px; /* MODIFICADO: Altura en móvil */
       }
       .dj-name-item.center {
-        font-size: 2em; /* Tamaño más grande para el centro en móvil */
+        font-size: 2.8em; /* MODIFICADO: Tamaño más grande para el centro en móvil */
       }
 
       #all-buttons-container {
@@ -464,7 +464,7 @@
 
   <div id="all-buttons-container">
     <a href="https://forms.gle/npmPGCvZEQiSFqGy9" target="_blank" class="svg-button">
-      <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"><path d="M19.732,13.732l-6.732,6.732v3.536h3.536l6.732-6.732c.472-.472,.732-1.1,.732-1.768s-.26-1.296-.732-1.768c-.943-.944-2.592-.944-3.535,0Zm2.828,2.828l-6.439,6.439h-2.122v-2.122l6.439-6.439c.566-.566,1.555-.566,2.121,0,.283,.283,.439,.66,.439,1.061s-.156,.777-.439,1.061ZM21.5,2h-3.5V0h-1V2H7V0h-1V2H2.5C1.122,2,0,3.122,0,4.5V24H11v-1H1V9H23v2.294c.352,.122,.692,.27,1,.472V4.5c0-1.378-1.122-2.5-2.5-2.5ZM1,8v-3.5c0-.827,.673-1.5,1.5-1.5H21.5c.827,0,1.5,.673,1.5,1.5v3.5H1Zm4,10h7.636l-1,1H5v-1Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"><path d="M19.732,13.732l-6.732,6.732v3.536h3.536l6.732-6.732c.472-.472,.732-1.1,.732-1.768s-.26-1.296-.732-1.768c-.943-.944-2.592-.944-3.535,0ZM2.828,2.828l-6.439,6.439h-2.122v-2.122l6.439-6.439c.566-.566,1.555-.566,2.121,0,.283,.283,.439,.66,.439,1.061s-.156,.777-.439,1.061ZM21.5,2h-3.5V0h-1V2H7V0h-1V2H2.5C1.122,2,0,3.122,0,4.5V24H11v-1H1V9H23v2.294c.352,.122,.692,.27,1,.472V4.5c0-1.378-1.122-2.5-2.5-2.5ZM1,8v-3.5c0-.827,.673-1.5,1.5-1.5H21.5c.827,0,1.5,.673,1.5,1.5v3.5H1Zm4,10h7.636l-1,1H5v-1Z"/></svg>
     </a>
 
     <a href="https://www.ticketmaster.cl/event/superklub-vicente-medel" target="_blank" class="svg-button">
