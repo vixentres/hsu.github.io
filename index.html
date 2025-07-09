@@ -14,7 +14,7 @@
   <meta property="og:site_name" content="HSU / SUPERKLUB" />
 
   <meta name="twitter:card" content="summary_large_image" /> <meta name="twitter:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._" />
-  <meta name="twitter:description" content="?? Vicente ?? (@vixentres._) 3,928 seguidores, 1,349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram" />
+  <meta name="twitter:description" content="?? Vicente ?? (@vixentres._) 3,928 seguidores, 1.349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram" />
   <meta name="twitter:image" content="https://vixentres.github.io/hsu.github.io/banner%201.jpg" /> <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   <script src="https://cdn.logwork.com/widget/countdown.js"></script>
   
@@ -153,15 +153,15 @@
       opacity: 1; /* Opacidad completa para el centro */
     }
 
-    /* --- Contenedor para todos los botones SVG --- */
-    #all-buttons-container {
+    /* --- Contenedor para todos los botones SVG, flecha y texto "Registrate" --- */
+    #right-aligned-content {
       position: fixed;
       bottom: 60px; /* Ajusta para estar encima de la barra animada */
       right: 20px; /* Alineado a la derecha */
-      left: auto; /* Desactiva la alineación a la izquierda */
       display: flex;
       flex-direction: column; /* Apilado verticalmente */
-      gap: 15px; /* Espacio entre los botones */
+      align-items: flex-end; /* Alinea todo el contenido a la derecha */
+      gap: 15px; /* Espacio entre los elementos (texto, flecha, botones) */
       padding: 10px 0;
       z-index: 1000;
       pointer-events: auto;
@@ -206,26 +206,6 @@
     }
 
     /* --- Flecha y texto "Registrate" --- */
-    #register-hint-container {
-      position: fixed;
-      /* La parte inferior de la flecha debe estar 15px sobre el boton de formulario (el mas alto).
-         El boton de formulario termina en 385px desde abajo (desktop).
-         Asi que la flecha debe empezar en 385 + 15 = 400px.
-         Como el contenedor tiene flex-direction: column (flecha abajo del texto),
-         el 'bottom' del contenedor sera el 'bottom' de la flecha. */
-      bottom: 400px; /* Ajustado para posicionar la flecha correctamente sobre el boton de formulario */
-      right: 20px; /* Alineado con el borde derecho de los botones */
-      left: auto;
-      z-index: 1000;
-      display: flex;
-      flex-direction: column; /* Texto arriba, flecha abajo (orden del HTML) */
-      align-items: flex-end; /* Alinea el contenido a la derecha para que el texto rotado se alinee con los botones */
-      pointer-events: none; /* Permite clics a traves de este elemento */
-      gap: 5px; /* Espacio entre texto y flecha */
-      width: auto; /* Ajusta el ancho automaticamente al contenido */
-      transform-origin: center; /* Asegura que las transformaciones se centren */
-    }
-
     #register-text {
       color: #00ffff; /* Color cian ne¨®n */
       font-size: 1.2em;
@@ -233,14 +213,15 @@
       text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
       white-space: nowrap; /* Evita que el texto se rompa */
       transform: rotate(-90deg); /* Rotar 90 grados a la izquierda (vertical de abajo hacia arriba) */
-      transform-origin: right bottom; /* Punto de pivote para la rotacion: esquina inferior derecha del texto original */
-      /* No es necesario margin-bottom aqui, el 'gap' del flex container lo maneja */
+      transform-origin: center; /* Punto de pivote para la rotacion */
+      pointer-events: none; /* Permite clics a traves de este elemento */
     }
 
     #register-arrow {
       width: 40px; /* Tama?o de la flecha */
       height: 40px;
       animation: bounceArrow 1.5s infinite; /* Animaci¨®n para la flecha */
+      pointer-events: none;
     }
 
     #register-arrow svg {
@@ -321,7 +302,7 @@
         font-size: 2.8em; /* MODIFICADO: Tama?o m¨¢s grande para el centro en m¨®vil */
       }
 
-      #all-buttons-container {
+      #right-aligned-content {
         bottom: 50px; /* Ajuste para m¨®viles */
         right: 15px; /* Ajuste para móviles */
         gap: 10px; /* Espacio entre los botones en móviles */
@@ -337,18 +318,8 @@
         height: 50%;
       }
 
-      #register-hint-container {
-        /* En moviles, el boton de formulario (el mas alto) termina en 300px desde abajo.
-           Asi que la flecha debe empezar en 300 + 10 = 310px.
-           Como el contenedor tiene flex-direction: column (flecha abajo del texto),
-           el 'bottom' del contenedor sera el 'bottom' de la flecha. */
-        bottom: 310px; /* Ajusta este valor segun el tamaño de los botones y el gap en moviles */
-        right: 15px; /* Alineado con el borde derecho de los botones en moviles */
-        width: auto; /* Ajusta el ancho automaticamente al contenido */
-      }
       #register-text {
         font-size: 1em;
-        /* No es necesario margin-bottom aqui, el 'gap' del flex container lo maneja */
       }
       #register-arrow {
         width: 30px;
@@ -381,7 +352,14 @@
       <div class="dj-name-item" id="dj-bottom"></div>
   </div>
 
-  <div id="all-buttons-container">
+  <div id="right-aligned-content">
+    <p id="register-text">Registrate</p>
+    <div id="register-arrow">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 21L12 3M12 21L18 15M12 21L6 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
     <a href="https://forms.gle/npmPGCvZEQiSFqGy9" target="_blank" class="svg-button">
       <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"><path d="M19.732,13.732l-6.732,6.732v3.536h3.536l6.732-6.732c.472-.472,.732-1.1,.732-1.768s-.26-1.296-.732-1.768c-.943-.944-2.592-.944-3.535,0ZM2.828,2.828l-6.439,6.439h-2.122v-2.122l6.439-6.439c.566-.566,1.555-.566,2.121,0,.283,.283,.439,.66,.439,1.061s-.156,.777-.439,1.061ZM21.5,2h-3.5V0h-1V2H7V0h-1V2H2.5C1.122,2,0,3.122,0,4.5V24H11v-1H1V9H23v2.294c.352,.122,.692,.27,1,.472V4.5c0-1.378-1.122-2.5-2.5-2.5ZM1,8v-3.5c0-.827,.673-1.5,1.5-1.5H21.5c.827,0,1.5,.673,1.5,1.5v3.5H1Zm4,10h7.636l-1,1H5v-1Z"/></svg>
     </a>
@@ -409,15 +387,6 @@
         </g>
       </svg>
     </a>
-  </div>
-
-  <div id="register-hint-container">
-    <p id="register-text">Registrate</p>
-    <div id="register-arrow">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 21L12 3M12 21L18 15M12 21L6 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
   </div>
 
   <a-scene embedded vr-mode-ui="enabled: false" id="scene-container">
@@ -524,22 +493,20 @@
   <script>
     // C¨®digo para manejar el clic fuera de los elementos
     document.addEventListener('click', function (e) {
-      const allButtonsContainer = document.getElementById('all-buttons-container');
+      const rightAlignedContent = document.getElementById('right-aligned-content');
       const countdownContainer = document.getElementById('countdown-container');
       const djScrollerContainer = document.getElementById('dj-scroller-container');
       const superklubTitle = document.getElementById('superklub-title');
-      const registerHintContainer = document.getElementById('register-hint-container');
       const topScrollingBanner = document.getElementById('top-scrolling-banner'); // Nueva
 
       // Check if the clicked target is within the A-Frame scene,
       // and not one of the explicitly handled UI elements.
       // The clickable-link component handles clicks on the 3D models directly.
       if (
-        !allButtonsContainer.contains(e.target) &&
+        !rightAlignedContent.contains(e.target) &&
         !countdownContainer.contains(e.target) &&
         !djScrollerContainer.contains(e.target) &&
         !superklubTitle.contains(e.target) &&
-        !registerHintContainer.contains(e.target) &&
         !topScrollingBanner.contains(e.target) && // Nueva
         !e.target.closest('a-scene') // Check if the click is within the A-Frame scene
       ) {
