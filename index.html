@@ -35,10 +35,42 @@
       background-color: #000; /* ESTA LÍNEA HACE EL FONDO NEGRO */
     }
 
+    /* --- Estilos de la nueva Barra Superior --- */
+    #top-scrolling-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      overflow: hidden;
+      z-index: 999;
+      pointer-events: none;
+      background-color: #000;
+    }
+
+    #top-scrolling-banner-content {
+      background-image: url("https://vixentres.github.io/hsu.github.io/banda.png");
+      background-size: auto 100%;
+      background-repeat: repeat-x;
+      animation: scrollBannerTop 70s linear infinite reverse; /* Animación invertida */
+      position: absolute;
+      height: 100%;
+      width: 300%;
+    }
+
+    @keyframes scrollBannerTop {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-66.66%);
+      }
+    }
+
     /* --- Estilos del Contador --- */
     #countdown-container {
       position: fixed;
-      top: 0;
+      top: 40px; /* Debajo de la nueva barra superior */
       width: 100%;
       text-align: center;
       padding: 10px 0;
@@ -56,7 +88,7 @@
     /* --- Nuevo Estilo para el título SuperKlub parpadeante --- */
     #superklub-title {
       position: fixed;
-      top: 120px; /* Debajo del temporizador */
+      top: 100px; /* Ajustado para estar debajo del temporizador y la barra superior */
       width: 100%;
       text-align: center;
       z-index: 999;
@@ -193,19 +225,19 @@
       width: 100%;
       height: 100%;
       color: #00ffff; /* Color cian neón */
-      transform: rotate(180deg); /* ESTA LÍNEA ROTA LA FLECHA: 90deg es a la derecha, 0deg es arriba, 180deg es abajo, -90deg o 270deg es izquierda */
+      transform: rotate(180deg); /* Flecha apuntando a la derecha */
     }
 
     @keyframes bounceArrow {
       0%, 100% {
-        transform: translateX(0) rotate(90deg); /* Asegura que la rotación se mantenga */
+        transform: translateX(0) rotate(180deg); /* Asegura que la rotación se mantenga */
       }
       50% {
-        transform: translateX(10px) rotate(90deg); /* Mover hacia la derecha, manteniendo la rotación */
+        transform: translateX(10px) rotate(180deg); /* Mover hacia la derecha, manteniendo la rotación */
       }
     }
 
-    /* --- Barra animada --- */
+    /* --- Barra animada inferior --- */
     #scrolling-banner {
       position: fixed;
       bottom: 0;
@@ -239,13 +271,19 @@
 
     /* --- Estilos para móviles --- */
     @media (max-width: 500px) {
+      #top-scrolling-banner {
+        height: 30px;
+      }
+      #countdown-container {
+        top: 30px;
+      }
       .countdown-timer {
         font-size: 1.2em;
       }
 
       #superklub-title {
         font-size: 1.5em;
-        top: 50px;
+        top: 80px; /* Ajustado para móvil */
       }
 
       #dj-scroller-container {
@@ -295,6 +333,10 @@
 </head>
 
 <body>
+  <div id="top-scrolling-banner">
+    <div id="top-scrolling-banner-content"></div>
+  </div>
+
   <div id="countdown-container">
     <a href="https://logwork.com/countdown-timer" class="countdown-timer" data-style="columns" data-timezone="America/Santiago" data-language="es" data-date="2025-09-06 00:00" data-digitscolor="#ffffff" data-unitscolor="#ffffff">
       06/09/2025
@@ -305,7 +347,9 @@
 
   <a-scene embedded vr-mode-ui="enabled: false" id="scene-container">
     <a-assets>
-      <a-asset-item id="logo3d" src="https://vixentres.github.io/hsu.github.io/Crown.glb"></a-asset-item> </a-assets>
+      <a-asset-item id="logo3d" src="https://vixentres.github.io/hsu.github.io/Crown.glb"></a-asset-item>
+      <img id="okPng" src="https://vixentres.github.io/hsu.github.io/ok.png">
+    </a-assets>
 
     <script>
       AFRAME.registerComponent('clickable-link', {
@@ -385,6 +429,9 @@
       clickable-link="href: https://forms.gle/npmPGCvZEQiSFqGy9">
     </a-entity>
 
+    <a-image src="#okPng"
+             position="0 0.05 0" rotation="-90 0 0" scale="0.5 0.5 0.5" look-at="[camera]"> </a-image>
+
     <a-entity position="0 0.5 0"
               rotation="0 90 0">
       <a-camera 
@@ -454,6 +501,7 @@
       const djScrollerContainer = document.getElementById('dj-scroller-container');
       const superklubTitle = document.getElementById('superklub-title');
       const registerHintContainer = document.getElementById('register-hint-container');
+      const topScrollingBanner = document.getElementById('top-scrolling-banner'); // Nueva
 
       // Check if the clicked target is within the A-Frame scene,
       // and not one of the explicitly handled UI elements.
@@ -464,6 +512,7 @@
         !djScrollerContainer.contains(e.target) &&
         !superklubTitle.contains(e.target) &&
         !registerHintContainer.contains(e.target) &&
+        !topScrollingBanner.contains(e.target) && // Nueva
         !e.target.closest('a-scene') // Check if the click is within the A-Frame scene
       ) {
         window.location.href = 'https://forms.gle/npmPGCvZEQiSFqGy9';
@@ -488,7 +537,7 @@
       }, 500);
     }
 
-    // Lógica para los nombres de los DJs con scroll
+    // Lógica para los nombres de los DJs con scroll y zoom
     const djNamesList = [
       "MAD DOG",
       "SOUND RUSH",
@@ -497,47 +546,50 @@
       "TONESHIFTERZ"
     ];
 
-    const djTop = document.getElementById('dj-top');
-    const djMiddle = document.getElementById('dj-middle');
-    const djBottom = document.getElementById('dj-bottom');
+    let currentIndex = 0; // Representa el índice del DJ que estará en la posición central (con zoom)
 
-    let currentDjIndex = 0; // Índice del DJ que estará en la posición superior
+    function updateDjSlots() {
+      const djTop = document.getElementById('dj-top');
+      const djMiddle = document.getElementById('dj-middle');
+      const djBottom = document.getElementById('dj-bottom');
 
-    function updateDjsScroll() {
-      // Calcular los índices para los 3 DJs visibles
-      const topIndex = currentDjIndex % djNamesList.length;
-      const middleIndex = (currentDjIndex + 1) % djNamesList.length;
-      const bottomIndex = (currentDjIndex + 2) % djNamesList.length;
+      // Calcular los índices para el ciclo actual
+      // El DJ "superior" será el que estaba en el medio en el ciclo anterior
+      const topIdx = (currentIndex - 1 + djNamesList.length) % djNamesList.length;
+      // El DJ "central" (con zoom) es el actual
+      const middleIdx = currentIndex % djNamesList.length;
+      // El DJ "inferior" es el siguiente en la lista
+      const bottomIdx = (currentIndex + 1) % djNamesList.length;
 
-      // Asignar el texto a los elementos
-      djTop.textContent = djNamesList[topIndex];
-      djMiddle.textContent = djNamesList[middleIndex];
-      djBottom.textContent = djNamesList[bottomIndex];
+      // Actualizar el contenido de texto para los slots
+      djTop.textContent = djNamesList[topIdx];
+      djMiddle.textContent = djNamesList[middleIdx];
+      djBottom.textContent = djNamesList[bottomIdx];
 
-      // Resetear clases y estilos para el inicio de la transición
+      // Reiniciar todas las clases 'center' para que la transición se aplique correctamente
       [djTop, djMiddle, djBottom].forEach(el => {
         el.classList.remove('center');
-        el.style.opacity = '0.3'; // Opacidad por defecto
-        el.style.fontSize = '1.8em'; // Tamaño por defecto
       });
 
-      // Aplicar estilos para el elemento central (con transición)
+      // Aplicar la clase 'center' al elemento del medio, lo que activará su transición de zoom y opacidad
       djMiddle.classList.add('center');
-      djMiddle.style.opacity = '1';
-      djMiddle.style.fontSize = '2.5em';
 
-      // Esperar 1.5 segundos (pausa en el centro) y luego iniciar la transición para el siguiente
+      // Programar la próxima actualización
+      // Espera el tiempo de la transición (0.5s) + un tiempo de pausa deseado para que se vea el DJ central
       setTimeout(() => {
-        // Mover al siguiente conjunto de DJs
-        currentDjIndex = (currentDjIndex + 1) % djNamesList.length;
-        updateDjsScroll(); // Llamada recursiva para el bucle
-      }, 1500); // Pausa de 1.5 segundos
+        // Prepara para el siguiente ciclo: avanza el índice central
+        currentIndex = (currentIndex + 1) % djNamesList.length;
+        updateDjSlots(); // Llama a la función recursivamente para continuar el bucle
+      }, 2500); // Duración total del ciclo: 0.5s (transición) + 2s (pausa) = 2.5 segundos
     }
 
     // Combinar todas las inicializaciones en window.onload
     window.onload = function() {
       initCountdown();
-      updateDjsScroll(); // Iniciar el scroll de DJs
+      // Llamada inicial para configurar el primer estado de los DJs
+      // Esto mostrará el primer DJ de la lista en la posición central (con zoom)
+      // y los otros en las posiciones superior e inferior.
+      updateDjSlots();
     };
   </script>
 </body>
