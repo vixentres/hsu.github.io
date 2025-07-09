@@ -88,7 +88,7 @@
     /* --- Nuevo Estilo para el título SuperKlub parpadeante --- */
     #superklub-title {
       position: fixed;
-      top: 200px; /* Ajustado para estar debajo del temporizador y la barra superior */
+      top: 100px; /* Ajustado para estar debajo del temporizador y la barra superior */
       width: 100%;
       text-align: center;
       z-index: 999;
@@ -454,7 +454,7 @@
 
   <div id="all-buttons-container">
     <a href="https://forms.gle/npmPGCvZEQiSFqGy9" target="_blank" class="svg-button">
-      <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"><path d="M19.732,13.732l-6.732,6.732v3.536h3.536l6.732-6.732c.472-.472,.732-1.1,.732-1.768s-.26-1.296-.732-1.768c-.943-.944-2.592-.944-3.535,0Zm2.828,2.828l-6.439,6.439h-2.122v-2.122l6.439-6.439c.566-.566,1.555-.566,2.121,0,.283,.283,.439,.66,.439,1.061s-.156,.777-.439,1.061Zm-5.924-2.561H5v-1h12.637l-1,1ZM21.5,2h-3.5V0h-1V2H7V0h-1V2H2.5C1.122,2,0,3.122,0,4.5V24H11v-1H1V9H23v2.294c.352,.122,.692,.27,1,.472V4.5c0-1.378-1.122-2.5-2.5-2.5ZM1,8v-3.5c0-.827,.673-1.5,1.5-1.5H21.5c.827,0,1.5,.673,1.5,1.5v3.5H1Zm4,10h7.636l-1,1H5v-1Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"><path d="M19.732,13.732l-6.732,6.732v3.536h3.536l6.732-6.732c.472-.472,.732-1.1,.732-1.768s-.26-1.296-.732-1.768c-.943-.944-2.592-.944-3.535,0Zm2.828,2.828l-6.439,6.439h-2.122v-2.122l6.439-6.439c.566-.566,1.555-.566,2.121,0,.283,.283,.439,.66,.439,1.061s-.156,.777-.439,1.061ZM21.5,2h-3.5V0h-1V2H7V0h-1V2H2.5C1.122,2,0,3.122,0,4.5V24H11v-1H1V9H23v2.294c.352,.122,.692,.27,1,.472V4.5c0-1.378-1.122-2.5-2.5-2.5ZM1,8v-3.5c0-.827,.673-1.5,1.5-1.5H21.5c.827,0,1.5,.673,1.5,1.5v3.5H1Zm4,10h7.636l-1,1H5v-1Z"/></svg>
     </a>
 
     <a href="https://www.ticketmaster.cl/event/superklub-vicente-medel" target="_blank" class="svg-button">
@@ -553,61 +553,59 @@
       const djMiddle = document.getElementById('dj-middle');
       const djBottom = document.getElementById('dj-bottom');
 
-      // Fase 1: Iniciar las transiciones visuales (0.5s)
-      // El DJ actual del medio se 'deszoomea' (pasa a ser el de arriba, más pequeño)
+      // 1. Iniciar la transición del DJ actual del medio para que se 'deszoomee'
+      // Esto elimina la clase 'center' y activa la transición CSS de salida
       djMiddle.classList.remove('center');
-      // El DJ actual de abajo se 'zoomea' (pasa a ser el del medio, más grande)
-      djBottom.classList.add('center');
 
-      // Después de que las transiciones de la Fase 1 hayan terminado (0.5 segundos)
+      // 2. Después de que la transición CSS de salida (0.5s) haya tenido tiempo de empezar,
+      // actualizamos el contenido de los elementos y activamos la transición de entrada para el nuevo centro.
       setTimeout(() => {
-        // Fase 2: Actualizar el contenido de texto para los slots
-        // Avanza al siguiente DJ para que sea el nuevo centro
-        currentIndex = (currentIndex + 1) % djNamesList.length;
+        // Mover contenido: el del medio se va arriba, el de abajo se va al medio.
+        const nextTopText = djMiddle.textContent; // Lo que era el medio ahora es el de arriba (sin zoom)
+        const nextMiddleText = djBottom.textContent; // Lo que era el de abajo ahora es el nuevo medio (con zoom)
+        
+        // Calcular el próximo DJ para la posición de abajo
+        currentIndex = (currentIndex + 1) % djNamesList.length; // Avanzamos el índice para el nuevo DJ del medio
+        const nextBottomText = djNamesList[(currentIndex + 1) % djNamesList.length]; // El siguiente DJ de la lista
 
-        const topIdx = (currentIndex - 1 + djNamesList.length) % djNamesList.length;
-        const middleIdx = currentIndex % djNamesList.length;
-        const bottomIdx = (currentIndex + 1) % djNamesList.length;
+        // Actualizar el contenido de los elementos
+        djTop.textContent = nextTopText;
+        djMiddle.textContent = nextMiddleText;
+        djBottom.textContent = nextBottomText;
 
-        djTop.textContent = djNamesList[topIdx];
-        djMiddle.textContent = djNamesList[middleIdx];
-        djBottom.textContent = djNamesList[bottomIdx];
+        // 3. Aplicar la clase 'center' al nuevo DJ del medio
+        // Esto activará su animación de 'zoom in'
+        djMiddle.classList.add('center');
 
-        // Asegurarse de que el nuevo 'djTop' y 'djBottom' no tengan la clase 'center'
-        djTop.classList.remove('center');
-        djBottom.classList.remove('center');
-        // El 'djMiddle' ya tendrá la clase 'center' de la fase anterior
-
-        // Programar la próxima iteración después de una pausa para el nuevo DJ central
+        // 4. Programar la próxima llamada después de la duración de visualización
+        // (2 segundos) más el tiempo de la animación de entrada (0.5 segundos)
         setTimeout(() => {
-          updateDjSlots(); // Llamada recursiva para continuar el bucle
-        }, 2000); // Pausa de 2 segundos para que el DJ central se vea claramente
-      }, 500); // Tiempo de la transición CSS (0.5s)
+          updateDjSlots(); // Llamada recursiva para el siguiente ciclo
+        }, 2000); // 2 segundos para que el DJ central se vea
+      }, 500); // 0.5 segundos para que la animación CSS de salida se complete
     }
 
     // Combinar todas las inicializaciones en window.onload
     window.onload = function() {
       initCountdown();
-      // Inicializar el contenido de los DJs antes de iniciar el bucle de animación
+      
+      // Inicializar el contenido de los DJs para el primer ciclo
       const djTop = document.getElementById('dj-top');
       const djMiddle = document.getElementById('dj-middle');
       const djBottom = document.getElementById('dj-bottom');
 
-      // Establecer el estado inicial con el primer DJ en el medio
-      const initialTopIdx = (currentIndex - 1 + djNamesList.length) % djNamesList.length;
-      const initialMiddleIdx = currentIndex % djNamesList.length;
-      const initialBottomIdx = (currentIndex + 1) % djNamesList.length;
-
-      djTop.textContent = djNamesList[initialTopIdx];
-      djMiddle.textContent = djNamesList[initialMiddleIdx];
-      djBottom.textContent = djNamesList[initialBottomIdx];
+      // Establecer el estado inicial: MAD DOG en el centro, y los demás en sus posiciones
+      currentIndex = 0; // MAD DOG es el primer DJ en la lista y será el primero en el centro
+      djTop.textContent = djNamesList[(currentIndex - 1 + djNamesList.length) % djNamesList.length]; // TONESHIFTERZ
+      djMiddle.textContent = djNamesList[currentIndex]; // MAD DOG
+      djBottom.textContent = djNamesList[(currentIndex + 1) % djNamesList.length]; // SOUND RUSH
       
-      djMiddle.classList.add('center'); // Aplicar zoom al DJ inicial del medio
+      djMiddle.classList.add('center'); // Aplicar zoom al DJ inicial del medio (MAD DOG)
 
-      // Iniciar el bucle de animación después de un breve retraso inicial
+      // Iniciar el bucle de animación después de un retraso inicial para que se vea el primer DJ centrado
       setTimeout(() => {
         updateDjSlots();
-      }, 1500); // Retraso inicial de 1.5 segundos
+      }, 2000); // Retraso inicial de 2 segundos para ver a MAD DOG con zoom
     };
   </script>
 </body>
