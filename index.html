@@ -84,7 +84,7 @@
       z-index: 999;
       color: #ffffff;
       font-size: 4em; /* Ajusta el tama?o seg¨²n prefieras */
-      font-weight: 700;
+      font-weight: 800;
       text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.6);
       animation: blink 1.5s infinite alternate; /* Animaci¨®n de parpadeo */
       opacity: 0.8; /* Opacidad inicial y final */
@@ -93,9 +93,9 @@
     }
 
     @keyframes blink {
-      0% { opacity: 0.8; }
+      0% { opacity: 1; }
       80% { opacity: 0.4; } /* La opacidad m¨ªnima para que siempre sea visible */
-      100% { opacity: 0.8; }
+      100% { opacity: 1; }
     }
 
     /* --- Estilos del Contador --- */
@@ -161,7 +161,7 @@
       display: flex;
       flex-direction: column; /* Apilado verticalmente */
       align-items: flex-end; /* Alinea todo el contenido a la derecha */
-      gap: 15px; /* Espacio entre los elementos (texto, flecha, botones) */
+      gap: 15.5px; /* Espacio entre los elementos (texto, flecha, botones) */
       padding: 10px 0;
       z-index: 1000;
       pointer-events: auto;
@@ -178,6 +178,8 @@
       box-shadow: 0 4px 15px rgba(0, 255, 255, 0.5);
       animation: pulse 2s infinite;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      /* Nuevos estilos para centrar el contenido dentro del svg-button */
+      position: relative; /* Necesario para posicionar el texto rotado */
     }
 
     .svg-button:hover {
@@ -205,40 +207,44 @@
       }
     }
 
-    /* --- Flecha y texto "Registrate" --- */
-    #register-text {
-      color: #00ffff; /* Color cian ne¨®n */
-      font-size: 1.2em;
+    /* Estilos para el texto "Registrate" */
+    .svg-button .register-text { /* Modificado para ser una clase dentro de svg-button */
+      color: #ffffff;
+      font-size: 1.2em; /* Puedes ajustar el tamaño */
       font-weight: 700;
-      text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+      text-shadow: 0 0 8px rgba(0, 255, 255, 0.8), 0 0 15px rgba(0, 255, 255, 0.6);
+      /* Posicionamiento y rotación para el texto dentro del botón circular */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-90deg); /* Centra y rota */
       white-space: nowrap; /* Evita que el texto se rompa */
-      transform: rotate(-90deg); /* Rotar 90 grados a la izquierda (vertical de abajo hacia arriba) */
-      transform-origin: center; /* Punto de pivote para la rotacion */
-      pointer-events: none; /* Permite clics a traves de este elemento */
+      transform-origin: center; /* Asegura que la rotación sea sobre su propio centro */
+      pointer-events: none; /* Asegura que no bloquee clics */
     }
 
-    #register-arrow {
-      width: 40px; /* Tama?o de la flecha */
+    /* Estilos para la flecha SVG */
+    .svg-button .arrow-svg { /* Modificado para ser una clase dentro de svg-button */
+      width: 40px; /* Ajusta el tamaño de la flecha */
       height: 40px;
-      animation: bounceArrow 1.5s infinite; /* Animaci¨®n para la flecha */
-      pointer-events: none;
+      fill: #ffffff; /* Color de la flecha */
+      filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.7)); /* Sombra para la flecha */
+      /* Ajuste para que la flecha esté dentro del botón */
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* Centra la flecha */
+      animation: bounce-vertical 1.5s infinite alternate ease-in-out; /* Animación de movimiento vertical */
+      pointer-events: none; /* Asegura que no bloquee clics */
     }
 
-    #register-arrow svg {
-      width: 100%;
-      height: 100%;
-      color: #00ffff; /* Color cian ne¨®n */
-      transform: rotate(180deg); /* Flecha apuntando hacia arriba */
+    /* Animación para el movimiento vertical de la flecha */
+    @keyframes bounce-vertical {
+      0% { transform: translate(-50%, -50%); }
+      50% { transform: translate(-50%, -60%); } /* Sube ligeramente */
+      100% { transform: translate(-50%, -50%); }
     }
 
-    @keyframes bounceArrow {
-      0%, 100% {
-        transform: translateY(0) rotate(180deg); /* Movimiento vertical, manteniendo la rotacion */
-      }
-      50% {
-        transform: translateY(-10px) rotate(180deg); /* Mover hacia arriba, manteniendo la rotacion */
-      }
-    }
 
     /* --- Barra animada inferior --- */
     #scrolling-banner {
@@ -318,12 +324,13 @@
         height: 50%;
       }
 
-      #register-text {
-        font-size: 1em;
+      .svg-button .register-text { /* Modificado para móvil */
+        font-size: 0.9em;
       }
-      #register-arrow {
-        width: 30px;
-        height: 30px;
+
+      .svg-button .arrow-svg { /* Modificado para móvil */
+        width: 25px;
+        height: 25px;
       }
       
       #scrolling-banner {
@@ -353,19 +360,25 @@
   </div>
 
   <div id="right-aligned-content">
-    <p id="register-text">Registrate</p>
-    <div id="register-arrow">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 21L12 3M12 21L18 15M12 21L6 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
+    <a href="https://forms.gle/npmPGCvZEQiSFqGy9" target="_blank" class="svg-button">
+      <span class="register-text">REGISTRATE</span>
+    </a>
+    
+    <a href="https://forms.gle/npmPGCvZEQiSFqGy9" target="_blank" class="svg-button">
+      <svg class="arrow-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="512" height="512"><path d="M19.061,7.854a1.5,1.5,0,0,0-2.122,0l-4.586,4.585a.5.5,0,0,1-.707,0L7.061,7.854A1.5,1.5,0,0,0,4.939,9.975l4.586,4.586a3.5,3.5,0,0,0,4.95,0l4.586-4.586A1.5,1.5,0,0,0,19.061,7.854Z"/></svg>
+    </a>
 
     <a href="https://forms.gle/npmPGCvZEQiSFqGy9" target="_blank" class="svg-button">
-      <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"><path d="M19.732,13.732l-6.732,6.732v3.536h3.536l6.732-6.732c.472-.472,.732-1.1,.732-1.768s-.26-1.296-.732-1.768c-.943-.944-2.592-.944-3.535,0ZM2.828,2.828l-6.439,6.439h-2.122v-2.122l6.439-6.439c.566-.566,1.555-.566,2.121,0,.283,.283,.439,.66,.439,1.061s-.156,.777-.439,1.061ZM21.5,2h-3.5V0h-1V2H7V0h-1V2H2.5C1.122,2,0,3.122,0,4.5V24H11v-1H1V9H23v2.294c.352,.122,.692,.27,1,.472V4.5c0-1.378-1.122-2.5-2.5-2.5ZM1,8v-3.5c0-.827,.673-1.5,1.5-1.5H21.5c.827,0,1.5,.673,1.5,1.5v3.5H1Zm4,10h7.636l-1,1H5v-1Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512"><path d="m4.5,1h5.515c.334,0,.663.03.985.088v5.412c0,1.378,1.122,2.5,2.5,2.5h5.411c.033.178.057.359.071.541.022.275.274.479.539.458.275-.022.48-.264.458-.539-.125-1.536-.793-2.981-1.883-4.07l-3.485-3.485c-1.228-1.228-2.86-1.904-4.596-1.904h-5.515C2.019,0,0,2.019,0,4.5v15c0,2.481,2.019,4.5,4.5,4.5h4c.276,0,.5-.224.5-.5s-.224-.5-.5-.5h-4c-1.93,0-3.5-1.57-3.5-3.5V4.5c0-1.93,1.57-3.5,3.5-3.5Zm12.889,5.096c.545.545.965,1.195,1.24,1.904h-5.129c-.827,0-1.5-.673-1.5-1.5V1.368c.706.273,1.353.692,1.904,1.243l3.485,3.485Zm5.878,5.636c-.943-.944-2.592-.944-3.535,0l-7.707,7.707c-.661.661-1.025,1.54-1.025,2.475v1.586c0,.276.224.5.5.5h1.586c.935,0,1.814-.364,2.475-1.025l7.707-7.707c.472-.472.732-1.1.732-1.768s-.26-1.296-.732-1.768Zm-.707,2.828l-7.707,7.707c-.472.472-1.1.732-1.768.732h-1.086v-1.086c0-.668.26-1.295.732-1.768l7.707-7.707c.566-.566,1.555-.566,2.121,0,.283.283.439.66.439,1.061s-.156.777-.439,1.061Z"/></svg>
     </a>
 
     <a href="https://www.ticketmaster.cl/event/superklub-vicente-medel" target="_blank" class="svg-button">
       <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512"><circle cx="7" cy="22" r="2"/><circle cx="17" cy="22" r="2"/><path d="M23.685,1.336a1,1,0,0,0-1.414,0L17.112,6.5,15.561,4.881a1,1,0,0,0-1.442,1.386l1.614,1.679a1.872,1.872,0,0,0,1.345.6h.033a1.873,1.873,0,0,0,1.335-.553L23.685,2.75A1,1,0,0,0,23.685,1.336Z"/><path d="M21.9,9.016a1,1,0,0,0-1.162.807l-.128.709A3,3,0,0,1,17.657,13H5.418l-.94-8H11a1,1,0,0,0,0-2H4.242L4.2,2.648A3,3,0,0,0,1.222,0H1A1,1,0,0,0,1,2h.222a1,1,0,0,1,.993.883l1.376,11.7A5,5,0,0,0,8.557,19H19a1,1,0,0,0,0-2H8.557a3,3,0,0,1-2.829-2H17.657a5,5,0,0,0,4.921-4.113l.128-.71A1,1,0,0,0,21.9,9.016Z"/></svg>
+    </a>
+
+    <a href="https://open.spotify.com/playlist/0" target="_blank" class="svg-button">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve" width="512" height="512"><g>	<g>		<g>			<path d="M12,0C5.373,0,0,5.373,0,12c0,6.628,5.373,12,12,12c6.628,0,12-5.372,12-12C24,5.373,18.628,0,12,0z M17.503,17.308c-0.216,0.354-0.676,0.464-1.028,0.249c-2.818-1.722-6.365-2.111-10.542-1.157c-0.403,0.092-0.804-0.16-0.896-0.562c-0.092-0.402,0.159-0.804,0.563-0.895c4.571-1.045,8.492-0.595,11.655,1.338C17.608,16.495,17.719,16.956,17.503,17.308zM18.972,14.041c-0.271,0.44-0.847,0.578-1.287,0.308c-3.225-1.982-8.142-2.557-11.958-1.398C5.233,13.1,4.71,12.821,4.56,12.327c-0.149-0.495,0.13-1.016,0.624-1.167c4.358-1.323,9.776-0.682,13.48,1.594C19.104,13.025,19.242,13.601,18.972,14.041zM19.098,10.638C15.23,8.341,8.85,8.13,5.157,9.251c-0.593,0.18-1.22-0.155-1.4-0.748c-0.18-0.593,0.155-1.22,0.748-1.4c4.239-1.287,11.285-1.038,15.738,1.605c0.533,0.317,0.708,1.005,0.392,1.538C20.32,10.779,19.63,10.955,19.098,10.638z"/>		</g>	</g></g>
+      </svg>
     </a>
 
     <a href="https://www.instagram.com/vixentres._/" target="_blank" class="svg-button">
@@ -468,7 +481,7 @@
       position="0 1.6 1.5" 
       rotation="0 180 0"
       scale="-0.5 0.5 0.5"
-      animation="property: rotation; from: 0 160 0; to: 0 200 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
+      animation="property: rotation; from: 0 160 0; to: 0 200 0; alternate: true; dur: 2000; easing: easeInOutSine; loop: true;"
       look-at="[camera]"
       clickable-link="href: https://forms.gle/npmPGCvZEQiSFqGy9">
     </a-entity>
