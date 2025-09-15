@@ -227,23 +227,6 @@
       100% { transform: translateX(-66.66%); }
     }
 
-    /* Estilos para móviles de HSU.txt */
-    @media (max-width: 500px) {
-      #top-scrolling-banner { height: 30px; }
-      #superklub-title { font-size: 1.5em; top: 40px; }
-      #countdown-container { top: 80px; }
-      .countdown-timer { font-size: 1.2em; }
-      #dj-scroller-container { bottom: 120px; height: 120px; }
-      .dj-name-item { font-size: 1.8em; height: 40px; }
-      .dj-name-item.center { font-size: 2.8em; }
-      #right-aligned-content { bottom: 50px; right: 15px; gap: 10px; }
-      .svg-button { width: 55px; height: 55px; }
-      .svg-button svg { width: 50%; height: 50%; }
-      #centered-bottom-text { bottom: 50px; }
-      .register-text { font-size: 0.9em; }
-      #scrolling-banner { height: 30px; }
-    }
-
     /* Estilos de New.txt */
     #form-section, #confirm-section, #unsubscribe-section { display: none; }
     .container.active { display: block; }
@@ -285,6 +268,8 @@
       margin-top: 5px;
       border: 1px solid #ccc;
       border-radius: 6px;
+      /* --- Corrección aquí --- */
+      box-sizing: border-box; 
     }
     input::placeholder { color: rgba(0,0,0,0.3); }
     .item {
@@ -678,7 +663,7 @@
       document.querySelector('meta[name="description"]').content = `| ${EVENTO.nombreEvento} | Entradas ${formatPriceToK(EVENTO.precio)} | ig: Vixentres._`;
       document.querySelector('meta[property="og:title"]').content = `Entradas para ${EVENTO.nombreEvento} | ${formatPriceToK(EVENTO.precio)} | ig: Vixentres._`;
       document.querySelector('meta[property="og:description"]').content = EVENTO.descripcionEvento;
-      document.querySelector('meta[name="twitter:title"]').content = `Entradas para ${EVENTO.nombreEvento} | ${formatPriceToK(EVENTO.precio)} | ig: Vixentres._`;
+      document.querySelector('meta[name="twitter:title"]').content = `Entradas para ${EVENTO.nombreEvento} | ${EVENTO.precio} | ig: Vixentres._`;
       document.querySelector('meta[name="twitter:description"]').content = EVENTO.descripcionEvento;
     }
     
@@ -794,7 +779,7 @@
             showHsuPage();
         })
         .catch(error => {
-            console.error('Error al enviar la desuscripción:', error);
+            console.error('Error al procesar la desuscripción:', error);
             alert("Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo.");
             showHsuPage();
         });
@@ -803,7 +788,7 @@
     function copiarDatos() {
       const datos = "VICENTE SEBASTIAN MEDEL\n19385365-K\nBanco Estado\nCuentaRUT\n19385365";
       navigator.clipboard.writeText(datos).then(() => {
-        alert("¡Datos bancarios copiados al portapapeles!");
+        alert("¡Datos bancarios copiado al portapapeles!");
       }).catch(err => {
         console.error('Error al copiar: ', err);
         alert("No se pudo copiar los datos. Por favor, inténtalo manualmente.");
