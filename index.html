@@ -228,7 +228,7 @@
     }
 
     /* Estilos de New.txt */
-    #form-section, #confirm-section, #unsubscribe-section { display: none; }
+    #form-section, #confirm-section, #unsubscribe-section, #reserva-confirm-section { display: none; }
     .container.active { display: block; }
     #full-page-container {
       position: fixed;
@@ -268,7 +268,6 @@
       margin-top: 5px;
       border: 1px solid #ccc;
       border-radius: 6px;
-      /* --- Corrección aquí --- */
       box-sizing: border-box; 
     }
     input::placeholder { color: rgba(0,0,0,0.3); }
@@ -352,21 +351,6 @@
     .bold-label {
         font-weight: bold;
     }
-    .phone-container {
-        position: relative;
-        display: flex;
-        align-items: center;
-    }
-    .phone-prefix {
-        position: absolute;
-        left: 10px;
-        color: #000;
-        font-weight: normal;
-        pointer-events: none;
-    }
-    .phone-input {
-        padding-left: 55px;
-    }
   </style>
 </head>
 
@@ -394,7 +378,7 @@
     </div>
     <div id="right-aligned-content">
       <a href="#" class="svg-button" id="buy-tickets-link">
-        <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512"><path d="m4.5,1h5.515c.334,0,.663.03.985.088v5.412c0,1.378,1.122,2.5,2.5,2.5h5.411c.033.178.057.359.071.541.022.275.274.479.539.458.275-.022.48-.264.458-.539-.125-1.536-.793-2.981-1.883-4.07l-3.485-3.485c-1.228-1.228-2.86-1.904-4.596-1.904h-5.515C2.019,0,0,2.019,0,4.5v15c0,2.481,2.019,4.5,4.5,4.5h4c.276,0,.5-.224.5-.5s-.224-.5-.5-.5h-4c-1.93,0-3.5-1.57-3.5-3.5V4.5c0-1.93,1.57-3.5,3.5-3.5Zm12.889,5.096c.545.545.965,1.195,1.24,1.904h-5.129c-.827,0-1.5-.673-1.5-1.5V1.368c.706.273,1.353.692,1.904,1.243l3.485,3.485Zm5.878,5.636c-.943-.944-2.592-.944-3.535,0l-7.707,7.707c-.661.661-1.025,1.54-1.025,2.475v1.586c0,.276.224.5.5.5h1.586c.935,0,1.814-.364,2.475-1.025l7.707-7.707c.472-.472.732-1.1.732-1.768s-.26-1.296-.732-1.768Zm-.707,2.828l-7.707,7.707c-.472.472-1.1.732-1.768.732h-1.086v-1.086c0-.668.26-1.295.732-1.768l7.707-7.707c.566-.566,1.555-.566,2.121,0,.283.283.439.66.439,1.061s-.156.777-.439,1.061Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512"><path d="m4.5,1h5.515c.334,0,.663.03.985.088v5.412c0,1.378,1.122,2.5,2.5,2.5h5.411c.033.178.057.359.071.541.022.275.274.479.458-.539-.125-1.536-.793-2.981-1.883-4.07l-3.485-3.485c-1.228-1.228-2.86-1.904-4.596-1.904h-5.515C2.019,0,0,2.019,0,4.5v15c0,2.481,2.019,4.5,4.5,4.5h4c.276,0,.5-.224.5-.5s-.224-.5-.5-.5h-4c-1.93,0-3.5-1.57-3.5-3.5V4.5c0-1.93,1.57-3.5,3.5-3.5Zm12.889,5.096c.545.545.965,1.195,1.24,1.904h-5.129c-.827,0-1.5-.673-1.5-1.5V1.368c.706.273,1.353.692,1.904,1.243l3.485,3.485Zm5.878,5.636c-.943-.944-2.592-.944-3.535,0l-7.707,7.707c-.661.661-1.025,1.54-1.025,2.475v1.586c0,.276.224.5.5.5h1.586c.935,0,1.814-.364,2.475-1.025l7.707-7.707c.472-.472.732-1.1.732-1.768s-.26-1.296-.732-1.768Zm-.707,2.828l-7.707,7.707c-.472.472-1.1.732-1.768.732h-1.086v-1.086c0-.668.26-1.295.732-1.768l7.707-7.707c.566-.566,1.555-.566,2.121,0,.283.283.439.66.439,1.061s-.156.777-.439,1.061Z"/></svg>
       </a>
       <a href="https://www.ticketmaster.cl/event/superklub-vicente-medel" target="_blank" class="svg-button">
         <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512"><circle cx="7" cy="22" r="2"/><circle cx="17" cy="22" r="2"/><path d="M23.685,1.336a1,1,0,0,0-1.414,0L17.112,6.5,15.561,4.881a1,1,0,0,0-1.442,1.386l1.614,1.679a1.872,1.872,0,0,0,1.345.6h.033a1.873,1.873,0,0,0,1.335-.553L23.685,2.75A1,1,0,0,0,23.685,1.336Z"/><path d="M21.9,9.016a1,1,0,0,0-1.162.807l-.128.709A3,3,0,0,1,17.657,13H5.418l-.94-8H11a1,1,0,0,0,0-2H4.242L4.2,2.648A3,3,0,0,0,1.222,0H1A1,1,0,0,0,1,2h.222a1,1,0,0,1,.993.883l1.376,11.7A5,5,0,0,0,8.557,19H19a1,1,0,0,0,0-2H8.557a3,3,0,0,1-2.829-2H17.657a5,5,0,0,0,4.921-4.113l.128-.71A1,1,0,0,0,21.9,9.016Z"/></svg>
@@ -525,10 +509,7 @@
           <option value="@yahoo.com"></option>
         </datalist>
         <label for="telefono">Número de contacto</label>
-        <div class="phone-container">
-            <span class="phone-prefix">+569</span>
-            <input type="tel" id="telefono" name="telefono" placeholder="xxxxxxxx" maxlength="8" class="phone-input">
-        </div>
+        <input type="tel" id="telefono" name="telefono" placeholder="XXX XXX XXXX" maxlength="11">
         <label for="instagram">Instagram</label>
         <input type="text" id="instagram" name="instagram" placeholder="eventshsu.cl">
         <div class="item">
@@ -555,7 +536,10 @@
             <span id="total">$0</span>
           </div>
         </div>
-        <button type="submit" class="btn" style="width:100%; margin-top:15px">Continuar</button>
+        <div class="actions" style="margin-top: 20px;">
+          <button type="button" class="btn" id="reservar-btn">Reservar</button>
+          <button type="submit" class="btn" id="comprar-btn">Continuar</button>
+        </div>
       </form>
       <div style="text-align: center;">
         <button class="small-button" id="unsubscribe-btn">Desuscribirse</button>
@@ -573,6 +557,26 @@
         </p>
         <p style="margin-top: 15px;">
           Una vez realizada la transferencia, notifica al vendedor para que te envíe las entradas.
+        </p>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn" onclick="copiarDatos()">Copiar datos bancarios</button>
+        <button type="button" class="btn" onclick="showHsuPage()">Volver a la página principal</button>
+      </div>
+    </div>
+
+    <div class="form-container" id="reserva-confirm-section">
+      <h2 class="title">¡Gracias por tu reserva!</h2>
+      <p style="text-align: center; margin-bottom: 20px;">
+        Pronto estaremos en contacto contigo para coordinar la compra.
+      </p>
+      <div class="total-box">
+        <p style="margin-top: 10px; font-weight: bold;">
+          El monto total a pagar por tu/s entrada/s es de <span class="total" id="montoReserva"></span>.
+        </p>
+        <p style="margin-top: 15px;">
+          Por favor, no realices el pago hasta que te lo indiquemos.
         </p>
       </div>
 
@@ -692,15 +696,29 @@
         e.target.value = e.target.value.replace('@', '');
     });
     
-    // 3. LÓGICA PARA TELÉFONO
-    document.getElementById("telefono").addEventListener("input", (e) => {
-        let valor = e.target.value.replace(/[^0-9]/g, ''); // Solo permite dígitos
-        e.target.value = valor.slice(0, 8); // Limita a 8 dígitos
-    });
+    // 3. LÓGICA PARA TELÉFONO - CAMBIOS APLICADOS AQUÍ
+    const telefonoInput = document.getElementById("telefono");
+    
+    telefonoInput.addEventListener("blur", (e) => {
+      let valor = e.target.value.replace(/[^0-9]/g, ''); // Solo permite dígitos
+      let prefijo = '';
 
-    document.getElementById("telefono").addEventListener("change", (e) => {
-        const cleanValue = `569${e.target.value}`;
-        e.target.dataset.clean = cleanValue;
+      if (valor.length === 8) {
+        prefijo = '+569';
+      } else if (valor.length === 9) {
+        prefijo = '+56';
+      } else if (valor.length === 10) {
+        prefijo = '+5';
+      }
+
+      if (prefijo) {
+        e.target.value = prefijo + valor;
+        e.target.dataset.clean = prefijo + valor;
+      } else {
+        // En caso de que no cumpla con ninguna de las longitudes especificadas
+        e.target.value = valor;
+        e.target.dataset.clean = valor;
+      }
     });
 
     // Captura el email al salir del campo
@@ -708,10 +726,7 @@
         emailFromForm = e.target.value;
     });
 
-    // Envío del formulario de registro
-    document.getElementById("reservaForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-
+    function enviarDatos(esReserva = false) {
       const correo = document.getElementById("correo").value;
       if (!correo) {
         alert("Es necesario ingresar un correo para poder enviar la/s entrada/s");
@@ -720,9 +735,10 @@
       
       const nombre = document.getElementById("nombre").value;
       const instagram = document.getElementById("instagram").value;
-      const telefono = document.getElementById("telefono").dataset.clean;
+      const telefono = document.getElementById("telefono").dataset.clean || document.getElementById("telefono").value;
       const cantidad = document.getElementById("qty").textContent;
       const total = parseInt(cantidad) * EVENTO.precio;
+      const cantidadFinal = esReserva ? `R_${cantidad}` : cantidad;
 
       const formData = {
         action: 'register',
@@ -730,27 +746,38 @@
         correo: correo,
         instagram: instagram,
         telefono: telefono,
-        cantidad: parseInt(cantidad),
+        cantidad: cantidadFinal,
         total: total
       };
-      
+
       fetch(EVENTO.hojaUrl, {
           method: 'POST',
           body: JSON.stringify(formData),
           mode: 'no-cors'
         })
         .then(response => {
-          console.log('Datos de registro enviados. Revisar la hoja de Google Sheets.');
-          document.getElementById("form-section").style.display = 'none';
-          document.getElementById("confirm-section").style.display = 'block';
-
-          let monto = cantidad * EVENTO.precio;
-          document.getElementById("montoTransferencia").textContent = `$${monto.toLocaleString("es-CL")}`;
+          console.log('Datos enviados. Revisar la hoja de Google Sheets.');
+          if (esReserva) {
+            showReservaConfirmSection();
+          } else {
+            showConfirmSection();
+          }
         })
         .catch(error => {
           console.error('Error al enviar los datos:', error);
           alert('Hubo un error al enviar los datos. Por favor, inténtalo de nuevo.');
         });
+    }
+
+    // Envío del formulario de compra con el botón "Continuar"
+    document.getElementById("reservaForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      enviarDatos(false);
+    });
+    
+    // Envío del formulario de reserva con el botón "Reservar"
+    document.getElementById("reservar-btn").addEventListener("click", function() {
+      enviarDatos(true);
     });
 
     // Envío del formulario de desuscripción
@@ -821,6 +848,22 @@
       topBanner.classList.remove('dim-banner');
       bottomBanner.classList.remove('dim-banner');
     }
+    
+    function showConfirmSection() {
+        document.getElementById("form-section").style.display = 'none';
+        document.getElementById("confirm-section").style.display = 'block';
+        document.getElementById("reserva-confirm-section").style.display = 'none';
+        let monto = cantidad * EVENTO.precio;
+        document.getElementById("montoTransferencia").textContent = `$${monto.toLocaleString("es-CL")}`;
+    }
+
+    function showReservaConfirmSection() {
+      document.getElementById("form-section").style.display = 'none';
+      document.getElementById("confirm-section").style.display = 'none';
+      document.getElementById("reserva-confirm-section").style.display = 'block';
+      let monto = cantidad * EVENTO.precio;
+      document.getElementById("montoReserva").textContent = `$${monto.toLocaleString("es-CL")}`;
+    }
 
     function showNewPage() {
       document.getElementById('full-page-container').style.display = 'flex';
@@ -828,6 +871,7 @@
       document.getElementById('form-section').style.display = 'block';
       document.getElementById('confirm-section').style.display = 'none';
       document.getElementById('unsubscribe-section').style.display = 'none';
+      document.getElementById('reserva-confirm-section').style.display = 'none';
       document.getElementById('hsu-content').style.display = 'none';
       topBanner.classList.add('dim-banner');
       bottomBanner.classList.add('dim-banner');
