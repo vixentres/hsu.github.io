@@ -6,11 +6,11 @@
   <title>HSU / SUPERKLUB</title>
 
   <link rel="canonical" href="https://vixentres.github.io/hsu.github.io/" />
-  <meta name="description" content="| HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._"/>
+  <meta name="description" content=""/>
   <meta name="robots" content="index,follow" />
   
-  <meta property="og:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._" />
-  <meta property="og:description" content="⛓ Vicente 🌹 (@vixentres._) 3,928 seguidores, 1,349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="" />
   <meta property="og:image" content="https://vixentres.github.io/hsu.github.io/banner%201.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -19,8 +19,8 @@
   <meta property="og:site_name" content="HSU / SUPERKLUB" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._" />
-  <meta name="twitter:description" content="⛓ Vicente 🌹 (@vixentres._) 3,928 seguidores, 1.349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram" />
+  <meta name="twitter:title" content="" />
+  <meta name="twitter:description" content="" />
   <meta name="twitter:image" content="https://vixentres.github.io/hsu.github.io/banner%201.jpg" />
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   <script src="https://cdn.logwork.com/widget/countdown.js"></script>
@@ -245,7 +245,7 @@
     }
 
     /* Estilos de New.txt */
-    #form-section, #confirm-section { display: none; }
+    #form-section, #confirm-section, #unsubscribe-section { display: none; }
     .container.active { display: block; }
     #full-page-container {
       position: fixed;
@@ -331,6 +331,10 @@
       text-decoration: line-through;
       color: #777;
     }
+    .tachado-rojo {
+      text-decoration: line-through;
+      color: #ff0000;
+    }
     .total {
       font-size: 20px;
       font-weight: bold;
@@ -347,6 +351,36 @@
     }
     .dim-banner {
       opacity: 0.75;
+    }
+    .small-button {
+      padding: 5px 10px;
+      font-size: 12px;
+      background-color: #f0f0f0;
+      color: #333;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+      width: fit-content;
+    }
+    /* Estilos adicionales para la negrita */
+    .bold-label {
+        font-weight: bold;
+    }
+    .phone-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    .phone-prefix {
+        position: absolute;
+        left: 10px;
+        color: #000;
+        font-weight: normal;
+        pointer-events: none;
+    }
+    .phone-input {
+        padding-left: 55px;
     }
   </style>
 </head>
@@ -492,13 +526,13 @@
   
   <div id="full-page-container">
     <div class="form-container" id="form-section">
-      <button class="btn" onclick="showHsuPage()" style="margin-bottom: 20px;">Volver a la página principal</button>
-      <h2>Compra / Reserva tus Entradas</h2>
+      <button class="btn" onclick="showHsuPage()" style="margin-bottom: 20px;">Volver</button>
+      <h2>COMPRA / RESERVA <br> TUS ENTRADAS</h2>
       <form id="reservaForm">
         <label for="nombre">Nombre completo</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Harder Styles United" required>
+        <input type="text" id="nombre" name="nombre" placeholder="Harder Style United" required>
         <label for="correo">Correo electrónico*</label>
-        <input type="email" id="correo" name="correo" placeholder="correo@gmail.com" required **list="email-suggestions"**>
+        <input type="email" id="correo" name="correo" placeholder="direccion-email@gmail.com" required list="email-suggestions">
         <datalist id="email-suggestions">
           <option value="@gmail.com"></option>
           <option value="@hotmail.com"></option>
@@ -506,13 +540,15 @@
           <option value="@yahoo.com"></option>
         </datalist>
         <label for="telefono">Número de contacto</label>
-        <input type="tel" id="telefono" name="telefono" placeholder="56912345678">
+        <div class="phone-container">
+            <span class="phone-prefix">+569</span>
+            <input type="tel" id="telefono" name="telefono" placeholder="xxxxxxxx" maxlength="8" class="phone-input">
+        </div>
         <label for="instagram">Instagram</label>
-        <input type="text" id="instagram" name="instagram" placeholder="user._">
+        <input type="text" id="instagram" name="instagram" placeholder="eventshsu.cl">
         <div class="item">
           <div>
-            <h5>General</h5>
-            <span>$40.000</span>
+            <h5 id="tipo-entrada"><b class="bold-label">General</b> <span id="precio-display">$40.000</span></h5>
           </div>
           <div class="controls">
             <button type="button" class="btn" id="minus">-</button>
@@ -522,12 +558,12 @@
         </div>
         <div class="total-box">
           <div class="total-row">
-            <span>Entrada general</span>
+            <span id="label-subtotal">Entrada general</span>
             <span id="detalle">$0</span>
           </div>
           <div class="total-row">
             <span>Cargo por servicio</span>
-            <span class="tachado" id="cargo">$0</span>
+            <span class="tachado-rojo" id="cargo">$0</span>
           </div>
           <div class="total-row total">
             <span>Total a pagar</span>
@@ -536,6 +572,9 @@
         </div>
         <button type="submit" class="btn" style="width:100%; margin-top:15px">Continuar</button>
       </form>
+      <div style="text-align: center;">
+        <button class="small-button" id="unsubscribe-btn">Desuscribirse</button>
+      </div>
     </div>
 
     <div class="form-container" id="confirm-section">
@@ -557,6 +596,21 @@
         <button type="button" class="btn" onclick="showHsuPage()">Volver a la página principal</button>
       </div>
     </div>
+
+    <div class="form-container" id="unsubscribe-section">
+      <button class="btn" onclick="showFormPage()" style="margin-bottom: 20px;">Volver</button>
+      <h2 class="title">Desuscribirse</h2>
+      <p style="text-align: center; margin-bottom: 20px;">
+        ¿Deseas no recibir más información o dejar de participar en posibles sorteos por parte del vendedor?
+      </p>
+      <form id="unsubscribeForm">
+        <label for="unsubscribe-correo">Correo electrónico*</label>
+        <input type="email" id="unsubscribe-correo" name="unsubscribe-correo" required>
+        <div class="actions">
+          <button type="submit" class="btn">Aceptar</button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <div id="scrolling-banner">
@@ -564,31 +618,70 @@
   </div>
 
   <script>
-    const precio = 40000;
+    // Configuración del evento
+    // Puedes editar estos valores para un nuevo evento
+    const EVENTO = {
+      precio: 40000,
+      fecha: '2026-01-10 00:00',
+      djNames: [
+        "PRONTO POR ANUNCIAR",
+        "DJ MADDOG",
+        "SOUND RUSH",
+        "BLOODLUST",
+        "D-STURB",
+        "TONESHIFTERZ"
+      ],
+      hojaUrl: "https://script.google.com/macros/s/AKfycbx7KGD2K-BappVRLZPXkIc0f2QJDRgjxWENuCZuNqjPw68ylXfbkaCbYFonLL_4n-c_/exec",
+      nombreEvento: "HSU / SUPERKLUB",
+      descripcionEvento: "⛓ Vicente 🌹 (@vixentres._) 3,928 seguidores, 1.349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram",
+      cargo: 6000 // Cargo por servicio
+    };
+
+    // Funciones utilitarias
+    function formatPriceToK(value) {
+      if (value % 1000 === 0) {
+        return `${value / 1000}K`;
+      } else {
+        return `${(value / 1000).toLocaleString('es-CL', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}K`;
+      }
+    }
+    
     let cantidad = 1;
+    let emailFromForm = '';
     const qtyEl = document.getElementById("qty");
     const detalleEl = document.getElementById("detalle");
     const cargoEl = document.getElementById("cargo");
     const totalEl = document.getElementById("total");
+    const precioDisplayEl = document.getElementById("precio-display");
     const topBanner = document.getElementById('top-scrolling-banner');
     const bottomBanner = document.getElementById('scrolling-banner');
-    
+    const unsubscribeCorreoInput = document.getElementById('unsubscribe-correo');
+
+    // Actualiza el precio visible con el formato completo
+    precioDisplayEl.textContent = `$${EVENTO.precio.toLocaleString("es-CL")}`;
     qtyEl.textContent = cantidad;
     actualizarTotales();
 
     function actualizarTotales() {
-      let subtotal = cantidad * precio;
-      if (cantidad > 0) {
-        detalleEl.textContent = `$${subtotal.toLocaleString("es-CL")}`;
-        cargoEl.textContent = `$${(cantidad * 6000).toLocaleString("es-CL")}`;
-        totalEl.textContent = `$${subtotal.toLocaleString("es-CL")}`;
-      } else {
-        detalleEl.textContent = "$0";
-        cargoEl.textContent = "$0";
-        totalEl.textContent = "$0";
-      }
+      let subtotal = cantidad * EVENTO.precio;
+      detalleEl.textContent = `$${subtotal.toLocaleString("es-CL")}`;
+      
+      // Muestra el cargo por servicio, pero lo tacha
+      cargoEl.textContent = `$${(cantidad * EVENTO.cargo).toLocaleString("es-CL")}`;
+      
+      // El total a pagar es solo el precio de la entrada
+      totalEl.textContent = `$${subtotal.toLocaleString("es-CL")}`;
     }
-
+    
+    function updateMetaTags() {
+      document.title = EVENTO.nombreEvento;
+      document.querySelector('meta[name="description"]').content = `| ${EVENTO.nombreEvento} | Entradas ${formatPriceToK(EVENTO.precio)} | ig: Vixentres._`;
+      document.querySelector('meta[property="og:title"]').content = `Entradas para ${EVENTO.nombreEvento} | ${formatPriceToK(EVENTO.precio)} | ig: Vixentres._`;
+      document.querySelector('meta[property="og:description"]').content = EVENTO.descripcionEvento;
+      document.querySelector('meta[name="twitter:title"]').content = `Entradas para ${EVENTO.nombreEvento} | ${formatPriceToK(EVENTO.precio)} | ig: Vixentres._`;
+      document.querySelector('meta[name="twitter:description"]').content = EVENTO.descripcionEvento;
+    }
+    
     document.getElementById("plus").addEventListener("click", () => {
       cantidad++;
       qtyEl.textContent = cantidad;
@@ -613,38 +706,24 @@
     document.getElementById("instagram").addEventListener("input", (e) => {
         e.target.value = e.target.value.replace('@', '');
     });
+    
+    // 3. LÓGICA PARA TELÉFONO
+    document.getElementById("telefono").addEventListener("input", (e) => {
+        let valor = e.target.value.replace(/[^0-9]/g, ''); // Solo permite dígitos
+        e.target.value = valor.slice(0, 8); // Limita a 8 dígitos
+    });
 
-    // 3. LÓGICA PARA TELÉFONO QUE SE AUTOCUMPLETA AL SALIR DEL CAMPO
     document.getElementById("telefono").addEventListener("change", (e) => {
-        let valor = e.target.value.replace(/\D/g, ''); // Elimina todo lo que no sea un dígito
-
-        let formattedValue = '';
-        let cleanValue = '';
-
-        if (valor.length === 8) {
-            formattedValue = `+56 9 ${valor.slice(0, 4)} ${valor.slice(4, 8)}`;
-            cleanValue = `569${valor}`;
-        } else if (valor.length === 9 && valor.startsWith('9')) {
-            formattedValue = `+56 9 ${valor.slice(1, 5)} ${valor.slice(5, 9)}`;
-            cleanValue = `56${valor}`;
-        } else if (valor.length === 11 && valor.startsWith('569')) {
-            formattedValue = `+${valor.slice(0, 2)} ${valor.slice(2, 3)} ${valor.slice(3, 7)} ${valor.slice(7, 11)}`;
-            cleanValue = valor;
-        } else {
-            formattedValue = valor;
-            cleanValue = valor;
-        }
-
-        e.target.value = formattedValue;
+        const cleanValue = `569${e.target.value}`;
         e.target.dataset.clean = cleanValue;
     });
 
-    // Se mantiene el listener del input para la limpieza en tiempo real.
-    document.getElementById("telefono").addEventListener("input", (e) => {
-      e.target.value = e.target.value.replace(/[^0-9+\s]/g, '');
+    // Captura el email al salir del campo
+    document.getElementById('correo').addEventListener('change', (e) => {
+        emailFromForm = e.target.value;
     });
 
-
+    // Envío del formulario de registro
     document.getElementById("reservaForm").addEventListener("submit", function(e) {
       e.preventDefault();
 
@@ -658,11 +737,10 @@
       const instagram = document.getElementById("instagram").value;
       const telefono = document.getElementById("telefono").dataset.clean;
       const cantidad = document.getElementById("qty").textContent;
-      const total = (cantidad * precio);
-
-      const url = "https://script.google.com/macros/s/AKfycbx7KGD2K-BappVRLZPXkIc0f2QJDRgjxWENuCZuNqjPw68ylXfbkaCbYFonLL_4n-c_/exec"; 
+      const total = parseInt(cantidad) * EVENTO.precio;
 
       const formData = {
+        action: 'register',
         nombre: nombre,
         correo: correo,
         instagram: instagram,
@@ -671,22 +749,54 @@
         total: total
       };
       
-      fetch(url, {
+      fetch(EVENTO.hojaUrl, {
           method: 'POST',
           body: JSON.stringify(formData),
           mode: 'no-cors'
         })
         .then(response => {
-          console.log('Datos enviados. Revisar la hoja de Google Sheets.');
+          console.log('Datos de registro enviados. Revisar la hoja de Google Sheets.');
           document.getElementById("form-section").style.display = 'none';
           document.getElementById("confirm-section").style.display = 'block';
 
-          let monto = cantidad * precio;
+          let monto = cantidad * EVENTO.precio;
           document.getElementById("montoTransferencia").textContent = `$${monto.toLocaleString("es-CL")}`;
         })
         .catch(error => {
           console.error('Error al enviar los datos:', error);
           alert('Hubo un error al enviar los datos. Por favor, inténtalo de nuevo.');
+        });
+    });
+
+    // Envío del formulario de desuscripción
+    document.getElementById("unsubscribeForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const correo = document.getElementById("unsubscribe-correo").value;
+
+        if (!correo) {
+            alert("Por favor, ingresa un correo electrónico.");
+            return;
+        }
+
+        const formData = {
+            action: 'unsubscribe',
+            correo: correo
+        };
+
+        fetch(EVENTO.hojaUrl, {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            mode: 'no-cors'
+        })
+        .then(() => {
+            console.log('Correo de desuscripción enviado. Revisar la hoja de Google Sheets.');
+            alert("Tu solicitud de desuscripción ha sido enviada.");
+            showHsuPage();
+        })
+        .catch(error => {
+            console.error('Error al enviar la desuscripción:', error);
+            alert("Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo.");
+            showHsuPage();
         });
     });
 
@@ -700,9 +810,6 @@
       });
     }
 
-    const djNamesList = [
-      "PRONTO POR ANUNCIAR", "MAD DOG", "SOUND RUSH", "BLOODLUST", "D-STURB", "TONESHIFTERZ"
-    ];
     let currentIndex = 0;
     function updateDjSlots() {
       const djTop = document.getElementById('dj-top');
@@ -712,8 +819,8 @@
       setTimeout(() => {
         const nextTopText = djMiddle.textContent;
         const nextMiddleText = djBottom.textContent;
-        currentIndex = (currentIndex + 1) % djNamesList.length;
-        const nextBottomText = djNamesList[(currentIndex + 1) % djNamesList.length];
+        currentIndex = (currentIndex + 1) % EVENTO.djNames.length;
+        const nextBottomText = EVENTO.djNames[(currentIndex + 1) % EVENTO.djNames.length];
         djTop.textContent = nextTopText;
         djMiddle.textContent = nextMiddleText;
         djBottom.textContent = nextBottomText;
@@ -735,9 +842,16 @@
       document.body.style.overflow = 'auto';
       document.getElementById('form-section').style.display = 'block';
       document.getElementById('confirm-section').style.display = 'none';
+      document.getElementById('unsubscribe-section').style.display = 'none';
       document.getElementById('hsu-content').style.display = 'none';
       topBanner.classList.add('dim-banner');
       bottomBanner.classList.add('dim-banner');
+      unsubscribeCorreoInput.value = emailFromForm;
+    }
+    
+    function showFormPage() {
+        document.getElementById('form-section').style.display = 'block';
+        document.getElementById('unsubscribe-section').style.display = 'none';
     }
 
     document.getElementById('register-link').addEventListener('click', function(e) {
@@ -748,11 +862,16 @@
       e.preventDefault();
       showNewPage();
     });
+    document.getElementById('unsubscribe-btn').addEventListener('click', function() {
+        document.getElementById('form-section').style.display = 'none';
+        document.getElementById('unsubscribe-section').style.display = 'block';
+    });
 
     window.onload = function() {
+      updateMetaTags();
       setTimeout(() => {
         if (typeof CountdownTimer !== 'undefined') {
-          CountdownTimer.init({ selector: '.countdown-timer', style: 'columns', timezone: 'America/Santiago', language: 'es', date: '2025-09-06 00:00', textcolor: '#ffffff', digitscolor: '#ffffff', unitscolor: '#ffffff' });
+          CountdownTimer.init({ selector: '.countdown-timer', style: 'columns', timezone: 'America/Santiago', language: 'es', date: EVENTO.fecha, textcolor: '#ffffff', digitscolor: '#ffffff', unitscolor: '#ffffff' });
         }
       }, 500);
 
@@ -761,9 +880,9 @@
       const djBottom = document.getElementById('dj-bottom');
       
       currentIndex = 0;
-      djTop.textContent = djNamesList[(currentIndex - 1 + djNamesList.length) % djNamesList.length];
-      djMiddle.textContent = djNamesList[currentIndex];
-      djBottom.textContent = djNamesList[(currentIndex + 1) % djNamesList.length];
+      djTop.textContent = EVENTO.djNames[(currentIndex - 1 + EVENTO.djNames.length) % EVENTO.djNames.length];
+      djMiddle.textContent = EVENTO.djNames[currentIndex];
+      djBottom.textContent = EVENTO.djNames[(currentIndex + 1) % EVENTO.djNames.length];
       
       djMiddle.classList.add('center');
       setTimeout(() => {
