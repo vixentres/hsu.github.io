@@ -610,7 +610,7 @@
     // Configuración del evento
     // Puedes editar estos valores para un nuevo evento
     const EVENTO = {
-      precio: 40000,
+      precio: 660000,
       fecha: '2026-01-10 00:00',
       djNames: [
         "PRONTO POR ANUNCIAR",
@@ -726,60 +726,81 @@
         emailFromForm = e.target.value;
     });
 
+    // 👉 FUNCIÓN MODIFICADA: Ahora solo envía los datos a Google Sheets
     function enviarDatos(esReserva = false) {
-      const correo = document.getElementById("correo").value;
-      if (!correo) {
-        alert("Es necesario ingresar un correo para poder enviar la/s entrada/s");
-        return;
-      }
-      
-      const nombre = document.getElementById("nombre").value;
-      const instagram = document.getElementById("instagram").value;
-      const telefono = document.getElementById("telefono").dataset.clean || document.getElementById("telefono").value;
-      const cantidad = document.getElementById("qty").textContent;
-      const total = parseInt(cantidad) * EVENTO.precio;
-      const cantidadFinal = esReserva ? `R_${cantidad}` : cantidad;
+        const correo = document.getElementById("correo").value;
+        if (!correo) {
+            console.error("No se puede enviar sin correo.");
+            return;
+        }
 
-      const formData = {
-        action: 'register',
-        nombre: nombre,
-        correo: correo,
-        instagram: instagram,
-        telefono: telefono,
-        cantidad: cantidadFinal,
-        total: total
-      };
+        const nombre = document.getElementById("nombre").value;
+        const instagram = document.getElementById("instagram").value;
+        const telefono = document.getElementById("telefono").dataset.clean || document.getElementById("telefono").value;
+        const cantidad = document.getElementById("qty").textContent;
+        const total = parseInt(cantidad) * EVENTO.precio;
+        const cantidadFinal = esReserva ? `R_${cantidad}` : cantidad;
 
-      fetch(EVENTO.hojaUrl, {
-          method: 'POST',
-          body: JSON.stringify(formData),
-          mode: 'no-cors'
+        const formData = {
+            action: 'register',
+            nombre: nombre,
+            correo: correo,
+            instagram: instagram,
+            telefono: telefono,
+            cantidad: cantidadFinal,
+            total: total
+        };
+
+        fetch(EVENTO.hojaUrl, {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            mode: 'no-cors'
         })
         .then(response => {
-          console.log('Datos enviados. Revisar la hoja de Google Sheets.');
-          if (esReserva) {
-            showReservaConfirmSection();
-          } else {
-            showConfirmSection();
-          }
+            console.log('Datos enviados. Revisar la hoja de Google Sheets.');
         })
         .catch(error => {
-          console.error('Error al enviar los datos:', error);
-          alert('Hubo un error al enviar los datos. Por favor, inténtalo de nuevo.');
+            console.error('Error al enviar los datos:', error);
+            // Puedes mostrar un mensaje de error discreto si el envío falla
+            // alert('Hubo un error al enviar los datos. Por favor, inténtalo de nuevo.');
         });
     }
 
-    // Envío del formulario de compra con el botón "Continuar"
-    document.getElementById("reservaForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      enviarDatos(false);
-    });
+    // 👉 NUEVA FUNCIÓN para manejar la compra
+    function handleCompra(event) {
+        event.preventDefault();
+        const correo = document.getElementById("correo").value;
+        if (!correo) {
+            alert("Es necesario ingresar un correo para poder enviar la/s entrada/s");
+            return;
+        }
+        
+        // Cambia de sección INMEDIATAMENTE
+        showConfirmSection();
+        
+        // Envía los datos en segundo plano
+        enviarDatos(false);
+    }
     
-    // Envío del formulario de reserva con el botón "Reservar"
-    document.getElementById("reservar-btn").addEventListener("click", function() {
-      enviarDatos(true);
-    });
+    // 👉 NUEVA FUNCIÓN para manejar la reserva
+    function handleReserva() {
+        const correo = document.getElementById("correo").value;
+        if (!correo) {
+            alert("Es necesario ingresar un correo para poder realizar la reserva");
+            return;
+        }
 
+        // Cambia de sección INMEDIATAMENTE
+        showReservaConfirmSection();
+        
+        // Envía los datos en segundo plano
+        enviarDatos(true);
+    }
+
+    // 👉 ACTUALIZAR LISTENERS
+    document.getElementById("reservaForm").addEventListener("submit", handleCompra);
+    document.getElementById("reservar-btn").addEventListener("click", handleReserva);
+    
     // Envío del formulario de desuscripción
     document.getElementById("unsubscribeForm").addEventListener("submit", function(e) {
         e.preventDefault();
