@@ -351,6 +351,12 @@
     .bold-label {
         font-weight: bold;
     }
+    .cliente-frecuente {
+        margin-top: 10px;
+        text-align: center;
+        color: #024ddf;
+        font-weight: bold;
+    }
   </style>
 </head>
 
@@ -443,8 +449,7 @@
 		rotation="0 1 0"
 		scale="-0.5 0.5 0.5"
 		animation="property: rotation; from: 0 -20 0; to: 0 20 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
-		look-at="[camera]"
-		clickable-link="href: https://forms.gle/npmPGCvZEQiSFqGy9">
+		look-at="[camera]">
 	  </a-entity>
 
 	  <a-entity
@@ -454,8 +459,7 @@
 		rotation="0 -90 0"
 		scale="-0.5 0.5 0.5"
 		animation="property: rotation; from: 0 -110 0; to: 0 -70 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
-		look-at="[camera]"
-		clickable-link="href: https://forms.gle/npmPGCvZEQiSFqGy9">
+		look-at="[camera]">
 	  </a-entity>
 
 	  <a-entity
@@ -465,8 +469,7 @@
 		rotation="0 90 0"
 		scale="-0.5 0.5 0.5"
 		animation="property: rotation; from: 0 70 0; to: 0 110 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
-		look-at="[camera]"
-		clickable-link="href: https://forms.gle/npmPGCvZEQiSFqGy9">
+		look-at="[camera]">
 	  </a-entity>
 
 	  <a-entity
@@ -476,8 +479,7 @@
 		rotation="0 180 0"
 		scale="-0.5 0.5 0.5"
 		animation="property: rotation; from: 0 160 0; to: 0 200 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
-		look-at="[camera]"
-		clickable-link="href: https://forms.gle/npmPGCvZEQiSFqGy9">
+		look-at="[camera]">
 	  </a-entity>
 
 	  <a-image src="#okPng" position="0 0.05 0" rotation="-90 0 0" scale="0.5 0.5 0.5" look-at="[camera]"></a-image>
@@ -498,8 +500,6 @@
       <button class="btn" onclick="showHsuPage()" style="margin-bottom: 20px;">Volver</button>
       <h2>COMPRA / RESERVA <br> TUS ENTRADAS</h2>
       <form id="reservaForm">
-        <label for="nombre">Nombre completo</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Harder Style United" required>
         <label for="correo">Correo electrónico*</label>
         <input type="email" id="correo" name="correo" placeholder="direccion-email@gmail.com" required list="email-suggestions">
         <datalist id="email-suggestions">
@@ -508,32 +508,62 @@
           <option value="@outlook.com"></option>
           <option value="@yahoo.com"></option>
         </datalist>
-        <label for="telefono">Número de contacto</label>
-        <input type="tel" id="telefono" name="telefono" placeholder="XXX XXX XXXX" maxlength="11">
+        <div id="cliente-frecuente-info" class="cliente-frecuente" style="display: none;"></div>
+        <label for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Harder Style United" required>
         <label for="instagram">Instagram</label>
         <input type="text" id="instagram" name="instagram" placeholder="eventshsu.cl">
+        <label for="telefono">Número de contacto</label>
+        <input type="tel" id="telefono" name="telefono" placeholder="XXX XXX XXXX" maxlength="11">
+
         <div class="item">
           <div>
-            <h5 id="tipo-entrada"><b class="bold-label">General</b> <span id="precio-display">$40.000</span></h5>
+            <h5 id="tipo-entrada-general">
+              <b class="bold-label">Entrada General (1x)</b> 
+              <span>$46.000</span>
+            </h5>
           </div>
           <div class="controls">
-            <button type="button" class="btn" id="minus">-</button>
-            <div class="qty" id="qty">0</div>
-            <button type="button" class="btn" id="plus">+</button>
+            <button type="button" class="btn" id="minus-general">-</button>
+            <div class="qty" id="qty-general">0</div>
+            <button type="button" class="btn" id="plus-general">+</button>
           </div>
         </div>
+        
+        <div class="item">
+          <div>
+            <h5 id="tipo-entrada-crewpack">
+              <b class="bold-label">CrewPack (5x)</b> 
+              <span>$230.000</span>
+            </h5>
+          </div>
+          <div class="controls">
+            <button type="button" class="btn" id="minus-crewpack">-</button>
+            <div class="qty" id="qty-crewpack">0</div>
+            <button type="button" class="btn" id="plus-crewpack">+</button>
+          </div>
+        </div>
+
         <div class="total-box">
           <div class="total-row">
-            <span id="label-subtotal">Entrada general</span>
-            <span id="detalle">$0</span>
+            <span id="label-cantidad-entradas">Cantidad de entradas</span>
+            <span id="cantidad-entradas">0</span>
           </div>
           <div class="total-row">
-            <span>Cargo por servicio</span>
-            <span class="tachado-rojo" id="cargo">$0</span>
+            <span id="label-precio-total">Precio total</span>
+            <span id="precio-total">$0</span>
+          </div>
+          <div class="total-row">
+            <span>Descuento sin cargo</span>
+            <span class="tachado-rojo" id="descuento-general">$0</span>
+          </div>
+          <div class="total-row">
+            <span>Descuento crewpack</span>
+            <span class="tachado-rojo" id="descuento-crewpack">$0</span>
           </div>
           <div class="total-row total">
             <span>Total a pagar</span>
-            <span id="total">$0</span>
+            <span id="total-a-pagar">$0</span>
           </div>
         </div>
         <div class="actions" style="margin-top: 20px;">
@@ -548,12 +578,10 @@
 
     <div class="form-container" id="confirm-section">
       <h2 class="title">¡Gracias por tu confianza y preferencia!</h2>
-      <p style="text-align: center; margin-bottom: 20px;">
-        Para concretar tu compra, sigue los siguientes pasos:
-      </p>
+      <p style="text-align: center; margin-bottom: 20px;" id="confirmation-message"></p>
       <div class="total-box">
         <p style="margin-top: 10px; font-weight: bold;">
-          Realiza la transferencia por el monto de <span class="total" id="montoTransferencia"></span>.
+          <span class="total" id="montoTransferencia"></span>.
         </p>
         <p style="margin-top: 15px;">
           Una vez realizada la transferencia, notifica al vendedor para que te envíe las entradas.
@@ -568,12 +596,10 @@
 
     <div class="form-container" id="reserva-confirm-section">
       <h2 class="title">¡Gracias por tu reserva!</h2>
-      <p style="text-align: center; margin-bottom: 20px;">
-        Pronto estaremos en contacto contigo para coordinar la compra.
-      </p>
+      <p style="text-align: center; margin-bottom: 20px;" id="reservation-message"></p>
       <div class="total-box">
         <p style="margin-top: 10px; font-weight: bold;">
-          El monto total a pagar por tu/s entrada/s es de <span class="total" id="montoReserva"></span>.
+          <span class="total" id="montoReserva"></span>.
         </p>
         <p style="margin-top: 15px;">
           Por favor, avisame cuando desees concretar la compra
@@ -608,9 +634,11 @@
 
   <script>
     // Configuración del evento
-    // Puedes editar estos valores para un nuevo evento
     const EVENTO = {
-      precio: 40000,
+      precioEntradaGeneral: 46000,
+      precioCrewPack: 230000,
+      descuentoGeneral: 6000,
+      descuentoCrewPack: 5000,
       fecha: '2026-01-10 00:00',
       djNames: [
         "PRONTO POR ANUNCIAR",
@@ -620,69 +648,91 @@
         "D-STURB",
         "TONESHIFTERZ"
       ],
+      // ✨ ACTUALIZA ESTAS URLs CON LAS DE TUS APPS SCRIPT
       hojaUrl: "https://script.google.com/macros/s/AKfycbx7KGD2K-BappVRLZPXkIc0f2QJDRgjxWENuCZuNqjPw68ylXfbkaCbYFonLL_4n-c_/exec",
+      hojaClientesUrl: "https://script.google.com/macros/s/AKfycbxklOoDJgh0azEcUxxAr8mI6TkA3feUSNxTGIhDWtIMWHw3hrEoBDTOMdsWIBhgs2q3/exec",
       nombreEvento: "HSU / SUPERKLUB",
-      descripcionEvento: "⛓ Vicente 🌹 (@vixentres._) 3,928 seguidores, 1.349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram",
-      cargo: 6000 // Cargo por servicio
+      descripcionEvento: "⛓ Vicente 🌹 (@vixentres._) 3,928 seguidores, 1.349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram"
     };
 
-    // Funciones utilitarias
-    function formatPriceToK(value) {
-      if (value % 1000 === 0) {
-        return `${value / 1000}K`;
-      } else {
-        return `${(value / 1000).toLocaleString('es-CL', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}K`;
-      }
-    }
-    
-    let cantidad = 1;
+    let cantidadGeneral = 0;
+    let cantidadCrewPack = 0;
     let emailFromForm = '';
-    const qtyEl = document.getElementById("qty");
-    const detalleEl = document.getElementById("detalle");
-    const cargoEl = document.getElementById("cargo");
-    const totalEl = document.getElementById("total");
-    const precioDisplayEl = document.getElementById("precio-display");
+
+    const qtyGeneralEl = document.getElementById("qty-general");
+    const qtyCrewPackEl = document.getElementById("qty-crewpack");
+    const cantidadEntradasEl = document.getElementById("cantidad-entradas");
+    const precioTotalEl = document.getElementById("precio-total");
+    const descuentoGeneralEl = document.getElementById("descuento-general");
+    const descuentoCrewPackEl = document.getElementById("descuento-crewpack");
+    const totalAPagarEl = document.getElementById("total-a-pagar");
     const topBanner = document.getElementById('top-scrolling-banner');
     const bottomBanner = document.getElementById('scrolling-banner');
     const unsubscribeCorreoInput = document.getElementById('unsubscribe-correo');
+    const clienteFrecuenteInfo = document.getElementById('cliente-frecuente-info');
+    const correoInput = document.getElementById('correo');
+    const confirmationMessageEl = document.getElementById("confirmation-message");
+    const reservationMessageEl = document.getElementById("reservation-message");
 
-    // Actualiza el precio visible con el formato completo
-    precioDisplayEl.textContent = `$${EVENTO.precio.toLocaleString("es-CL")}`;
-    qtyEl.textContent = cantidad;
-    actualizarTotales();
+    function formatPrice(value) {
+        return `$${value.toLocaleString("es-CL")}`;
+    }
 
     function actualizarTotales() {
-      let subtotal = cantidad * EVENTO.precio;
-      detalleEl.textContent = `$${subtotal.toLocaleString("es-CL")}`;
-      
-      // Muestra el cargo por servicio, pero lo tacha
-      cargoEl.textContent = `$${(cantidad * EVENTO.cargo).toLocaleString("es-CL")}`;
-      
-      // El total a pagar es solo el precio de la entrada
-      totalEl.textContent = `$${subtotal.toLocaleString("es-CL")}`;
+        const totalEntradas = cantidadGeneral + (cantidadCrewPack * 5);
+        const precioTotal = (cantidadGeneral * EVENTO.precioEntradaGeneral) + (cantidadCrewPack * EVENTO.precioCrewPack);
+        const descuentoSinCargo = (cantidadGeneral + (cantidadCrewPack * 5)) * EVENTO.descuentoGeneral;
+        const descuentoCrewPack = cantidadCrewPack * EVENTO.descuentoCrewPack;
+        const totalDescuento = descuentoSinCargo + descuentoCrewPack;
+        const totalPagar = precioTotal - totalDescuento;
+
+        cantidadEntradasEl.textContent = totalEntradas;
+        precioTotalEl.textContent = formatPrice(precioTotal);
+        descuentoGeneralEl.textContent = formatPrice(descuentoSinCargo);
+        descuentoCrewPackEl.textContent = formatPrice(descuentoCrewPack);
+        totalAPagarEl.textContent = formatPrice(totalPagar);
     }
-    
-    function updateMetaTags() {
-      document.title = EVENTO.nombreEvento;
-      document.querySelector('meta[name="description"]').content = `| ${EVENTO.nombreEvento} | Entradas ${formatPriceToK(EVENTO.precio)} | ig: Vixentres._`;
-      document.querySelector('meta[property="og:title"]').content = `Entradas para ${EVENTO.nombreEvento} | ${formatPriceToK(EVENTO.precio)} | ig: Vixentres._`;
-      document.querySelector('meta[property="og:description"]').content = EVENTO.descripcionEvento;
-      document.querySelector('meta[name="twitter:title"]').content = `Entradas para ${EVENTO.nombreEvento} | ${EVENTO.precio} | ig: Vixentres._`;
-      document.querySelector('meta[name="twitter:description"]').content = EVENTO.descripcionEvento;
-    }
-    
-    document.getElementById("plus").addEventListener("click", () => {
-      cantidad++;
-      qtyEl.textContent = cantidad;
-      actualizarTotales();
+
+    document.getElementById("plus-general").addEventListener("click", () => {
+        if (cantidadGeneral < 4) {
+            cantidadGeneral++;
+        } else {
+            cantidadGeneral = 0;
+            cantidadCrewPack++;
+        }
+        qtyGeneralEl.textContent = cantidadGeneral;
+        qtyCrewPackEl.textContent = cantidadCrewPack;
+        actualizarTotales();
     });
 
-    document.getElementById("minus").addEventListener("click", () => {
-      if (cantidad > 1) {
-        cantidad--;
-        qtyEl.textContent = cantidad;
+    document.getElementById("minus-general").addEventListener("click", () => {
+        if (cantidadGeneral > 0) {
+            cantidadGeneral--;
+        } else if (cantidadCrewPack > 0) {
+            cantidadCrewPack--;
+            cantidadGeneral = 4;
+        }
+        qtyGeneralEl.textContent = cantidadGeneral;
+        qtyCrewPackEl.textContent = cantidadCrewPack;
         actualizarTotales();
-      }
+    });
+
+    document.getElementById("plus-crewpack").addEventListener("click", () => {
+        cantidadCrewPack++;
+        cantidadGeneral = 0;
+        qtyGeneralEl.textContent = cantidadGeneral;
+        qtyCrewPackEl.textContent = cantidadCrewPack;
+        actualizarTotales();
+    });
+
+    document.getElementById("minus-crewpack").addEventListener("click", () => {
+        if (cantidadCrewPack > 0) {
+            cantidadCrewPack--;
+            cantidadGeneral = 0;
+        }
+        qtyGeneralEl.textContent = cantidadGeneral;
+        qtyCrewPackEl.textContent = cantidadCrewPack;
+        actualizarTotales();
     });
 
     // 1. LÓGICA PARA FORMATO DE NOMBRE
@@ -721,10 +771,49 @@
       }
     });
 
-    // Captura el email al salir del campo
-    document.getElementById('correo').addEventListener('change', (e) => {
+    // Captura el email al salir del campo y realiza la búsqueda
+    correoInput.addEventListener('blur', (e) => {
         emailFromForm = e.target.value;
+        buscarClienteFrecuente(emailFromForm);
     });
+
+    function limpiarFormulario() {
+        document.getElementById("reservaForm").reset();
+        cantidadGeneral = 0;
+        cantidadCrewPack = 0;
+        qtyGeneralEl.textContent = cantidadGeneral;
+        qtyCrewPackEl.textContent = cantidadCrewPack;
+        actualizarTotales();
+        emailFromForm = '';
+        clienteFrecuenteInfo.style.display = 'none';
+        clienteFrecuenteInfo.textContent = '';
+    }
+
+    function buscarClienteFrecuente(correo) {
+        if (!correo) {
+            clienteFrecuenteInfo.style.display = 'none';
+            return;
+        }
+
+        const url = `${EVENTO.hojaClientesUrl}?correo=${encodeURIComponent(correo)}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success' && data.entradas > 0) {
+                    clienteFrecuenteInfo.textContent = `¡Cliente frecuente! Llevas ${data.entradas} entradas compradas.`;
+                    clienteFrecuenteInfo.style.display = 'block';
+                } else {
+                    clienteFrecuenteInfo.textContent = '';
+                    clienteFrecuenteInfo.style.display = 'none';
+                }
+            })
+            .catch(error => {
+                console.error('Error al buscar cliente frecuente:', error);
+                clienteFrecuenteInfo.textContent = '';
+                clienteFrecuenteInfo.style.display = 'none';
+            });
+    }
 
     // 👉 FUNCIÓN MODIFICADA: Ahora solo envía los datos a Google Sheets
     function enviarDatos(esReserva = false) {
@@ -737,9 +826,9 @@
         const nombre = document.getElementById("nombre").value;
         const instagram = document.getElementById("instagram").value;
         const telefono = document.getElementById("telefono").dataset.clean || document.getElementById("telefono").value;
-        const cantidad = document.getElementById("qty").textContent;
-        const total = parseInt(cantidad) * EVENTO.precio;
-        const cantidadFinal = esReserva ? `R_${cantidad}` : cantidad;
+        const totalEntradas = cantidadGeneral + (cantidadCrewPack * 5);
+        const totalPagar = (cantidadGeneral * EVENTO.precioEntradaGeneral) + (cantidadCrewPack * EVENTO.precioCrewPack) - ((cantidadGeneral + (cantidadCrewPack * 5)) * EVENTO.descuentoGeneral + cantidadCrewPack * EVENTO.descuentoCrewPack);
+        const cantidadFinal = esReserva ? `R_${totalEntradas}` : totalEntradas;
 
         const formData = {
             action: 'register',
@@ -748,7 +837,7 @@
             instagram: instagram,
             telefono: telefono,
             cantidad: cantidadFinal,
-            total: total
+            total: totalPagar
         };
 
         fetch(EVENTO.hojaUrl, {
@@ -769,6 +858,11 @@
     // 👉 NUEVA FUNCIÓN para manejar la compra
     function handleCompra(event) {
         event.preventDefault();
+        const totalEntradas = cantidadGeneral + (cantidadCrewPack * 5);
+        if (totalEntradas === 0) {
+            alert("Selecciona al menos 1 entrada para continuar.");
+            return;
+        }
         const correo = document.getElementById("correo").value;
         if (!correo) {
             alert("Es necesario ingresar un correo para poder enviar la/s entrada/s");
@@ -784,6 +878,11 @@
     
     // 👉 NUEVA FUNCIÓN para manejar la reserva
     function handleReserva() {
+        const totalEntradas = cantidadGeneral + (cantidadCrewPack * 5);
+        if (totalEntradas === 0) {
+            alert("Selecciona al menos 1 entrada para continuar.");
+            return;
+        }
         const correo = document.getElementById("correo").value;
         if (!correo) {
             alert("Es necesario ingresar un correo para poder realizar la reserva");
@@ -874,19 +973,24 @@
         document.getElementById("form-section").style.display = 'none';
         document.getElementById("confirm-section").style.display = 'block';
         document.getElementById("reserva-confirm-section").style.display = 'none';
-        let monto = cantidad * EVENTO.precio;
-        document.getElementById("montoTransferencia").textContent = `$${monto.toLocaleString("es-CL")}`;
+        const totalEntradas = cantidadGeneral + (cantidadCrewPack * 5);
+        const totalPagar = (cantidadGeneral * EVENTO.precioEntradaGeneral) + (cantidadCrewPack * EVENTO.precioCrewPack) - ((cantidadGeneral + (cantidadCrewPack * 5)) * EVENTO.descuentoGeneral + cantidadCrewPack * EVENTO.descuentoCrewPack);
+        document.getElementById("montoTransferencia").textContent = formatPrice(totalPagar);
+        confirmationMessageEl.textContent = `Realiza la transferencia por el monto de ${formatPrice(totalPagar)} por ${totalEntradas} entrada${totalEntradas > 1 ? 's' : ''}.`;
     }
 
     function showReservaConfirmSection() {
       document.getElementById("form-section").style.display = 'none';
       document.getElementById("confirm-section").style.display = 'none';
       document.getElementById("reserva-confirm-section").style.display = 'block';
-      let monto = cantidad * EVENTO.precio;
-      document.getElementById("montoReserva").textContent = `$${monto.toLocaleString("es-CL")}`;
+      const totalEntradas = cantidadGeneral + (cantidadCrewPack * 5);
+      const totalPagar = (cantidadGeneral * EVENTO.precioEntradaGeneral) + (cantidadCrewPack * EVENTO.precioCrewPack) - ((cantidadGeneral + (cantidadCrewPack * 5)) * EVENTO.descuentoGeneral + cantidadCrewPack * EVENTO.descuentoCrewPack);
+      document.getElementById("montoReserva").textContent = formatPrice(totalPagar);
+      reservationMessageEl.textContent = `Realiza la transferencia por el monto de ${formatPrice(totalPagar)} por ${totalEntradas} entrada${totalEntradas > 1 ? 's' : ''}.`;
     }
 
     function showNewPage() {
+      limpiarFormulario();
       document.getElementById('full-page-container').style.display = 'flex';
       document.body.style.overflow = 'auto';
       document.getElementById('form-section').style.display = 'block';
@@ -896,12 +1000,12 @@
       document.getElementById('hsu-content').style.display = 'none';
       topBanner.classList.add('dim-banner');
       bottomBanner.classList.add('dim-banner');
-      unsubscribeCorreoInput.value = emailFromForm;
     }
     
     function showFormPage() {
         document.getElementById('form-section').style.display = 'block';
         document.getElementById('unsubscribe-section').style.display = 'none';
+        unsubscribeCorreoInput.value = emailFromForm;
     }
 
     document.getElementById('register-link').addEventListener('click', function(e) {
@@ -918,7 +1022,6 @@
     });
 
     window.onload = function() {
-      updateMetaTags();
       setTimeout(() => {
         if (typeof CountdownTimer !== 'undefined') {
           CountdownTimer.init({ selector: '.countdown-timer', style: 'columns', timezone: 'America/Santiago', language: 'es', date: EVENTO.fecha, textcolor: '#ffffff', digitscolor: '#ffffff', unitscolor: '#ffffff' });
@@ -938,6 +1041,7 @@
       setTimeout(() => {
         updateDjSlots();
       }, 2000);
+      actualizarTotales();
     };
   </script>
 </body>
