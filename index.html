@@ -598,7 +598,7 @@
         <label for="instagram">Instagram</label>
         <input type="text" id="instagram" name="instagram" placeholder="eventshsu.cl">
         <label for="telefono">Número de contacto</label>
-        <input type="tel" id="telefono" name="telefono" placeholder="XXX XXX XXXX" maxlength="11">
+        <input type="tel" id="telefono" name="telefono" placeholder="+569-XXXX-XXXX" maxlength="12">
 
         <div class="item">
           <div>
@@ -893,28 +893,40 @@
         e.target.value = e.target.value.replace('@', '');
     });
     
-    // 3. LÓGICA PARA TELÉFONO - CAMBIOS APLICADOS AQUÍ
-    telefonoInput.addEventListener("blur", (e) => {
-      let valor = e.target.value.replace(/[^0-9]/g, ''); // Solo permite dígitos
-      let prefijo = '';
+	// 3. LÓGICA PARA TELÉFONO - CAMBIOS APLICADOS AQUÍ
+	telefonoInput.addEventListener("blur", (e) => {
+	  // Ahora permite dígitos y el símbolo "+" para no cortarlo
+	  let valor = e.target.value.replace(/[^0-9+]/g, ''); 
 
-      if (valor.length === 8) {
-        prefijo = '+569';
-      } else if (valor.length === 9) {
-        prefijo = '+56';
-      } else if (valor.length === 10) {
-        prefijo = '+5';
-      }
+	  // Si el valor ya comienza con el símbolo "+", no hacemos nada y lo dejamos como está
+	  if (valor.startsWith('+')) {
+		e.target.value = valor;
+		e.target.dataset.clean = valor;
+		return; // Salimos de la función
+	  }
 
-      if (prefijo) {
-        e.target.value = prefijo + valor;
-        e.target.dataset.clean = prefijo + valor;
-      } else {
-        // En caso de que no cumpla con ninguna de las longitudes especificadas
-        e.target.value = valor;
-        e.target.dataset.clean = valor;
-      }
-    });
+	  // Lógica para auto-completar cuando el número NO tiene el símbolo "+"
+	  let prefijo = '';
+	  if (valor.length === 11 && valor.startsWith('5')) {
+		prefijo = '+';
+	  } else if (valor.length === 8) {
+		prefijo = '+569';
+	  } else if (valor.length === 9) {
+		prefijo = '+56';
+	  } else if (valor.length === 10) {
+		prefijo = '+5';
+	  }
+
+	  // Solo se agrega un prefijo si la variable 'prefijo' no está vacía
+	  if (prefijo) {
+		e.target.value = prefijo + valor;
+		e.target.dataset.clean = prefijo + valor;
+	  } else {
+		// En caso de que no cumpla con ninguna de las longitudes especificadas
+		e.target.value = valor;
+		e.target.dataset.clean = valor;
+	  }
+	});
 
     let debounceTimer;
     correoInput.addEventListener('keyup', (e) => {
