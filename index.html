@@ -356,22 +356,23 @@
       border: 1px solid #ccc;
       border-radius: 4px;
       cursor: pointer;
-      /* Se quita el width: fit-content para que se adapte al flexbox */
     }
     /* Estilos adicionales para la negrita */
     .bold-label {
         font-weight: bold;
     }
-    .cliente-frecuente {
-        /* Se elimina el margin-top para que esté pegado a la línea divisoria */
-        margin-top: 0;
-        padding-top: 10px;
+    /* Se crea un contenedor para el mensaje que mantiene el tamaño */
+    .cliente-frecuente-container {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-align: center;
+        padding-top: 10px;
+    }
+    .cliente-frecuente-message {
         color: #024ddf;
         font-weight: bold;
-        /* Se agregan estas propiedades para que ocupe el espacio deseado */
-        min-height: 40px; 
-        line-height: 20px;
     }
     .correo-container {
         position: relative;
@@ -417,6 +418,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      /* Se reduce el espacio entre los grupos de botones */
       gap: 10px;
       margin-top: 20px;
     }
@@ -647,7 +649,9 @@
             <span>Total a pagar</span>
             <span id="total-a-pagar">$40.000</span>
           </div>
-          <div id="cliente-frecuente-info" class="cliente-frecuente" style="display: none;"></div>
+          <div class="cliente-frecuente-container">
+            <span class="cliente-frecuente-message" id="cliente-frecuente-info" style="display: none;"></span>
+          </div>
         </div>
         
         <div class="form-actions">
@@ -655,7 +659,7 @@
             <button type="button" class="btn" id="reservar-btn">Reservar</button>
             <button type="submit" class="btn" id="comprar-btn">Comprar</button>
           </div>
-          <div class="form-buttons-row" style="margin-top: 20px;">
+          <div class="form-buttons-row">
             <button class="small-button" id="unsubscribe-btn">Desuscribirse</button>
             <button class="small-button" id="copy-bank-data-btn">Datos Bancarios</button>
           </div>
@@ -783,6 +787,8 @@
     let cantidadCrewPack = 0;
     let emailFromForm = '';
     let entradasAcumuladas = 0;
+    // Nueva variable para rastrear si se ha enviado el formulario
+    let formSubmitted = false;
 
     const qtyGeneralEl = document.getElementById("qty-general");
     const qtyCrewPackEl = document.getElementById("qty-crewpack");
@@ -910,17 +916,6 @@
       }
     });
 
-    // Búsqueda de cliente frecuente y autocompletado
-    correoInput.addEventListener('input', () => {
-      // Limpiar datos anteriores
-      nombreInput.value = '';
-      instagramInput.value = '';
-      telefonoInput.value = '';
-      clienteFrecuenteInfo.style.display = 'none';
-      entradasAcumuladas = 0;
-      actualizarTotales();
-    });
-    
     let debounceTimer;
     correoInput.addEventListener('keyup', (e) => {
         clearTimeout(debounceTimer);
@@ -953,6 +948,7 @@
         clienteFrecuenteInfo.textContent = '';
         loadingSpinner.style.display = 'none';
         loadingText.style.display = 'none';
+        formSubmitted = false; // Reiniciar el flag de envío
     }
 
     function buscarClienteFrecuente(correo) {
@@ -975,11 +971,19 @@
                         entradasAcumuladas = data.entradas;
                         clienteFrecuenteInfo.textContent = `¡Cliente frecuente! Llevas ${entradasAcumuladas} entradas compradas.`;
                         clienteFrecuenteInfo.style.display = 'block';
-                        nombreInput.value = data.nombre || '';
-                        instagramInput.value = data.instagram || '';
-                        telefonoInput.value = data.numero || '';
-                        if(data.numero) {
-                            telefonoInput.dataset.clean = data.numero;
+                        
+                        // Solo autocompleta si los campos están vacíos
+                        if (!nombreInput.value) {
+                            nombreInput.value = data.nombre || '';
+                        }
+                        if (!instagramInput.value) {
+                            instagramInput.value = data.instagram || '';
+                        }
+                        if (!telefonoInput.value) {
+                             telefonoInput.value = data.numero || '';
+                            if(data.numero) {
+                                telefonoInput.dataset.clean = data.numero;
+                            }
                         }
                     } else {
                         entradasAcumuladas = 0;
@@ -1004,20 +1008,26 @@
             });
     }
 
-    function enviarDatos(esReserva = false, esDatosBancarios = false) {
+    // Se agrega el parámetro `actionType` para diferenciar las acciones
+    function enviarDatos(actionType) {
         const correo = document.getElementById("correo").value;
-        const nombre = document.getElementById("nombre").value;
+        let nombre = document.getElementById("nombre").value;
+        let instagram = document.getElementById("instagram").value;
+        const telefono = document.getElementById("telefono").dataset.clean || document.getElementById("telefono").value;
+
+        // Si la acción es "copy-data", se sobrescriben los valores de nombre e instagram
+        if (actionType === 'copy-data') {
+            nombre = "copio datos bancarios";
+            instagram = "copio datos bancarios";
+        }
         
         const totalPagar = (cantidadGeneral * EVENTO.precioEntradaGeneral) + (cantidadCrewPack * EVENTO.precioCrewPack) - ((cantidadGeneral + (cantidadCrewPack * 5)) * EVENTO.descuentoGeneral + cantidadCrewPack * EVENTO.descuentoCrewPack);
         
         let cantidadFinal = cantidadGeneral + (cantidadCrewPack * 5);
-        if (esReserva) {
+        if (actionType === 'reserva') {
             cantidadFinal = `R_${cantidadFinal}`;
         }
         
-        const instagram = document.getElementById("instagram").value;
-        const telefono = document.getElementById("telefono").dataset.clean || document.getElementById("telefono").value;
-
         const formData = {
             action: 'register',
             nombre: nombre,
@@ -1054,8 +1064,9 @@
             return;
         }
         
-        // Enviar datos en segundo plano y luego cambiar de sección
-        enviarDatos(false);
+        // Enviar datos y luego cambiar de sección
+        enviarDatos('compra');
+        formSubmitted = true;
         showConfirmSection();
     }
     
@@ -1071,22 +1082,30 @@
             return;
         }
         
-        // Enviar datos en segundo plano y luego cambiar de sección
-        enviarDatos(true);
+        // Enviar datos y luego cambiar de sección
+        enviarDatos('reserva');
+        formSubmitted = true;
         showReservaConfirmSection();
     }
     
     document.getElementById("reservaForm").addEventListener("submit", handleCompra);
     document.getElementById("reservar-btn").addEventListener("click", handleReserva);
     
+    // Lógica para el botón "Datos Bancarios"
     document.getElementById("copy-bank-data-btn").addEventListener("click", () => {
         const correo = document.getElementById("correo").value;
         const nombre = document.getElementById("nombre").value;
-        if (!correo || !nombre) {
-            alert("El correo y el nombre son campos obligatorios para copiar los datos bancarios.");
+        if (!correo) {
+            alert("Por favor, ingresa un correo para continuar.");
             return;
         }
-        enviarDatos(false, true);
+        
+        // Solo enviar datos a la hoja si no se ha hecho una acción previa
+        if (!formSubmitted) {
+            enviarDatos('copy-data');
+        }
+
+        // Siempre copiar los datos, sin importar si ya se envió el formulario o no
         copiarDatos();
     });
 
@@ -1126,14 +1145,14 @@
             alert("Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo.");
         });
     });
-
+    
+    // Se elimina el `alert` de esta función, como solicitaste
     function copiarDatos() {
       const datos = "VICENTE SEBASTIAN MEDEL\n19385365-K\nBanco Estado\nCuentaRUT\n19385365";
       navigator.clipboard.writeText(datos).then(() => {
-        alert("¡Datos bancarios copiado al portapapeles!");
+        console.log("Datos bancarios copiados.");
       }).catch(err => {
         console.error('Error al copiar: ', err);
-        alert("No se pudo copiar los datos. Por favor, inténtalo manualmente.");
       });
     }
 
