@@ -581,18 +581,12 @@
         </div>
       <h2>COMPRA / RESERVA <br> TUS ENTRADAS</h2>
       <form id="reservaForm">
-        <label for="correo">Correo electrónico*</label>
-        <div class="correo-container">
-          <input type="email" id="correo" name="correo" placeholder="direccion-email@gmail.com" required list="email-suggestions">
-          <div class="loading-spinner" id="loading-spinner"></div>
-        </div>
+				<label for="correo">Correo electrónico*</label>
+		<div class="correo-container">
+		  <input type="email" id="correo" name="correo" placeholder="direccion-email@gmail.com" required>
+		  <div class="loading-spinner" id="loading-spinner"></div>
+		</div>
         <div class="loading-text" id="loading-text" style="display: none;">Buscando perfil...</div>
-        <datalist id="email-suggestions">
-          <option value="@gmail.com"></option>
-          <option value="@hotmail.com"></option>
-          <option value="@outlook.com"></option>
-          <option value="@yahoo.com"></option>
-        </datalist>
         <label for="nombre">Nombre completo</label>
         <input type="text" id="nombre" name="nombre" placeholder="Harder Style United" required>
         <label for="instagram">Instagram</label>
