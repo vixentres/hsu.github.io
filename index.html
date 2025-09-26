@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>HSU / SUPERKLUB</title>
 
   <link rel="canonical" href="https://vixentres.github.io/hsu.github.io/" />
@@ -22,740 +22,369 @@
   <meta name="twitter:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._" />
   <meta name="twitter:description" content="⛓ Vicente 🌹 (@vixentres._) 3,928 seguidores, 1.349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram" />
   <meta name="twitter:image" content="https://vixentres.github.io/hsu.github.io/banner%201.jpg" />
+
+  <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-  <script src="https://cdn.logwork.com/widget/countdown.js"></script>
   <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+  <!-- Countdown -->
+  <script src="https://cdn.logwork.com/widget/countdown.js"></script>
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.0/dist/confetti.browser.js"></script>
 
   <style>
-    /* Estilos de HSU.txt */
+    /* ===== Base / responsive base ===== */
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-    
     @font-face {
-        font-family: 'Authority Regular';
-        src: url('authority-regular.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
+      font-family: 'Authority Regular';
+      src: url('authority-regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
     }
-    body {
-      margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      background-color: #000;
+    :root{
+      --btn-size:70px;
+      --btn-gap:16px;
+      --title-size:4em;
+      --countdown-top:140px;
+      --banner-h:40px;
+      --azul:#024ddf;
     }
-    #top-scrolling-banner {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 40px;
-      overflow: hidden;
-      z-index: 999;
-      pointer-events: none;
-      background-color: #000;
-      transition: opacity 0.5s ease-in-out;
-    }
-    #top-scrolling-banner-content {
-      background-image: url("https://vixentres.github.io/hsu.github.io/banda.png");
-      background-size: auto 100%;
-      background-repeat: repeat-x;
-      animation: scrollBannerTop 70s linear infinite reverse;
-      position: absolute;
-      height: 100%;
-      width: 300%;
-    }
-    @keyframes scrollBannerTop {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-66.66%); }
-    }
-    #superklub-title {
-      position: fixed;
-      top: 50px;
-      width: 100%;
-      text-align: center;
-      z-index: 999;
-      color: #ffffff;
-      font-size: 4em;
-      font-weight: 700;
-      text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.6);
-      animation: blink 1.5s infinite alternate;
-      opacity: 0.8;
-      pointer-events: none;
-      font-family: 'Authority Regular', sans-serif;
-    }
-    @keyframes blink {
-      0% { opacity: 0.8; }
-      80% { opacity: 0.4; }
-      100% { opacity: 0.8; }
-    }
-    #countdown-container {
-      position: fixed;
-      top: 140px;
-      width: 100%;
-      text-align: center;
-      padding: 10px 0;
-      background-color: rgba(0, 0, 0, 0.7);
-      z-index: 1000;
-      pointer-events: none;
-    }
-    .countdown-timer {
-      font-size: 1.5em;
-      color: #ffffff;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-    }
-    #dj-scroller-container {
-      position: fixed;
-      bottom: 150px;
-      width: 100%;
-      height: 150px;
-      overflow: hidden;
-      text-align: center;
-      z-index: 1000;
-      pointer-events: none;
-      color: #ffffff;
-      font-weight: 700;
-      text-shadow: 0 0 10px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.6);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    .dj-name-item {
-      font-size: 2em;
-      transition: all 0.5s ease-in-out;
-      white-space: nowrap;
-      line-height: 1.2;
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0.3;
-      font-family: 'Authority Regular', sans-serif;
-    }
-    .dj-name-item.center {
-      font-size: 3.5em;
-      opacity: 1;
-    }
-    #right-aligned-content {
-      position: fixed;
-      bottom: 60px;
-      right: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 15.5px;
-      padding: 10px 0;
-      z-index: 1000;
-      pointer-events: auto;
-    }
-    .svg-button {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.1);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 4px 15px rgba(0, 255, 255, 0.5);
-      animation: pulse 2s infinite;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      position: relative;
-      cursor: pointer;
-    }
-    .svg-button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.6);
-    }
-    .svg-button svg {
-      width: 60%;
-      height: 60%;
-      fill: #ffffff;
-      filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.7));
-    }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.7); }
-      70% { box-shadow: 0 0 0 15px rgba(0, 255, 255, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(0, 255, 255, 0); }
-    }
-    #centered-bottom-text {
-      position: fixed;
-      bottom: 60px;
-      width: 100%;
-      text-align: center;
-      z-index: 1000;
-      pointer-events: auto;
-    }
-    .register-text {
-      color: #ffffff;
-      font-size: 1.2em;
-      font-weight: 700;
-      text-shadow: 0 0 8px rgba(0, 255, 255, 0.8), 0 0 15px rgba(0, 255, 255, 0.6);
-      text-decoration: none;
-      padding: 5px 10px;
-      cursor: pointer;
-      display: inline-block;
-      transition: transform 0.3s ease;
-    }
-    .register-text:hover {
-      transform: scale(1.1);
-    }
-    #scrolling-banner {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 40px;
-      overflow: hidden;
-      z-index: 999;
-      pointer-events: none;
-      background-color: #000;
-      transition: opacity 0.5s ease-in-out;
-    }
-    #scrolling-banner-content {
-      background-image: url("https://vixentres.github.io/hsu.github.io/banda.png");
-      background-size: auto 100%;
-      background-repeat: repeat-x;
-      animation: scrollBanner 70s linear infinite;
-      position: absolute;
-      height: 100%;
-      width: 300%;
-    }
-    @keyframes scrollBanner {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-66.66%); }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:'Montserrat',sans-serif; overflow:hidden;
+      display:flex; flex-direction:column; height:100vh; background:#000;
     }
 
-    /* Estilos de New.txt */
-    #form-section, #confirm-section, #unsubscribe-section, #reserva-confirm-section { display: none; }
-    .container.active { display: block; }
-    #full-page-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
+    /* ===== Banners ===== */
+    #top-scrolling-banner,#scrolling-banner{
+      position:fixed; left:0; width:100%; height:var(--banner-h); overflow:hidden; z-index:999; pointer-events:none; background:#000; transition:opacity .3s;
     }
-    #full-page-container.active {
-      display: flex;
+    #top-scrolling-banner{ top:0 } #scrolling-banner{ bottom:0 }
+    #top-scrolling-banner-content,#scrolling-banner-content{
+      background-image:url("https://vixentres.github.io/hsu.github.io/banda.png");
+      background-size:auto 100%; background-repeat:repeat-x; position:absolute; height:100%; width:300%;
     }
-    .form-container {
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      width: 380px;
-      display: flex;
-      flex-direction: column;
+    #top-scrolling-banner-content{ animation:scrollBannerTop 70s linear infinite reverse }
+    #scrolling-banner-content{ animation:scrollBanner 70s linear infinite }
+    @keyframes scrollBannerTop{0%{transform:translateX(0)}100%{transform:translateX(-66.66%)}}
+    @keyframes scrollBanner{0%{transform:translateX(0)}100%{transform:translateX(-66.66%)}}
+    .dim-banner{ opacity:.6 }
+
+    /* ===== Título / countdown ===== */
+    #superklub-title{
+      position:fixed; top:50px; width:100%; text-align:center; z-index:900; color:#fff; font-size:var(--title-size); font-weight:700;
+      text-shadow:0 0 10px rgba(0,255,255,.8),0 0 20px rgba(0,255,255,.6);
+      animation:blink 1.5s infinite alternate; opacity:.8; pointer-events:none; font-family:'Authority Regular',sans-serif;
     }
-    .form-container .btn.volver {
-      margin-right: auto;
-      margin-bottom: 20px;
+    @keyframes blink{0%{opacity:.8}80%{opacity:.4}100%{opacity:.8}}
+    #countdown-container{
+      position:fixed; top:var(--countdown-top); width:100%; text-align:center; padding:10px 0; background:rgba(0,0,0,.7); z-index:900; pointer-events:none;
     }
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #024ddf;
+    .countdown-timer{ font-size:1.5em; color:#fff; text-shadow:1px 1px 3px rgba(0,0,0,.8) }
+
+    /* ===== DJs ===== */
+    #dj-scroller-container{
+      position:fixed; bottom:150px; width:100%; height:150px; overflow:hidden; text-align:center; z-index:900; pointer-events:none; color:#fff; font-weight:700;
+      text-shadow:0 0 10px rgba(0,255,255,.8),0 0 20px rgba(0,255,255,.6);
+      display:flex; flex-direction:column; justify-content:center; align-items:center;
     }
-    label {
-      font-weight: bold;
-      display: block;
-      margin-top: 10px;
+    .dj-name-item{ font-size:2em; transition:all .5s; white-space:nowrap; line-height:1.2; height:50px; display:flex; align-items:center; justify-content:center; opacity:.3; font-family:'Authority Regular',sans-serif }
+    .dj-name-item.center{ font-size:3.5em; opacity:1 }
+
+    /* ===== CTA principal ===== */
+    #centered-bottom-text{ position:fixed; bottom:110px; width:100%; text-align:center; z-index:1000; pointer-events:auto }
+    .register-text{
+      color:#fff; font-size:1.2em; font-weight:700; text-shadow:0 0 8px rgba(0,255,255,.8),0 0 15px rgba(0,255,255,.6);
+      text-decoration:none; padding:5px 10px; cursor:pointer; display:inline-block; transition:transform .3s;
     }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-sizing: border-box; 
+    .register-text:hover{ transform:scale(1.06) }
+
+    /* ===== Fila de botones bajo “REGÍSTRATE” ===== */
+    #cta-buttons{
+      position:fixed; bottom:60px; width:100%; z-index:1000; display:flex; justify-content:center; gap:var(--btn-gap); padding:0 16px;
     }
-    input::placeholder { color: rgba(0,0,0,0.3); }
-    .item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      /* Espacio reducido entre los elementos de entrada */
-      margin-top: 10px;
+    .svg-button{
+      width:var(--btn-size); height:var(--btn-size); border-radius:50%; background:rgba(255,255,255,.1);
+      display:flex; justify-content:center; align-items:center; box-shadow:0 4px 15px rgba(0,255,255,.5); animation:pulse 2s infinite;
+      transition:transform .3s, box-shadow .3s; cursor:pointer;
     }
-    .controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .svg-button:hover{ transform:scale(1.1); box-shadow:0 0 20px rgba(0,255,255,.8),0 0 30px rgba(0,255,255,.6) }
+    .svg-button svg{ width:60%; height:60%; fill:#fff; filter:drop-shadow(0 0 5px rgba(0,255,255,.7)) }
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,255,255,.7)}70%{box-shadow:0 0 0 15px rgba(0,255,255,0)}100%{box-shadow:0 0 0 0 rgba(0,255,255,0)}}
+
+    /* ===== A-Frame ===== */
+    a-scene#scene-container{ width:100%; height:100%; position:fixed; top:0; left:0; z-index:1 }
+
+    /* ===== Overlay / formulario ===== */
+    #full-page-container{
+      position:fixed; inset:0; background:transparent; display:none; justify-content:center; align-items:center; z-index:2000;
     }
-    .btn {
-      padding: 8px 12px;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      background: #024ddf;
-      color: #fff;
+    #full-page-container.active{ display:flex }
+    .form-container{
+      background:#fff; padding:20px; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,.35);
+      width:420px; max-width:92vw; max-height:88vh; display:flex; flex-direction:column; overflow:auto; -webkit-overflow-scrolling:touch;
     }
-    .btn:disabled {
-      background: #ccc;
-      cursor: not-allowed;
+    h2{ text-align:center; margin:0 0 16px; color:var(--azul) }
+    label{ font-weight:bold; display:block; margin-top:10px }
+    input{ width:100%; padding:10px; margin-top:5px; border:1px solid #ccc; border-radius:6px }
+    input::placeholder{ color:rgba(0,0,0,.3) }
+    .item{ display:flex; justify-content:space-between; align-items:center; margin-top:12px }
+    .controls{ display:flex; align-items:center; gap:10px }
+    .btn{ padding:10px 14px; font-size:16px; border:none; border-radius:6px; cursor:pointer; background:var(--azul); color:#fff }
+    .btn:disabled{ background:#ccc; cursor:not-allowed }
+    .qty{ min-width:30px; text-align:center; font-weight:bold }
+    .total-box{ margin-top:16px; padding-top:12px; border-top:1px solid #ddd }
+    .resumen-title{ color:var(--azul); font-weight:800; font-size:1.05rem; margin:12px 0 6px; text-transform:uppercase; letter-spacing:.5px }
+    .total-row{ display:flex; justify-content:space-between; margin:6px 0; font-size:16px }
+    .tachado{ text-decoration:line-through; color:#777 }
+    .tachado-rojo{ text-decoration:line-through; color:#f00 }
+    .total{ font-size:20px; font-weight:bold; color:var(--azul) }
+    .cliente-frecuente-container{ margin: 6px 0 8px; }
+    .form-actions{ margin-top:16px }
+    .actions-quad{
+      display:grid; grid-template-columns:repeat(2, minmax(140px, 1fr)); gap:10px; justify-items:center; align-items:center;
     }
-    .qty {
-      min-width: 30px;
-      text-align: center;
-      font-weight: bold;
+    .actions-quad .btn{ width:100% }
+    .actions{ display:flex; justify-content:center; gap:14px; margin-top:18px }
+    #bank-info{ display:none }
+
+    /* ===== Responsive ===== */
+    @media (max-width:768px){
+      :root{ --btn-size:60px; --btn-gap:14px; --title-size:2.6em; --countdown-top:100px; --banner-h:34px }
+      .countdown-timer{ font-size:1.15em }
+      #dj-scroller-container{ bottom:130px; height:120px }
+      .dj-name-item{ font-size:1.6em; height:40px }
+      .dj-name-item.center{ font-size:2.4em }
+      .btn{ padding:10px 12px; font-size:15px }
     }
-    .total-box {
-      margin-top: 25px;
-      padding-top: 15px;
-      border-top: 1px solid #ddd;
-    }
-    .total-row {
-      display: flex;
-      justify-content: space-between;
-      margin: 5px 0;
-      font-size: 16px;
-    }
-    .tachado {
-      text-decoration: line-through;
-      color: #777;
-    }
-    .tachado-rojo {
-      text-decoration: line-through;
-      color: #ff0000;
-    }
-    .total {
-      font-size: 20px;
-      font-weight: bold;
-      color: #024ddf;
-    }
-    .actions {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 30px;
-    }
-    /* Estilos para los botones de acción principales */
-    .actions .btn {
-      min-width: 120px;
-      text-align: center;
-    }
-    #bank-info {
-        display: none;
-    }
-    .dim-banner {
-      opacity: 0.75;
-    }
-    .small-button {
-      padding: 5px 10px;
-      font-size: 12px;
-      background-color: #f0f0f0;
-      color: #333;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    /* Estilos adicionales para la negrita */
-    .bold-label {
-        font-weight: bold;
-    }
-    /* Se crea un contenedor para el mensaje que mantiene el tamaño */
-    .cliente-frecuente-container {
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding-top: 10px;
-    }
-    .cliente-frecuente-message {
-        color: #024ddf;
-        font-weight: bold;
-    }
-    .correo-container {
-        position: relative;
-    }
-    .loading-text {
-        position: absolute;
-        bottom: -20px;
-        left: 0;
-        font-size: 0.8em;
-        color: #888;
-    }
-    .loading-spinner {
-        border: 2px solid #f3f3f3;
-        border-top: 2px solid #024ddf;
-        border-radius: 50%;
-        width: 14px;
-        height: 14px;
-        animation: spin 1s linear infinite;
-        position: absolute;
-        right: 35px; /* Ajuste para evitar solapamiento con el icono del navegador */
-        top: 50%;
-        transform: translateY(-50%);
-        display: none;
-    }
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    .centered-text {
-      text-align: center;
-    }
-    .flex-buttons-right {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-    }
-    .flex-buttons-left {
-      display: flex;
-      justify-content: flex-start;
-      gap: 10px;
-    }
-    .form-actions {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      /* Se reduce el espacio entre los grupos de botones */
-      gap: 10px;
-      margin-top: 20px;
-    }
-    .form-buttons-row {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      gap: 10px;
-    }
-    .form-buttons-row .small-button {
-      min-width: 150px; /* Para que tengan el mismo ancho */
-      text-align: center;
-    }
-    .total-box-confirm {
-      margin-top: 25px;
-      padding-top: 15px;
-      border-top: 1px solid #ddd;
+    @media (max-width:480px){
+      :root{ --btn-size:50px; --btn-gap:12px; --title-size:2em; --countdown-top:88px; --banner-h:30px }
+      #superklub-title{ top:42px }
+      #centered-bottom-text{ bottom:106px }
+      #cta-buttons{ bottom:56px }
+      .countdown-timer{ font-size:1em }
+      .form-container{ width:96vw; max-height:86vh; padding:16px }
+      .btn{ padding:9px 11px; font-size:14px }
+      .actions-quad{ grid-template-columns:1fr 1fr }
     }
   </style>
 </head>
 
 <body>
-  <div id="top-scrolling-banner">
-    <div id="top-scrolling-banner-content"></div>
-  </div>
-  
+  <!-- Barras -->
+  <div id="top-scrolling-banner"><div id="top-scrolling-banner-content"></div></div>
+
   <div id="hsu-content">
     <div id="superklub-title">SUPERKLUB</div>
     <div id="countdown-container">
-      <a href="https://logwork.com/countdown-timer" class="countdown-timer" data-style="columns" data-timezone="America/Santiago" data-language="es" data-date="2026-01-10 00:00" data-digitscolor="#ffffff" data-unitscolor="#ffffff">
-        10/01/2026
-      </a>
+      <a href="https://logwork.com/countdown-timer" class="countdown-timer" data-style="columns" data-timezone="America/Santiago" data-language="es" data-date="2026-01-10 00:00" data-digitscolor="#ffffff" data-unitscolor="#ffffff">10/01/2026</a>
     </div>
+
     <div id="dj-scroller-container">
-        <div class="dj-name-item" id="dj-top"></div>
-        <div class="dj-name-item" id="dj-middle"></div>
-        <div class="dj-name-item" id="dj-bottom"></div>
+      <div class="dj-name-item" id="dj-top"></div>
+      <div class="dj-name-item" id="dj-middle"></div>
+      <div class="dj-name-item" id="dj-bottom"></div>
     </div>
+
+    <!-- CTA -->
     <div id="centered-bottom-text">
-      <a href="#" class="register-text" id="register-link">
-        > REGISTRATE <
-      </a>
-    </div>
-    <div id="right-aligned-content">
-      <a href="#" class="svg-button" id="buy-tickets-link">
-        <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512"><path d="m4.5,1h5.515c.334,0,.663.03.985.088v5.412c0,1.378,1.122,2.5,2.5,2.5h5.411c.033.178.057.359.071.541.022.275.274.479.458-.539-.125-1.536-.793-2.981-1.883-4.07l-3.485-3.485c-1.228-1.228-2.86-1.904-4.596-1.904h-5.515C2.019,0,0,2.019,0,4.5v15c0,2.481,2.019,4.5,4.5,4.5h4c.276,0,.5-.224.5-.5s-.224-.5-.5-.5h-4c-1.93,0-3.5-1.57-3.5-3.5V4.5c0-1.93,1.57-3.5,3.5-3.5Zm12.889,5.096c.545.545.965,1.195,1.24,1.904h-5.129c-.827,0-1.5-.673-1.5-1.5V1.368c.706.273,1.353.692,1.904,1.243l3.485,3.485Zm5.878,5.636c-.943-.944-2.592-.944-3.535,0l-7.707,7.707c-.661.661-1.025,1.54-1.025,2.475v1.586c0,.276.224.5.5.5h1.586c.935,0,1.814-.364,2.475-1.025l7.707-7.707c.472-.472.732-1.1.732-1.768s-.26-1.296-.732-1.768Zm-.707,2.828l-7.707,7.707c-.472.472-1.1.732-1.768.732h-1.086v-1.086c0-.668.26-1.295.732-1.768l7.707-7.707c.566-.566,1.555-.566,2.121,0,.283.283.439.66.439,1.061s-.156.777-.439,1.061Z"/></svg>
-      </a>
-      <a href="https://www.ticketmaster.cl/event/superklub-vicente-medel" target="_blank" class="svg-button">
-        <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512"><circle cx="7" cy="22" r="2"/><circle cx="17" cy="22" r="2"/><path d="M23.685,1.336a1,1,0,0,0-1.414,0L17.112,6.5,15.561,4.881a1,1,0,0,0-1.442,1.386l1.614,1.679a1.872,1.872,0,0,0,1.345.6h.033a1.873,1.873,0,0,0,1.335-.553L23.685,2.75A1,1,0,0,0,23.685,1.336Z"/><path d="M21.9,9.016a1,1,0,0,0-1.162.807l-.128.709A3,3,0,0,1,17.657,13H5.418l-.94-8H11a1,1,0,0,0,0-2H4.242L4.2,2.648A3,3,0,0,0,1.222,0H1A1,1,0,0,0,1,2h.222a1,1,0,0,1,.993.883l1.376,11.7A5,5,0,0,0,8.557,19H19a1,1,0,0,0,0-2H8.557a3,3,0,0,1-2.829-2H17.657a5,5,0,0,0,4.921-4.113l.128-.71A1,1,0,0,0,21.9,9.016Z"/></svg>
-      </a>
-      <a href="https://open.spotify.com/playlist/2LVvgP7VJN5xAkmPdl5J4q?si=795e6ffb2d914cb8" target="_blank" class="svg-button">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve" width="512" height="512"><g>	<g>		<g>			<path d="M12,0C5.373,0,0,5.373,0,12c0,6.628,5.373,12,12,12c6.628,0,12-5.372,12-12C24,5.373,18.628,0,12,0z M17.503,17.308c-0.216,0.354-0.676,0.464-1.028,0.249c-2.818-1.722-6.365-2.111-10.542-1.157c-0.403,0.092-0.804-0.16-0.896-0.562c-0.092-0.402,0.159-0.804,0.563-0.895c4.571-1.045,8.492-0.595,11.655,1.338C17.608,16.495,17.719,16.956,17.503,17.308zM18.972,14.041c-0.271,0.44-0.847,0.578-1.287,0.308c-3.225-1.982-8.142-2.557-11.958-1.398C5.233,13.1,4.71,12.821,4.56,12.327c-0.149-0.495,0.13-1.016,0.624-1.167c4.358-1.323,9.776-0.682,13.48,1.594C19.104,13.025,19.242,13.601,18.972,14.041zM19.098,10.638C15.23,8.341,8.85,8.13,5.157,9.251c-0.593,0.18-1.22-0.155-1.4-0.748c-0.18-0.593,0.155-1.22,0.748-1.4c4.239-1.287,11.285-1.038,15.738,1.605c0.533,0.317,0.708,1.005,0.392,1.538C20.32,10.779,19.63,10.955,19.098,10.638z"/>		</g>	</g></g>
-        </svg>
-      </a>
-      <a href="https://www.instagram.com/vixentres._/" target="_blank" class="svg-button">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
-          <g>
-            <path style="fill-rule:evenodd;clip-rule:evenodd;" d="M12,2.162c3.204,0,3.584,0.012,4.849,0.07c1.308,0.06,2.655,0.358,3.608,1.311c0.962,0.962,1.251,2.296,1.311,3.608c0.058,1.265,0.07,1.645,0.07,4.849c0,3.204-0.012,3.584-0.07,4.849c-0.059,1.301-0.364,2.661-1.311,3.608c-0.962,0.962-2.295,1.251-3.608,1.311c-1.265,0.058-1.645,0.07-4.849,0.07s-3.584-0.012-4.849-0.07c-1.291-0.059-2.669-0.371-3.608-1.311c-0.957-0.957-1.251-2.304-1.311-3.608c-0.058-1.265-0.07-1.645-0.07-4.849c0-3.204,0.012-3.584,0.07-4.849c0.059-1.296,0.367-2.664,1.311-3.608c0.96-0.96,2.299-1.251,3.608-1.311C8.416,2.174,8.796,2.162,12,2.162 M12,0C8.741,0,8.332,0.014,7.052,0.072C5.197,0.157,3.355,0.673,2.014,2.014C0.668,3.36,0.157,5.198,0.072,7.052C0.014,8.332,0,8.741,0,12c0,3.259,0.014,3.668,0.072,4.948c0.085,1.853,0.603,3.7,1.942,5.038c1.345,1.345,3.186,1.857,5.038,1.942C8.332,23.986,8.741,24,12,24c3.259,0,3.668-0.014,4.948-0.072c1.854-0.085,3.698-0.602,5.038-1.942c1.347-1.347,1.857-3.184,1.942-5.038C23.986,15.668,24,15.259,24,12c0-3.259-0.014-3.668-0.072-4.948c-0.085-1.855-0.602-3.698-1.942-5.038c-1.343-1.343-3.189-1.858-5.038-1.942C15.668,0.014,15.259,0,12,0z"/>
-            <path d="M12,5.838c-3.403,0-6.162,2.759-6.162,6.162c0,3.403,2.759,6.162,6.162,6.162s6.162-2.759,6.162-6.162C18.162,8.597,15.403,5.838,12,5.838z M12,16c-2.209,0-4-1.791-4-4s1.791-4,4-4s4,1.791,4,4S14.209,16,12,16z"/>
-            <circle cx="18.406" cy="5.594" r="1.44"/>
-          </g>
-        </svg>
-      </a>
-      <a href="http://wa.me/56987421967?text=Hola%20!!!%20tienes%20entradas%20para%20HSU%20%3F%3F" target="_blank" class="svg-button">
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
-        <g id="WA_Logo">
-          <g>
-            <path style="fill-rule:evenodd;clip-rule:evenodd;" d="M20.463,3.488C18.217,1.24,15.231,0.001,12.05,0C5.495,0,0.16,5.334,0.157,11.892c-0.001,2.096,0.547,4.142,1.588,5.946L0.057,24l6.304-1.654c1.737,0.948,3.693,1.447,5.683,1.448h0.005c6.554,0,11.89-5.335,11.893-11.893C23.944,8.724,22.708,5.735,20.463,3.488zM12.05,21.785h-0.004c-1.774,0-3.513-0.477-5.031-1.378l-0.361-0.214l-3.741,0.981l0.999-3.648l-0.235-0.374c-0.99-1.574-1.512-3.393-1.511-5.26c0.002-5.45,4.437-9.884,9.889-9.884c2.64,0,5.122,1.03,6.988,2.898c1.866,1.869,2.893,4.352,2.892,6.993C21.932,17.351,17.498,21.785,12.05,21.785zM17.472,14.382c-0.297-0.149-1.758-0.868-2.031-0.967c-0.272-0.099-0.47-0.149-0.669,0.148s-0.767,0.967-0.941,1.166c-0.173,0.198-0.347,0.223-0.644,0.074c-0.297-0.149-1.255-0.462-2.39-1.475c-0.883-0.788-1.48-1.761-1.653-2.059s-0.018-0.458,0.13-0.606c0.134-0.133,0.297-0.347,0.446-0.521C9.87,9.97,9.919,9.846,10.019,9.647c0.099-0.198,0.05-0.372-0.025-0.521C9.919,8.978,9.325,7.515,9.078,6.92c-0.241-0.58-0.486-0.501-0.669-0.51C8.236,6.401,8.038,6.4,7.839,6.4c-0.198,0-0.52,0.074-0.792,0.372c-0.272,0.298-1.04,1.017-1.04,2.479c0,1.463,1.065,2.876,1.213,3.074c0.148,0.198,2.095,3.2,5.076,4.487c0.709,0.306,1.263,0.489,1.694,0.626c0.712,0.226,1.36,0.194,1.872,0.118c0.571-0.085,1.758-0.719,2.006-1.413c0.248-0.694,0.248-1.29,0.173-1.413C17.967,14.605,17.769,14.531,17.472,14.382z"/>
-          </g>
-        </g>
-      </svg>
-    </a>
+      <a href="#" class="register-text" id="register-link">&gt; REGISTRATE &lt;</a>
     </div>
 
-	<a-scene embedded vr-mode-ui="enabled: false" id="scene-container" style="width:100%;height:100%;position:fixed;top:0;left:0;z-index:1;">
-	  <a-assets>
-		<a-asset-item id="logo3d" src="https://vixentres.github.io/hsu.github.io/Crown.glb"></a-asset-item>
-		<img id="okPng" src="https://vixentres.github.io/hsu.github.io/ok.png">
-	  </a-assets>
+    <!-- Botones bajo CTA -->
+    <div id="cta-buttons">
+      <a href="https://www.ticketmaster.cl/event/superklub-vicente-medel" target="_blank" class="svg-button" aria-label="Ticketmaster">
+        <svg viewBox="0 0 24 24"><circle cx="7" cy="22" r="2"/><circle cx="17" cy="22" r="2"/><path d="M23.685,1.336a1,1,0,0,0-1.414,0L17.112,6.5,15.561,4.881a1,1,0,0,0-1.442,1.386l1.614,1.679a1.872,1.872,0,0,0,1.345.6h.033a1.873,1.873,0,0,0,1.335-.553L23.685,2.75A1,1,0,0,0,23.685,1.336Z"/><path d="M21.9,9.016a1,1,0,0,0-1.162.807l-.128.709A3,3,0,0,1,17.657,13H5.418l-.94-8H11a1,1,0,0,0,0-2H4.242L4.2,2.648A3,3,0,0,0,1.222,0H1A1,1,0,0,0,1,2h.222a1,1,0,0,1,.993.883l1.376,11.7A5,5,0,0,0,8.557,19H19a1,1,0,0,0,0-2H8.557a3,3,0,0,1-2.829-2H17.657a5,5,0,0,0,4.921-4.113l.128-.71A1,1,0,0,0,21.9,9.016Z"/></svg>
+      </a>
+      <a href="https://open.spotify.com/playlist/2LVvgP7VJN5xAkmPdl5J4q?si=795e6ffb2d914cb8" target="_blank" class="svg-button" aria-label="Spotify">
+        <svg viewBox="0 0 24 24"><path d="M12,0C5.373,0,0,5.373,0,12c0,6.628,5.373,12,12,12c6.628,0,12-5.372,12-12C24,5.373,18.628,0,12,0z M17.503,17.308c-0.216,0.354-0.676,0.464-1.028,0.249c-2.818-1.722-6.365-2.111-10.542-1.157c-0.403,0.092-0.804-0.16-0.896-0.562c-0.092-0.402,0.159-0.804,0.563-0.895c4.571-1.045,8.492-0.595,11.655,1.338C17.608,16.495,17.719,16.956,17.503,17.308zM18.972,14.041c-0.271,0.44-0.847,0.578-1.287,0.308c-3.225-1.982-8.142-2.557-11.958-1.398C5.233,13.1,4.71,12.821,4.56,12.327c-0.149-0.495,0.13-1.016,0.624-1.167c4.358-1.323,9.776-0.682,13.48,1.594C19.104,13.025,19.242,13.601,18.972,14.041zM19.098,10.638C15.23,8.341,8.85,8.13,5.157,9.251c-0.593,0.18-1.22-0.155-1.4-0.748c-0.18-0.593,0.155-1.22,0.748-1.4c4.239-1.287,11.285-1.038,15.738,1.605c0.533,0.317,0.708,1.005,0.392,1.538C20.32,10.779,19.63,10.955,19.098,10.638z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/vixentres._/" target="_blank" class="svg-button" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path style="fill-rule:evenodd;clip-rule:evenodd;" d="M12,2.162c3.204,0,3.584,0.012,4.849,0.07c1.308,0.06,2.655,0.358,3.608,1.311c0.962,0.962,1.251,2.296,1.311,3.608c0.058,1.265,0.07,1.645,0.07,4.849c0,3.204-0.012,3.584-0.07,4.849c-0.059,1.301-0.364,2.661-1.311,3.608c-0.962,0.962-2.295,1.251-3.608,1.311c-1.265,0.058-1.645,0.07-4.849,0.07s-3.584-0.012-4.849-0.07c-1.291-0.059-2.669-0.371-3.608-1.311c-0.957-0.957-1.251-2.304-1.311-3.608c-0.058-1.265-0.07-1.645-0.07-4.849c0-3.204,0.012-3.584,0.07-4.849c0.059-1.296,0.367-2.664,1.311-3.608c0.96-0.96,2.299-1.251,3.608-1.311C8.416,2.174,8.796,2.162,12,2.162 M12,0C8.741,0,8.332,0.014,7.052,0.072C5.197,0.157,3.355,0.673,2.014,2.014C0.668,3.36,0.157,5.198,0.072,7.052C0.014,8.332,0,8.741,0,12c0,3.259,0.014,3.668,0.072,4.948c0.085,1.853,0.603,3.7,1.942,5.038c1.345,1.345,3.186,1.857,5.038,1.942C8.332,23.986,8.741,24,12,24c3.259,0,3.668-0.014,4.948-0.072c1.854-0.085,3.698-0.602,5.038-1.942c1.347-1.347,1.857-3.184,1.942-5.038C23.986,15.668,24,15.259,24,12c0-3.259-0.014-3.668-0.072-4.948c-0.085-1.855-0.602-3.698-1.942-5.038c-1.343-1.343-3.189-1.858-5.038-1.942C15.668,0.014,15.259,0,12,0z"/><path d="M12,5.838c-3.403,0-6.162,2.759-6.162,6.162c0,3.403,2.759,6.162,6.162,6.162s6.162-2.759,6.162-6.162C18.162,8.597,15.403,5.838,12,5.838z M12,16c-2.209,0-4-1.791-4-4s1.791-4,4-4s4,1.791,4,4S14.209,16,12,16z"/><circle cx="18.406" cy="5.594" r="1.44"/></svg>
+      </a>
+      <a href="https://wa.me/56987421967?text=Hola%20!!!%20tienes%20entradas%20para%20HSU%20%3F%3F" target="_blank" class="svg-button" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M20.463,3.488C18.217,1.24,15.231,0.001,12.05,0C5.495,0,0.16,5.334,0.157,11.892c-0.001,2.096,0.547,4.142,1.588,5.946L0.057,24l6.304-1.654c1.737,0.948,3.693,1.447,5.683,1.448h0.005c6.554,0,11.89-5.335,11.893-11.893C23.944,8.724,22.708,5.735,20.463,3.488zM12.05,21.785h-0.004c-1.774,0-3.513-0.477-5.031-1.378l-0.361-0.214l-3.741,0.981l0.999-3.648l-0.235-0.374c-0.99-1.574-1.512-3.393-1.511-5.26c0.002-5.45,4.437-9.884,9.889-9.884c2.64,0,5.122,1.03,6.988,2.898c1.866,1.869,2.893,4.352,2.892,6.993C21.932,17.351,17.498,21.785,12.05,21.785zM17.472,14.382c-0.297-0.149-1.758-0.868-2.031-0.967c-0.272-0.099-0.47-0.149-0.669,0.148s-0.767,0.967-0.941,1.166c-0.173,0.198-0.347,0.223-0.644,0.074c-0.297-0.149-1.255-0.462-2.39-1.475c-0.883-0.788-1.48-1.761-1.653-2.059s-0.018-0.458,0.13-0.606c0.134-0.133,0.297-0.347,0.446-0.521C9.87,9.97,9.919,9.846,10.019,9.647c0.099-0.198,0.05-0.372-0.025-0.521C9.919,8.978,9.325,7.515,9.078,6.92c-0.241-0.58-0.486-0.501-0.669-0.51C8.236,6.401,8.038,6.4,7.839,6.4c-0.198,0-0.52,0.074-0.792,0.372c-0.272,0.298-1.04,1.017-1.04,2.479c0,1.463,1.065,2.876,1.213,3.074c0.148,0.198,2.095,3.2,5.076,4.487c0.709,0.306,1.263,0.489,1.694,0.626c0.712,0.226,1.36,0.194,1.872,0.118c0.571-0.085,1.758-0.719,2.006-1.413c0.248-0.694,0.248-1.29,0.173-1.413C17.967,14.605,17.769,14.531,17.472,14.382z"/></svg>
+      </a>
+    </div>
 
-	  <script>
-		AFRAME.registerComponent('clickable-link', {
-		  schema: { href: { type: 'string' } },
-		  init: function () {
-			var data = this.data;
-			var el = this.el;
+    <!-- ESCENA A-FRAME -->
+    <a-scene embedded vr-mode-ui="enabled:false" id="scene-container">
+      <a-assets>
+        <a-asset-item id="logo3d" src="https://vixentres.github.io/hsu.github.io/Crown.glb"></a-asset-item>
+        <img id="okPng" src="https://vixentres.github.io/hsu.github.io/ok.png">
+      </a-assets>
 
-			// cursor visual
-			AFRAME.registerComponent('cursor-listener', {
-			  init: function () {
-				this.el.addEventListener('mouseenter', () => document.body.style.cursor = 'pointer');
-				this.el.addEventListener('mouseleave', () => document.body.style.cursor = 'auto');
-			  }
-			});
-			el.setAttribute('cursor-listener','');
+      <script>
+        AFRAME.registerComponent('clickable-link',{schema:{href:{type:'string'}},init:function(){
+          var data=this.data, el=this.el;
+          AFRAME.registerComponent('cursor-listener',{init:function(){
+            this.el.addEventListener('mouseenter',()=>document.body.style.cursor='pointer');
+            this.el.addEventListener('mouseleave',()=>document.body.style.cursor='auto');
+          }});
+          el.setAttribute('cursor-listener','');
+          el.addEventListener('click',function(){ if(data.href) window.open(data.href,'_blank'); });
+        }});
+      </script>
 
-			el.addEventListener('click', function () {
-			  if (data.href) window.open(data.href, '_blank');
-			});
-		  }
-		});
-	  </script>
+      <a-entity id="front-logo" gltf-model="#logo3d" position="0 1.6 -1.5" rotation="0 1 0" scale="-0.5 0.5 0.5"
+        animation="property: rotation; from: 0 -20 0; to: 0 20 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
+        look-at="[camera]"></a-entity>
 
-	  <a-entity
-		id="front-logo"
-		gltf-model="#logo3d"
-		position="0 1.6 -1.5"
-		rotation="0 1 0"
-		scale="-0.5 0.5 0.5"
-		animation="property: rotation; from: 0 -20 0; to: 0 20 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
-		look-at="[camera]">
-	  </a-entity>
+      <a-entity id="right-logo" gltf-model="#logo3d" position="1.5 1.6 0" rotation="0 -90 0" scale="-0.5 0.5 0.5"
+        animation="property: rotation; from: 0 -110 0; to: 0 -70 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
+        look-at="[camera]"></a-entity>
 
-	  <a-entity
-		id="right-logo"
-		gltf-model="#logo3d"
-		position="1.5 1.6 0"
-		rotation="0 -90 0"
-		scale="-0.5 0.5 0.5"
-		animation="property: rotation; from: 0 -110 0; to: 0 -70 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
-		look-at="[camera]">
-	  </a-entity>
+      <a-entity id="left-logo" gltf-model="#logo3d" position="-1.5 1.6 0" rotation="0 90 0" scale="-0.5 0.5 0.5"
+        animation="property: rotation; from: 0 70 0; to: 0 110 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
+        look-at="[camera]"></a-entity>
 
-	  <a-entity
-		id="left-logo"
-		gltf-model="#logo3d"
-		position="-1.5 1.6 0"
-		rotation="0 90 0"
-		scale="-0.5 0.5 0.5"
-		animation="property: rotation; from: 0 70 0; to: 0 110 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
-		look-at="[camera]">
-	  </a-entity>
+      <a-entity id="back-logo" gltf-model="#logo3d" position="0 1.6 1.5" rotation="0 180 0" scale="-0.5 0.5 0.5"
+        animation="property: rotation; from: 0 160 0; to: 0 200 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
+        look-at="[camera]"></a-entity>
 
-	  <a-entity
-		id="back-logo"
-		gltf-model="#logo3d"
-		position="0 1.6 1.5"
-		rotation="0 180 0"
-		scale="-0.5 0.5 0.5"
-		animation="property: rotation; from: 0 160 0; to: 0 200 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
-		look-at="[camera]">
-	  </a-entity>
+      <a-image src="#okPng" position="0 0.05 0" rotation="-90 0 0" scale="0.5 0.5 0.5" look-at="[camera]"></a-image>
 
-	  <a-image src="#okPng" position="0 0.05 0" rotation="-90 0 0" scale="0.5 0.5 0.5" look-at="[camera]"></a-image>
-
-	  <a-entity position="0 0.5 0" rotation="0 90 0">
-		<a-camera
-		  wasd-controls="enabled: true"
-		  look-controls="enabled: true; pointerLockEnabled: true"
-		  cursor="rayOrigin: mouse">
-		</a-camera>
-	  </a-entity>
-	</a-scene>
-
+      <a-entity position="0 0.5 0" rotation="0 90 0">
+        <a-camera wasd-controls="enabled:true" look-controls="enabled:true; pointerLockEnabled:true" cursor="rayOrigin: mouse"></a-camera>
+      </a-entity>
+    </a-scene>
   </div>
-  
+
+  <!-- Overlay formulario -->
   <div id="full-page-container">
     <div class="form-container" id="form-section">
-      <div class="form-buttons-row">
-        </div>
+      <div class="form-buttons-row"></div>
       <h2>COMPRA / RESERVA <br> TUS ENTRADAS</h2>
+
       <form id="reservaForm">
-				<label for="correo">Correo electrónico*</label>
-		<div class="correo-container">
-		  <input type="email" id="correo" name="correo" placeholder="direccion-email@gmail.com" required>
-		  <div class="loading-spinner" id="loading-spinner"></div>
-		</div>
-        <div class="loading-text" id="loading-text" style="display: none;">Buscando perfil...</div>
+        <!-- Mensaje de cliente frecuente (arriba del correo) -->
+        <div class="cliente-frecuente-container">
+          <span class="cliente-frecuente-message" id="cliente-frecuente-info" style="display:none;"></span>
+        </div>
+
+        <label for="correo">Correo electrónico*</label>
+        <div class="correo-container">
+          <input type="email" id="correo" name="correo" placeholder="direccion-email@gmail.com" required>
+          <div class="loading-spinner" id="loading-spinner"></div>
+        </div>
+        <div class="loading-text" id="loading-text" style="display:none;">Buscando perfil...</div>
+
         <label for="nombre">Nombre completo</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Harder Style United" required>
+        <input type="text" id="nombre" name="nombre" placeholder="Harder Style United" required disabled>
+
         <label for="instagram">Instagram</label>
-        <input type="text" id="instagram" name="instagram" placeholder="eventshsu.cl">
+        <input type="text" id="instagram" name="instagram" placeholder="eventshsu.cl" disabled>
+
         <label for="telefono">Número de contacto</label>
-        <input type="tel" id="telefono" name="telefono" placeholder="+569-XXXX-XXXX" maxlength="12">
+        <input type="tel" id="telefono" name="telefono" placeholder="+569-XXXX-XXXX" maxlength="12" disabled>
 
         <div class="item">
-          <div>
-            <h5 id="tipo-entrada-general">
-              <b class="bold-label">Entrada General (1x)</b> 
-              <span>$46.000</span>
-            </h5>
-          </div>
+          <div><h5 id="tipo-entrada-general"><b class="bold-label">Entrada General (1x)</b> <span>$46.000</span></h5></div>
           <div class="controls">
-            <button type="button" class="btn" id="minus-general">-</button>
+            <button type="button" class="btn" id="minus-general" disabled>-</button>
             <div class="qty" id="qty-general">1</div>
-            <button type="button" class="btn" id="plus-general">+</button>
+            <button type="button" class="btn" id="plus-general" disabled>+</button>
           </div>
         </div>
-        
+
         <div class="item">
-          <div>
-            <h5 id="tipo-entrada-crewpack">
-              <b class="bold-label">CrewPack (5x)</b> 
-              <span>$230.000</span>
-            </h5>
-          </div>
+          <div><h5 id="tipo-entrada-crewpack"><b class="bold-label">CrewPack (5x)</b> <span>$230.000</span></h5></div>
           <div class="controls">
-            <button type="button" class="btn" id="minus-crewpack">-</button>
+            <button type="button" class="btn" id="minus-crewpack" disabled>-</button>
             <div class="qty" id="qty-crewpack">0</div>
-            <button type="button" class="btn" id="plus-crewpack">+</button>
+            <button type="button" class="btn" id="plus-crewpack" disabled>+</button>
           </div>
         </div>
+
+        <!-- Título Resumen -->
+        <h3 class="resumen-title">Resumen de compra</h3>
 
         <div class="total-box">
-          <div class="total-row">
-            <span id="label-cantidad-entradas">Cantidad de entradas</span>
-            <span id="cantidad-entradas">1</span>
-          </div>
-          <div class="total-row">
-            <span id="label-precio-total">Precio total</span>
-            <span id="precio-total">$46.000</span>
-          </div>
-          <div class="total-row">
-            <span>Descuento sin cargo</span>
-            <span class="tachado-rojo" id="descuento-general">$6.000</span>
-          </div>
-          <div class="total-row">
-            <span>Descuento crewpack</span>
-            <span class="tachado-rojo" id="descuento-crewpack">$0</span>
-          </div>
-          <div class="total-row total">
-            <span>Total a pagar</span>
-            <span id="total-a-pagar">$40.000</span>
-          </div>
-          <div class="cliente-frecuente-container">
-            <span class="cliente-frecuente-message" id="cliente-frecuente-info" style="display: none;"></span>
-          </div>
+          <div class="total-row"><span id="label-cantidad-entradas">Cantidad de entradas</span><span id="cantidad-entradas">1</span></div>
+          <div class="total-row"><span id="label-precio-total">Precio total</span><span id="precio-total">$46.000</span></div>
+          <div class="total-row"><span>Descuento sin cargo</span><span class="tachado-rojo" id="descuento-general">$6.000</span></div>
+          <div class="total-row"><span>Descuento crewpack</span><span class="tachado-rojo" id="descuento-crewpack">$0</span></div>
+          <div class="total-row total"><span>Total a pagar</span><span id="total-a-pagar">$40.000</span></div>
         </div>
-        
+
+        <!-- Botonera 2×2 centrada e igual tamaño -->
         <div class="form-actions">
-          <div class="actions">
-            <button type="button" class="btn" id="reservar-btn">Reservar</button>
-            <button type="submit" class="btn" id="comprar-btn">Comprar</button>
+          <div class="actions-quad">
+            <button type="button" class="btn" id="reservar-btn" disabled>Reservar</button>
+            <button type="submit" class="btn" id="comprar-btn" disabled>Comprar</button>
+            <button type="button" class="btn" id="unsubscribe-btn" disabled>Desuscribirse</button>
+            <button type="button" class="btn" id="copy-bank-data-btn" disabled>Datos Bancarios</button>
           </div>
-          <div class="form-buttons-row">
-            <button class="small-button" id="unsubscribe-btn">Desuscribirse</button>
-            <button class="small-button" id="copy-bank-data-btn">Datos Bancarios</button>
-          </div>
-          <div class="actions" style="margin-top: 10px;">
+
+          <div class="actions" style="margin-top:14px;">
             <button type="button" class="btn" onclick="showHsuPage()">Volver</button>
           </div>
         </div>
       </form>
     </div>
 
-    <div class="form-container" id="confirm-section">
+    <!-- CONFIRM COMPRA -->
+    <div class="form-container" id="confirm-section" style="display:none;">
       <h2 class="title">¡Gracias por tu confianza y preferencia!</h2>
-      <p style="text-align: center; margin-bottom: 20px;" id="confirmation-message"></p>
+      <p style="text-align:center; margin-bottom:12px;" id="confirmation-message"></p>
+
+      <h3 class="resumen-title">Resumen de compra</h3>
+
       <div class="total-box">
-        <div class="total-row">
-            <span id="label-cantidad-entradas-confirm">Cantidad de entradas</span>
-            <span id="cantidad-entradas-confirm">0</span>
-        </div>
-        <div class="total-row">
-            <span id="label-precio-total-confirm">Precio total</span>
-            <span id="precio-total-confirm">$0</span>
-        </div>
-        <div class="total-row">
-            <span>Descuento sin cargo</span>
-            <span class="tachado-rojo" id="descuento-general-confirm">$0</span>
-        </div>
-        <div class="total-row">
-            <span>Descuento crewpack</span>
-            <span class="tachado-rojo" id="descuento-crewpack-confirm">$0</span>
-        </div>
-        <div class="total-row total">
-            <span>Total a pagar</span>
-            <span id="total-a-pagar-confirm">$0</span>
-        </div>
-        <p style="text-align: center; margin-top: 15px;">
-          Una vez realizada la transferencia, notifica al vendedor para que te envíe las entradas.
-        </p>
-        <p style="text-align: center; margin-top: 5px; color: #024ddf; font-weight: bold;" id="entradas-acumuladas-compra"></p>
+        <div class="total-row"><span id="label-cantidad-entradas-confirm">Cantidad de entradas</span><span id="cantidad-entradas-confirm">0</span></div>
+        <div class="total-row"><span id="label-precio-total-confirm">Precio total</span><span id="precio-total-confirm">$0</span></div>
+        <div class="total-row"><span>Descuento sin cargo</span><span class="tachado-rojo" id="descuento-general-confirm">$0</span></div>
+        <div class="total-row"><span>Descuento crewpack</span><span class="tachado-rojo" id="descuento-crewpack-confirm">$0</span></div>
+        <div class="total-row total"><span>Total a pagar</span><span id="total-a-pagar-confirm">$0</span></div>
+        <p style="text-align:center; margin-top:12px;">Una vez realizada la transferencia, notifica al vendedor para que te envíe las entradas.</p>
+        <p style="text-align:center; margin-top:5px; color:#024ddf; font-weight:bold;" id="entradas-acumuladas-compra"></p>
       </div>
+
       <div class="actions">
         <button type="button" class="btn" onclick="showHsuPage()">Volver al inicio</button>
-        <button type="button" class="btn" onclick="copiarDatos()">Copiar datos bancarios</button>
+        <button type="button" class="btn" onclick="copiarDatos()">Datos bancarios</button>
       </div>
     </div>
 
-    <div class="form-container" id="reserva-confirm-section">
+    <!-- CONFIRM RESERVA -->
+    <div class="form-container" id="reserva-confirm-section" style="display:none;">
       <h2 class="title">¡Gracias por tu reserva!</h2>
-      <p style="text-align: center; margin-bottom: 20px;" id="reservation-message"></p>
+      <p style="text-align:center; margin-bottom:12px;" id="reservation-message"></p>
+
+      <h3 class="resumen-title">Resumen de compra</h3>
+
       <div class="total-box">
-        <div class="total-row">
-            <span id="label-cantidad-entradas-reserva">Cantidad de entradas</span>
-            <span id="cantidad-entradas-reserva">0</span>
-        </div>
-        <div class="total-row">
-            <span id="label-precio-total-reserva">Precio total</span>
-            <span id="precio-total-reserva">$0</span>
-        </div>
-        <div class="total-row">
-            <span>Descuento sin cargo</span>
-            <span class="tachado-rojo" id="descuento-general-reserva">$0</span>
-        </div>
-        <div class="total-row">
-            <span>Descuento crewpack</span>
-            <span class="tachado-rojo" id="descuento-crewpack-reserva">$0</span>
-        </div>
-        <div class="total-row total">
-            <span>Total a pagar</span>
-            <span id="total-a-pagar-reserva">$0</span>
-        </div>
-        <p style="text-align: center; margin-top: 15px;">
-          Por favor, avísame cuando desees concretar la compra
-        </p>
-        <p style="text-align: center; margin-top: 5px; color: #024ddf; font-weight: bold;" id="entradas-acumuladas-reserva"></p>
+        <div class="total-row"><span id="label-cantidad-entradas-reserva">Cantidad de entradas</span><span id="cantidad-entradas-reserva">0</span></div>
+        <div class="total-row"><span id="label-precio-total-reserva">Precio total</span><span id="precio-total-reserva">$0</span></div>
+        <div class="total-row"><span>Descuento sin cargo</span><span class="tachado-rojo" id="descuento-general-reserva">$0</span></div>
+        <div class="total-row"><span>Descuento crewpack</span><span class="tachado-rojo" id="descuento-crewpack-reserva">$0</span></div>
+        <div class="total-row total"><span>Total a pagar</span><span id="total-a-pagar-reserva">$0</span></div>
+        <p style="text-align:center; margin-top:12px;">Por favor, avísame cuando desees concretar la compra</p>
+        <p style="text-align:center; margin-top:5px; color:#024ddf; font-weight:bold;" id="entradas-acumuladas-reserva"></p>
       </div>
+
       <div class="actions">
         <button type="button" class="btn" onclick="showHsuPage()">Volver al inicio</button>
-        <button type="button" class="btn" onclick="copiarDatos()">Copiar datos bancarios</button>
+        <button type="button" class="btn" onclick="copiarDatos()">Datos bancarios</button>
       </div>
     </div>
 
-    <div class="form-container" id="unsubscribe-section">
+    <!-- DESUSCRIPCIÓN -->
+    <div class="form-container" id="unsubscribe-section" style="display:none;">
       <h2 class="title">Desuscribirse</h2>
-      <p style="text-align: center; margin-bottom: 20px;">
-        ¿Deseas no recibir más información o dejar de participar en posibles sorteos por parte del vendedor?
-      </p>
+      <p style="text-align:center; margin-bottom:20px;">¿Deseas no recibir más información o dejar de participar en posibles sorteos por parte del vendedor?</p>
       <form id="unsubscribeForm">
         <label for="unsubscribe-correo">Correo electrónico*</label>
         <input type="email" id="unsubscribe-correo" name="unsubscribe-correo" required>
-        <div class="actions flex-buttons-right">
-          <button type="submit" class="btn">Aceptar</button>
-        </div>
+        <div class="actions"><button type="submit" class="btn">Aceptar</button></div>
       </form>
-      <button class="btn volver" style="margin-top: 20px;" onclick="showFormPage()">Volver</button>
+      <button class="btn volver" style="margin-top:20px;" onclick="showFormPage()">Volver</button>
     </div>
   </div>
 
-  <div id="scrolling-banner">
-    <div id="scrolling-banner-content"></div>
-  </div>
+  <div id="scrolling-banner"><div id="scrolling-banner-content"></div></div>
 
   <script>
-    // Configuración del evento
+    /* === Config / estado === */
     const EVENTO = {
       precioEntradaGeneral: 46000,
       precioCrewPack: 230000,
@@ -763,535 +392,365 @@
       descuentoCrewPack: 5000,
       fecha: '2026-01-10 00:00',
       djNames: ["PRONTO POR ANUNCIAR","???", "??? ???", "??? ??? ???"],
-      // ✨ ACTUALIZA ESTAS URLs CON LAS DE TUS APPS SCRIPT
       hojaUrl: "https://script.google.com/macros/s/AKfycbx7KGD2K-BappVRLZPXkIc0f2QJDRgjxWENuCZuNqjPw68ylXfbkaCbYFonLL_4n-c_/exec",
       hojaClientesUrl: "https://script.google.com/macros/s/AKfycbxklOoDJgh0azEcUxxAr8mI6TkA3feUSNxTGIhDWtIMWHw3hrEoBDTOMdsWIBhgs2q3/exec",
       nombreEvento: "HSU / SUPERKLUB",
       descripcionEvento: "⛓ Vicente 🌹 (@vixentres._) 3,928 seguidores, 1.349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram"
     };
 
-    let cantidadGeneral = 1;
-    let cantidadCrewPack = 0;
-    let emailFromForm = '';
-    let entradasAcumuladas = 0;
-    // Nueva variable para rastrear si se ha enviado el formulario
-    let formSubmitted = false;
+    let cantidadGeneral=1, cantidadCrewPack=0, entradasAcumuladas=0;
 
-    const qtyGeneralEl = document.getElementById("qty-general");
-    const qtyCrewPackEl = document.getElementById("qty-crewpack");
-    const cantidadEntradasEl = document.getElementById("cantidad-entradas");
-    const precioTotalEl = document.getElementById("precio-total");
-    const descuentoGeneralEl = document.getElementById("descuento-general");
-    const descuentoCrewPackEl = document.getElementById("descuento-crewpack");
-    const totalAPagarEl = document.getElementById("total-a-pagar");
-    const comprarBtn = document.getElementById("comprar-btn");
-    const reservarBtn = document.getElementById("reservar-btn");
-    const topBanner = document.getElementById('top-scrolling-banner');
-    const bottomBanner = document.getElementById('scrolling-banner');
-    const unsubscribeCorreoInput = document.getElementById('unsubscribe-correo');
-    const clienteFrecuenteInfo = document.getElementById('cliente-frecuente-info');
-    const correoInput = document.getElementById('correo');
-    const nombreInput = document.getElementById('nombre');
-    const instagramInput = document.getElementById('instagram');
-    const telefonoInput = document.getElementById('telefono');
-    const loadingSpinner = document.getElementById('loading-spinner');
-    const loadingText = document.getElementById('loading-text');
-    const confirmationMessageEl = document.getElementById("confirmation-message");
-    const reservationMessageEl = document.getElementById("reservation-message");
-    const entradasAcumuladasCompraEl = document.getElementById("entradas-acumuladas-compra");
-    const entradasAcumuladasReservaEl = document.getElementById("entradas-acumuladas-reserva");
+    /* === Refs DOM === */
+    const qtyGeneralEl=document.getElementById("qty-general");
+    const qtyCrewPackEl=document.getElementById("qty-crewpack");
+    const cantidadEntradasEl=document.getElementById("cantidad-entradas");
+    const precioTotalEl=document.getElementById("precio-total");
+    const descuentoGeneralEl=document.getElementById("descuento-general");
+    const descuentoCrewPackEl=document.getElementById("descuento-crewpack");
+    const totalAPagarEl=document.getElementById("total-a-pagar");
+    const comprarBtn=document.getElementById("comprar-btn");
+    const reservarBtn=document.getElementById("reservar-btn");
+    const topBanner=document.getElementById('top-scrolling-banner');
+    const bottomBanner=document.getElementById('scrolling-banner');
+    const unsubscribeCorreoInput=document.getElementById('unsubscribe-correo');
+    const clienteFrecuenteInfo=document.getElementById('cliente-frecuente-info');
+    const correoInput=document.getElementById('correo');
+    const nombreInput=document.getElementById('nombre');
+    const instagramInput=document.getElementById('instagram');
+    const telefonoInput=document.getElementById('telefono');
+    const loadingSpinner=document.getElementById('loading-spinner');
+    const loadingText=document.getElementById('loading-text');
+    const confirmationMessageEl=document.getElementById("confirmation-message");
+    const reservationMessageEl=document.getElementById("reservation-message");
+    const entradasAcumuladasCompraEl=document.getElementById("entradas-acumuladas-compra");
+    const entradasAcumuladasReservaEl=document.getElementById("entradas-acumuladas-reserva");
 
-    function formatPrice(value) {
-        return `$${value.toLocaleString("es-CL")}`;
+    /* === Utils === */
+    function formatPrice(v){ return `$${v.toLocaleString("es-CL")}` }
+    const EMOJIS_CELEBRA = ["🎉","🔥","💥","✨","⭐","🎊","🚀","🏆","🥳","🎇"];
+    function randomEmoji(){ return EMOJIS_CELEBRA[Math.floor(Math.random()*EMOJIS_CELEBRA.length)] }
+    function lanzarConfeti(){ confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 }, zIndex: 3000 }); }
+    function stopLoading(){ loadingSpinner.style.display='none'; loadingText.style.display='none'; }
+    function startLoading(){ loadingSpinner.style.display='block'; loadingText.style.display='block'; }
+
+    /* === Habilitar/Deshabilitar campos (excepto correo) === */
+    const toggleables = [
+      nombreInput, instagramInput, telefonoInput,
+      document.getElementById('minus-general'),
+      document.getElementById('plus-general'),
+      document.getElementById('minus-crewpack'),
+      document.getElementById('plus-crewpack'),
+      reservarBtn, comprarBtn, document.getElementById('unsubscribe-btn'),
+      document.getElementById('copy-bank-data-btn')
+    ];
+    function setFieldsEnabled(enabled){
+      toggleables.forEach(el=>{ if(el) el.disabled = !enabled; });
+    }
+    // Estado inicial: SOLO correo habilitado
+    setFieldsEnabled(false);
+
+    /* === Totales & cantidad === */
+    function actualizarTotales(){
+      const totalEntradas=cantidadGeneral+(cantidadCrewPack*5);
+      const precioTotal=(cantidadGeneral*EVENTO.precioEntradaGeneral)+(cantidadCrewPack*EVENTO.precioCrewPack);
+      const descuentoSinCargo=(cantidadGeneral+(cantidadCrewPack*5))*EVENTO.descuentoGeneral;
+      const descuentoCrewPack=cantidadCrewPack*EVENTO.descuentoCrewPack;
+      const totalPagar=precioTotal-(descuentoSinCargo+descuentoCrewPack);
+      cantidadEntradasEl.textContent=totalEntradas;
+      precioTotalEl.textContent=formatPrice(precioTotal);
+      descuentoGeneralEl.textContent=formatPrice(descuentoSinCargo);
+      descuentoCrewPackEl.textContent=formatPrice(descuentoCrewPack);
+      totalAPagarEl.textContent=formatPrice(totalPagar);
+      // Botones de acción siempre dependen de cantidad
+      comprarBtn.disabled = (totalEntradas===0) || comprarBtn.disabled; // mantiene disabled si el formulario aún no está habilitado
+      reservarBtn.disabled = (totalEntradas===0) || reservarBtn.disabled;
     }
 
-    function actualizarTotales() {
-        const totalEntradas = cantidadGeneral + (cantidadCrewPack * 5);
-        const precioTotal = (cantidadGeneral * EVENTO.precioEntradaGeneral) + (cantidadCrewPack * EVENTO.precioCrewPack);
-        const descuentoSinCargo = (cantidadGeneral + (cantidadCrewPack * 5)) * EVENTO.descuentoGeneral;
-        const descuentoCrewPack = cantidadCrewPack * EVENTO.descuentoCrewPack;
-        const totalPagar = precioTotal - (descuentoSinCargo + descuentoCrewPack);
-        
-        cantidadEntradasEl.textContent = totalEntradas;
-        precioTotalEl.textContent = formatPrice(precioTotal);
-        descuentoGeneralEl.textContent = formatPrice(descuentoSinCargo);
-        descuentoCrewPackEl.textContent = formatPrice(descuentoCrewPack);
-        totalAPagarEl.textContent = formatPrice(totalPagar);
+    document.getElementById("plus-general").addEventListener("click",()=>{
+      if(cantidadGeneral<4){cantidadGeneral++}else{cantidadGeneral=0;cantidadCrewPack++}
+      qtyGeneralEl.textContent=cantidadGeneral; qtyCrewPackEl.textContent=cantidadCrewPack; actualizarTotales();
+    });
+    document.getElementById("minus-general").addEventListener("click",()=>{
+      if(cantidadGeneral>0){cantidadGeneral--}else if(cantidadCrewPack>0){cantidadCrewPack--;cantidadGeneral=4}
+      qtyGeneralEl.textContent=cantidadGeneral; qtyCrewPackEl.textContent=cantidadCrewPack; actualizarTotales();
+    });
+    document.getElementById("plus-crewpack").addEventListener("click",()=>{
+      cantidadCrewPack++; cantidadGeneral=0; qtyGeneralEl.textContent=cantidadGeneral; qtyCrewPackEl.textContent=cantidadCrewPack; actualizarTotales();
+    });
+    document.getElementById("minus-crewpack").addEventListener("click",()=>{
+      if(cantidadCrewPack>0){cantidadCrewPack--; cantidadGeneral=0}
+      qtyGeneralEl.textContent=cantidadGeneral; qtyCrewPackEl.textContent=cantidadCrewPack; actualizarTotales();
+    });
 
-        if (totalEntradas === 0) {
-            comprarBtn.disabled = true;
-            reservarBtn.disabled = true;
-        } else {
-            comprarBtn.disabled = false;
-            reservarBtn.disabled = false;
-        }
+    /* Normalizaciones */
+    nombreInput.addEventListener("input",(e)=>{
+      let v=e.target.value; e.target.value=v.toLowerCase().split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
+    });
+    instagramInput.addEventListener("input",(e)=>{ e.target.value=e.target.value.replace('@','') });
+    telefonoInput.addEventListener("blur",(e)=>{
+      let valor=e.target.value.replace(/[^0-9+]/g,'');
+      if(valor.startsWith('+')){ e.target.value=valor; e.target.dataset.clean=valor; return; }
+      let prefijo=''; if(valor.length===11 && valor.startsWith('5')) prefijo='+'; else if(valor.length===8) prefijo='+569';
+      else if(valor.length===9) prefijo='+56'; else if(valor.length===10) prefijo='+5';
+      e.target.value=prefijo?prefijo+valor:valor; e.target.dataset.clean=e.target.value;
+    });
+
+    /* === Disparo de búsqueda: cuando correo contiene ".com" o ".cl" === */
+    const TLD_TRIGGER = [".com", ".cl"];
+    function maybeSearchByEmail(){
+      const v = correoInput.value.trim().toLowerCase();
+      if(!v){ stopLoading(); return; }
+      if(TLD_TRIGGER.some(tld => v.includes(tld))){
+        startLoading();
+        buscarClienteFrecuente(v);
+      }
     }
+    // al escribir y al cambiar
+    correoInput.addEventListener('keyup', maybeSearchByEmail);
+    correoInput.addEventListener('change', maybeSearchByEmail);
 
-    document.getElementById("plus-general").addEventListener("click", () => {
-        if (cantidadGeneral < 4) {
-            cantidadGeneral++;
-        } else {
-            cantidadGeneral = 0;
-            cantidadCrewPack++;
+    /* === Buscar en hoja ClientesUrl (A=correo, B=entradas, C=nombre, D=instagram, E=numero) === */
+    function buscarClienteFrecuente(correo){
+      if(!correo){ stopLoading(); return; }
+
+      // mientras busca: bloquea todo menos correo
+      setFieldsEnabled(false);
+
+      const url=`${EVENTO.hojaClientesUrl}?correo=${encodeURIComponent(correo)}`;
+      fetch(url).then(r=>r.json()).then(data=>{
+        stopLoading();
+
+        // Estructura esperada: {status:'success'|'not_found', entradas, nombre, instagram, numero}
+        if(data && data.status==='success'){
+          // autocompletar solo si vienen valores NO vacíos
+          if(data.nombre && String(data.nombre).trim()){
+            nombreInput.value = String(data.nombre).trim();
+          }
+          if(data.instagram && String(data.instagram).trim()){
+            instagramInput.value = String(data.instagram).trim().replace('@','');
+          }
+          if(data.numero && String(data.numero).trim()){
+            const numeroLimpio = String(data.numero).trim();
+            telefonoInput.value = numeroLimpio;
+            telefonoInput.dataset.clean = numeroLimpio;
+          }
+
+          // badge + confeti si hay entradas > 0
+          const en = Number(data.entradas)||0;
+          entradasAcumuladas = en;
+          if(en>0){
+            const emoji=" "+randomEmoji();
+            clienteFrecuenteInfo.textContent=`¡Cliente frecuente! Llevas ${en} entradas compradas.${emoji}`;
+            clienteFrecuenteInfo.style.display='block';
+            lanzarConfeti();
+          }else{
+            clienteFrecuenteInfo.textContent='';
+            clienteFrecuenteInfo.style.display='none';
+          }
+
+          // habilitar resto del formulario (usuario puede editar si desea)
+          setFieldsEnabled(true);
+          actualizarTotales();
+        }else{
+          // NO encontrado: habilitar para completar manualmente, no alterar campos
+          entradasAcumuladas = 0;
+          clienteFrecuenteInfo.textContent='';
+          clienteFrecuenteInfo.style.display='none';
+          setFieldsEnabled(true);
+          actualizarTotales();
         }
-        qtyGeneralEl.textContent = cantidadGeneral;
-        qtyCrewPackEl.textContent = cantidadCrewPack;
-        actualizarTotales();
-    });
-
-    document.getElementById("minus-general").addEventListener("click", () => {
-        if (cantidadGeneral > 0) {
-            cantidadGeneral--;
-        } else if (cantidadCrewPack > 0) {
-            cantidadCrewPack--;
-            cantidadGeneral = 4;
-        }
-        qtyGeneralEl.textContent = cantidadGeneral;
-        qtyCrewPackEl.textContent = cantidadCrewPack;
-        actualizarTotales();
-    });
-
-    document.getElementById("plus-crewpack").addEventListener("click", () => {
-        cantidadCrewPack++;
-        cantidadGeneral = 0;
-        qtyGeneralEl.textContent = cantidadGeneral;
-        qtyCrewPackEl.textContent = cantidadCrewPack;
-        actualizarTotales();
-    });
-
-    document.getElementById("minus-crewpack").addEventListener("click", () => {
-        if (cantidadCrewPack > 0) {
-            cantidadCrewPack--;
-            cantidadGeneral = 0;
-        }
-        qtyGeneralEl.textContent = cantidadGeneral;
-        qtyCrewPackEl.textContent = cantidadCrewPack;
-        actualizarTotales();
-    });
-
-    // 1. LÓGICA PARA FORMATO DE NOMBRE
-    nombreInput.addEventListener("input", (e) => {
-        let valor = e.target.value;
-        e.target.value = valor.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-    });
-
-    // 2. LÓGICA PARA ELIMINAR EL '@' DE INSTAGRAM
-    instagramInput.addEventListener("input", (e) => {
-        e.target.value = e.target.value.replace('@', '');
-    });
-    
-	// 3. LÓGICA PARA TELÉFONO - CAMBIOS APLICADOS AQUÍ
-	telefonoInput.addEventListener("blur", (e) => {
-	  // Ahora permite dígitos y el símbolo "+" para no cortarlo
-	  let valor = e.target.value.replace(/[^0-9+]/g, ''); 
-
-	  // Si el valor ya comienza con el símbolo "+", no hacemos nada y lo dejamos como está
-	  if (valor.startsWith('+')) {
-		e.target.value = valor;
-		e.target.dataset.clean = valor;
-		return; // Salimos de la función
-	  }
-
-	  // Lógica para auto-completar cuando el número NO tiene el símbolo "+"
-	  let prefijo = '';
-	  if (valor.length === 11 && valor.startsWith('5')) {
-		prefijo = '+';
-	  } else if (valor.length === 8) {
-		prefijo = '+569';
-	  } else if (valor.length === 9) {
-		prefijo = '+56';
-	  } else if (valor.length === 10) {
-		prefijo = '+5';
-	  }
-
-	  // Solo se agrega un prefijo si la variable 'prefijo' no está vacía
-	  if (prefijo) {
-		e.target.value = prefijo + valor;
-		e.target.dataset.clean = prefijo + valor;
-	  } else {
-		// En caso de que no cumpla con ninguna de las longitudes especificadas
-		e.target.value = valor;
-		e.target.dataset.clean = valor;
-	  }
-	});
-
-    let debounceTimer;
-    correoInput.addEventListener('keyup', (e) => {
-        clearTimeout(debounceTimer);
-        const correo = e.target.value;
-        if (correo.length > 5 && correo.includes('@')) {
-            loadingSpinner.style.display = 'block';
-            loadingText.style.display = 'block';
-            debounceTimer = setTimeout(() => {
-                buscarClienteFrecuente(correo);
-            }, 800);
-        } else {
-            loadingSpinner.style.display = 'none';
-            loadingText.style.display = 'none';
-            clienteFrecuenteInfo.style.display = 'none';
-            entradasAcumuladas = 0;
-            actualizarTotales();
-        }
-    });
-
-    function limpiarFormulario() {
-        document.getElementById("reservaForm").reset();
-        cantidadGeneral = 1;
-        cantidadCrewPack = 0;
-        qtyGeneralEl.textContent = cantidadGeneral;
-        qtyCrewPackEl.textContent = cantidadCrewPack;
-        actualizarTotales();
-        emailFromForm = '';
+      }).catch(err=>{
+        console.error('Error al buscar cliente frecuente:',err);
+        stopLoading();
+        // En error: también permitir seguir con manual
         entradasAcumuladas = 0;
-        clienteFrecuenteInfo.style.display = 'none';
-        clienteFrecuenteInfo.textContent = '';
-        loadingSpinner.style.display = 'none';
-        loadingText.style.display = 'none';
-        formSubmitted = false; // Reiniciar el flag de envío
-    }
-
-    function buscarClienteFrecuente(correo) {
-        if (!correo) {
-            clienteFrecuenteInfo.style.display = 'none';
-            loadingSpinner.style.display = 'none';
-            loadingText.style.display = 'none';
-            return;
-        }
-
-        const url = `${EVENTO.hojaClientesUrl}?correo=${encodeURIComponent(correo)}`;
-
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                loadingSpinner.style.display = 'none';
-                loadingText.style.display = 'none';
-                if (data.status === 'success') {
-                    if (data.entradas > 0) {
-                        entradasAcumuladas = data.entradas;
-                        clienteFrecuenteInfo.textContent = `¡Cliente frecuente! Llevas ${entradasAcumuladas} entradas compradas.`;
-                        clienteFrecuenteInfo.style.display = 'block';
-                        
-                        // Solo autocompleta si los campos están vacíos
-                        if (!nombreInput.value) {
-                            nombreInput.value = data.nombre || '';
-                        }
-                        if (!instagramInput.value) {
-                            instagramInput.value = data.instagram || '';
-                        }
-                        if (!telefonoInput.value) {
-                             telefonoInput.value = data.numero || '';
-                            if(data.numero) {
-                                telefonoInput.dataset.clean = data.numero;
-                            }
-                        }
-                    } else {
-                        entradasAcumuladas = 0;
-                        clienteFrecuenteInfo.textContent = '';
-                        clienteFrecuenteInfo.style.display = 'none';
-                    }
-                } else {
-                    entradasAcumuladas = 0;
-                    clienteFrecuenteInfo.textContent = '';
-                    clienteFrecuenteInfo.style.display = 'none';
-                }
-                actualizarTotales();
-            })
-            .catch(error => {
-                console.error('Error al buscar cliente frecuente:', error);
-                loadingSpinner.style.display = 'none';
-                loadingText.style.display = 'none';
-                clienteFrecuenteInfo.textContent = '';
-                clienteFrecuenteInfo.style.display = 'none';
-                entradasAcumuladas = 0;
-                actualizarTotales();
-            });
-    }
-
-    // Se agrega el parámetro `actionType` para diferenciar las acciones
-    function enviarDatos(actionType) {
-        const correo = document.getElementById("correo").value;
-        let nombre = document.getElementById("nombre").value;
-        let instagram = document.getElementById("instagram").value;
-        const telefono = document.getElementById("telefono").dataset.clean || document.getElementById("telefono").value;
-
-        // Si la acción es "copy-data", se sobrescriben los valores de nombre e instagram
-        if (actionType === 'copy-data') {
-            nombre = "copio datos bancarios";
-            instagram = "copio datos bancarios";
-        }
-        
-        const totalPagar = (cantidadGeneral * EVENTO.precioEntradaGeneral) + (cantidadCrewPack * EVENTO.precioCrewPack) - ((cantidadGeneral + (cantidadCrewPack * 5)) * EVENTO.descuentoGeneral + cantidadCrewPack * EVENTO.descuentoCrewPack);
-        
-        let cantidadFinal = cantidadGeneral + (cantidadCrewPack * 5);
-        if (actionType === 'reserva') {
-            cantidadFinal = `R_${cantidadFinal}`;
-        }
-        
-        const formData = {
-            action: 'register',
-            nombre: nombre,
-            correo: correo,
-            instagram: instagram,
-            telefono: telefono,
-            cantidad: cantidadFinal,
-            total: totalPagar
-        };
-
-        fetch(EVENTO.hojaUrl, {
-            method: 'POST',
-            body: JSON.stringify(formData),
-            mode: 'no-cors'
-        })
-        .then(response => {
-            console.log('Datos enviados. Revisar la hoja de Google Sheets.');
-        })
-        .catch(error => {
-            console.error('Error al enviar los datos:', error);
-        });
-    }
-
-    function handleCompra(event) {
-        event.preventDefault();
-        const totalEntradas = cantidadGeneral + (cantidadCrewPack * 5);
-        if (totalEntradas === 0) {
-            alert("Selecciona al menos 1 entrada para continuar.");
-            return;
-        }
-        const correo = document.getElementById("correo").value;
-        if (!correo) {
-            alert("Es necesario ingresar un correo para poder enviar la/s entrada/s");
-            return;
-        }
-        
-        // Enviar datos y luego cambiar de sección
-        enviarDatos('compra');
-        formSubmitted = true;
-        showConfirmSection();
-    }
-    
-    function handleReserva() {
-        const totalEntradas = cantidadGeneral + (cantidadCrewPack * 5);
-        if (totalEntradas === 0) {
-            alert("Selecciona al menos 1 entrada para continuar.");
-            return;
-        }
-        const correo = document.getElementById("correo").value;
-        if (!correo) {
-            alert("Es necesario ingresar un correo para poder realizar la reserva");
-            return;
-        }
-        
-        // Enviar datos y luego cambiar de sección
-        enviarDatos('reserva');
-        formSubmitted = true;
-        showReservaConfirmSection();
-    }
-    
-    document.getElementById("reservaForm").addEventListener("submit", handleCompra);
-    document.getElementById("reservar-btn").addEventListener("click", handleReserva);
-    
-    // Lógica para el botón "Datos Bancarios"
-    document.getElementById("copy-bank-data-btn").addEventListener("click", () => {
-        const correo = document.getElementById("correo").value;
-        const nombre = document.getElementById("nombre").value;
-        if (!correo) {
-            alert("Por favor, ingresa un correo para continuar.");
-            return;
-        }
-        
-        // Solo enviar datos a la hoja si no se ha hecho una acción previa
-        if (!formSubmitted) {
-            enviarDatos('copy-data');
-        }
-
-        // Siempre copiar los datos, sin importar si ya se envió el formulario o no
-        copiarDatos();
-    });
-
-    document.getElementById("unsubscribeForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-        const correo = document.getElementById("unsubscribe-correo").value;
-
-        if (!correo) {
-            alert("Por favor, ingresa un correo electrónico.");
-            return;
-        }
-        
-        // Regresar al inicio de inmediato
-        showHsuPage();
-
-        const formData = {
-            action: 'unsubscribe',
-            correo: correo,
-            nombre: "XXX-DESUSCRITO-XXX",
-            instagram: "XXX-DESUSCRITO-XXX",
-            telefono: "XXX-DESUSCRITO-XXX",
-            cantidad: 0,
-            total: 0
-        };
-
-        fetch(EVENTO.hojaUrl, {
-            method: 'POST',
-            body: JSON.stringify(formData),
-            mode: 'no-cors'
-        })
-        .then(() => {
-            console.log('Correo de desuscripción enviado. Revisar la hoja de Google Sheets.');
-            alert("Tu solicitud de desuscripción ha sido enviada.");
-        })
-        .catch(error => {
-            console.error('Error al procesar la desuscripción:', error);
-            alert("Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo.");
-        });
-    });
-    
-    // Se elimina el `alert` de esta función, como solicitaste
-    function copiarDatos() {
-      const datos = "VICENTE SEBASTIAN MEDEL\n19385365-K\nBanco Estado\nCuentaRUT\n19385365";
-      navigator.clipboard.writeText(datos).then(() => {
-        console.log("Datos bancarios copiados.");
-      }).catch(err => {
-        console.error('Error al copiar: ', err);
+        clienteFrecuenteInfo.textContent='';
+        clienteFrecuenteInfo.style.display='none';
+        setFieldsEnabled(true);
+        actualizarTotales();
       });
     }
 
-    let currentIndex = 0;
-    function updateDjSlots() {
-      const djTop = document.getElementById('dj-top');
-      const djMiddle = document.getElementById('dj-middle');
-      const djBottom = document.getElementById('dj-bottom');
-      djMiddle.classList.remove('center');
-      setTimeout(() => {
-        const nextTopText = djMiddle.textContent;
-        const nextMiddleText = djBottom.textContent;
-        currentIndex = (currentIndex + 1) % EVENTO.djNames.length;
-        const nextBottomText = EVENTO.djNames[(currentIndex + 1) % EVENTO.djNames.length];
-        djTop.textContent = nextTopText;
-        djMiddle.textContent = nextMiddleText;
-        djBottom.textContent = nextBottomText;
-        djMiddle.classList.add('center');
-        setTimeout(() => { updateDjSlots(); }, 2000);
-      }, 500);
+    /* === Envío a hoja === */
+    function enviarDatos(actionType){
+      const correo=document.getElementById("correo").value;
+      const nombre=document.getElementById("nombre").value;
+      const instagram=document.getElementById("instagram").value;
+      const telefono=document.getElementById("telefono").dataset.clean || document.getElementById("telefono").value;
+
+      const totalPagar=(cantidadGeneral*EVENTO.precioEntradaGeneral)+(cantidadCrewPack*EVENTO.precioCrewPack)-((cantidadGeneral+(cantidadCrewPack*5))*EVENTO.descuentoGeneral+cantidadCrewPack*EVENTO.descuentoCrewPack);
+      let cantidadFinal=cantidadGeneral+(cantidadCrewPack*5);
+
+      let action='register';
+      let total=totalPagar;
+
+      if(actionType==='copy-data'){
+        action='copy-bank-data';
+        cantidadFinal=0;
+        total=0;
+      } else if(actionType==='reserva'){
+        cantidadFinal=`R_${cantidadFinal}`;
+      }
+
+      const formData={ action, nombre, correo, instagram, telefono, cantidad:cantidadFinal, total };
+
+      fetch(EVENTO.hojaUrl,{ method:'POST', body:JSON.stringify(formData), mode:'no-cors' })
+        .then(()=>{ console.log('Datos enviados. Revisar hoja.'); })
+        .catch(error=>{ console.error('Error al enviar los datos:',error); });
     }
 
-    function showHsuPage() {
-      document.getElementById('full-page-container').style.display = 'none';
-      document.body.style.overflow = 'hidden';
-      document.getElementById('hsu-content').style.display = 'block';
+    function handleCompra(e){
+      e.preventDefault();
+      const totalEntradas=cantidadGeneral+(cantidadCrewPack*5);
+      if(totalEntradas===0){ alert("Selecciona al menos 1 entrada para continuar."); return; }
+      const correo=document.getElementById("correo").value;
+      if(!correo){ alert("Es necesario ingresar un correo para poder enviar la/s entrada/s"); return; }
+      enviarDatos('compra'); showConfirmSection();
+    }
+    function handleReserva(){
+      const totalEntradas=cantidadGeneral+(cantidadCrewPack*5);
+      if(totalEntradas===0){ alert("Selecciona al menos 1 entrada para continuar."); return; }
+      const correo=document.getElementById("correo").value;
+      if(!correo){ alert("Es necesario ingresar un correo para poder realizar la reserva"); return; }
+      enviarDatos('reserva'); showReservaConfirmSection();
+    }
+
+    document.getElementById("reservaForm").addEventListener("submit",handleCompra);
+    document.getElementById("reservar-btn").addEventListener("click",handleReserva);
+
+    // “Datos Bancarios” del formulario ⇒ copia + registra copia (cantidad=0)
+    document.getElementById("copy-bank-data-btn").addEventListener("click",()=>{
+      const correo=correoInput.value.trim();
+      const nombre=nombreInput.value.trim();
+      if(!correo || !nombre){ alert("Ingresa tu correo y nombre antes de solicitar los datos bancarios."); return; }
+      enviarDatos('copy-data');
+      copiarDatos();
+    });
+
+    document.getElementById("unsubscribeForm").addEventListener("submit",function(e){
+      e.preventDefault();
+      const correo=document.getElementById("unsubscribe-correo").value;
+      if(!correo){ alert("Por favor, ingresa un correo electrónico."); return; }
+      showHsuPage();
+      const formData={ action:'unsubscribe', correo, nombre:"XXX-DESUSCRITO-XXX", instagram:"XXX-DESUSCRITO-XXX", telefono:"XXX-DESUSCRITO-XXX", cantidad:0, total:0 };
+      fetch(EVENTO.hojaUrl,{ method:'POST', body:JSON.stringify(formData), mode:'no-cors' })
+        .then(()=>{ console.log('Correo de desuscripción enviado.'); alert("Tu solicitud de desuscripción ha sido enviada."); })
+        .catch(err=>{ console.error('Error al procesar la desuscripción:',err); alert("Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo."); });
+    });
+
+    function copiarDatos(){
+      const datos="VICENTE SEBASTIAN MEDEL\n19385365-K\nBanco Estado\nCuentaRUT\n19385365";
+      navigator.clipboard.writeText(datos).then(()=>{ console.log("Datos bancarios copiados."); }).catch(err=>{ console.error('Error al copiar: ',err); });
+    }
+
+    /* ===== UI corrientes ===== */
+    let currentIndex=0;
+    function updateDjSlots(){
+      const djTop=document.getElementById('dj-top');
+      const djMiddle=document.getElementById('dj-middle');
+      const djBottom=document.getElementById('dj-bottom');
+      djMiddle.classList.remove('center');
+      setTimeout(()=>{
+        const nextTopText=djMiddle.textContent;
+        const nextMiddleText=djBottom.textContent;
+        currentIndex=(currentIndex+1)%EVENTO.djNames.length;
+        const nextBottomText=EVENTO.djNames[(currentIndex+1)%EVENTO.djNames.length];
+        djTop.textContent=nextTopText; djMiddle.textContent=nextMiddleText; djBottom.textContent=nextBottomText;
+        djMiddle.classList.add('center');
+        setTimeout(()=>{ updateDjSlots(); },2000);
+      },500);
+    }
+
+    function limpiarFormulario(){
+      document.getElementById("reservaForm").reset();
+      cantidadGeneral=1; cantidadCrewPack=0;
+      qtyGeneralEl.textContent=cantidadGeneral; qtyCrewPackEl.textContent=cantidadCrewPack;
+      actualizarTotales();
+      clienteFrecuenteInfo.style.display='none'; clienteFrecuenteInfo.textContent='';
+      stopLoading();
+      // bloquear nuevamente todo excepto correo
+      setFieldsEnabled(false);
+    }
+
+    function showHsuPage(){
+      document.getElementById('full-page-container').style.display='none';
+      document.body.style.overflow='hidden';
+      document.getElementById('hsu-content').style.display='block';
       topBanner.classList.remove('dim-banner');
       bottomBanner.classList.remove('dim-banner');
       limpiarFormulario();
     }
-    
-    function showConfirmSection() {
-        document.getElementById("form-section").style.display = 'none';
-        document.getElementById("confirm-section").style.display = 'flex';
-        document.getElementById("reserva-confirm-section").style.display = 'none';
-        const totalEntradas = cantidadGeneral + (cantidadCrewPack * 5);
-        const precioTotal = (cantidadGeneral * EVENTO.precioEntradaGeneral) + (cantidadCrewPack * EVENTO.precioCrewPack);
-        const descuentoSinCargo = (cantidadGeneral + (cantidadCrewPack * 5)) * EVENTO.descuentoGeneral;
-        const descuentoCrewPack = cantidadCrewPack * EVENTO.descuentoCrewPack;
-        const totalPagar = precioTotal - (descuentoSinCargo + descuentoCrewPack);
-        const totalEntradasAcumuladas = totalEntradas + entradasAcumuladas;
-
-        document.getElementById("cantidad-entradas-confirm").textContent = totalEntradas;
-        document.getElementById("precio-total-confirm").textContent = formatPrice(precioTotal);
-        document.getElementById("descuento-general-confirm").textContent = formatPrice(descuentoSinCargo);
-        document.getElementById("descuento-crewpack-confirm").textContent = formatPrice(descuentoCrewPack);
-        document.getElementById("total-a-pagar-confirm").textContent = formatPrice(totalPagar);
-
-        confirmationMessageEl.textContent = `Realiza la transferencia por el monto de ${formatPrice(totalPagar)} por ${totalEntradas} entrada${totalEntradas > 1 ? 's' : ''}.`;
-        
-        // Mostrar mensaje solo si las entradas acumuladas son > 1
-        if (totalEntradasAcumuladas > 1) {
-            entradasAcumuladasCompraEl.textContent = `Si compras llevas acumuladas un total de ${totalEntradasAcumuladas} entradas conmigo.`;
-            entradasAcumuladasCompraEl.style.display = 'block';
-        } else {
-            entradasAcumuladasCompraEl.style.display = 'none';
-        }
+    function showConfirmSection(){
+      document.getElementById("form-section").style.display='none';
+      document.getElementById("confirm-section").style.display='flex';
+      document.getElementById("reserva-confirm-section").style.display='none';
+      const totalEntradas=cantidadGeneral+(cantidadCrewPack*5);
+      const precioTotal=(cantidadGeneral*EVENTO.precioEntradaGeneral)+(cantidadCrewPack*EVENTO.precioCrewPack);
+      const descuentoSinCargo=(cantidadGeneral+(cantidadCrewPack*5))*EVENTO.descuentoGeneral;
+      const descuentoCrewPack=cantidadCrewPack*EVENTO.descuentoCrewPack;
+      const totalPagar=precioTotal-(descuentoSinCargo+descuentoCrewPack);
+      const totalEntradasAcumuladas=totalEntradas+entradasAcumuladas;
+      document.getElementById("cantidad-entradas-confirm").textContent=totalEntradas;
+      document.getElementById("precio-total-confirm").textContent=formatPrice(precioTotal);
+      document.getElementById("descuento-general-confirm").textContent=formatPrice(descuentoSinCargo);
+      document.getElementById("descuento-crewpack-confirm").textContent=formatPrice(descuentoCrewPack);
+      document.getElementById("total-a-pagar-confirm").textContent=formatPrice(totalPagar);
+      confirmationMessageEl.textContent=`Realiza la transferencia por el monto de ${formatPrice(totalPagar)} por ${totalEntradas} entrada${totalEntradas>1?'s':''}.`;
+      if(totalEntradasAcumuladas>1){ entradasAcumuladasCompraEl.textContent=`Si compras llevas acumuladas un total de ${totalEntradasAcumuladas} entradas conmigo.`; entradasAcumuladasCompraEl.style.display='block'; } else { entradasAcumuladasCompraEl.style.display='none'; }
+    }
+    function showReservaConfirmSection(){
+      document.getElementById("form-section").style.display='none';
+      document.getElementById("confirm-section").style.display='none';
+      document.getElementById("reserva-confirm-section").style.display='flex';
+      const totalEntradas=cantidadGeneral+(cantidadCrewPack*5);
+      const precioTotal=(cantidadGeneral*EVENTO.precioEntradaGeneral)+(cantidadCrewPack*EVENTO.precioCrewPack);
+      const descuentoSinCargo=(cantidadGeneral+(cantidadCrewPack*5))*EVENTO.descuentoGeneral;
+      const descuentoCrewPack=cantidadCrewPack*EVENTO.descuentoCrewPack;
+      const totalPagar=precioTotal-(descuentoSinCargo+descuentoCrewPack);
+      const totalEntradasAcumuladas=totalEntradas+entradasAcumuladas;
+      document.getElementById("cantidad-entradas-reserva").textContent=totalEntradas;
+      document.getElementById("precio-total-reserva").textContent=formatPrice(precioTotal);
+      document.getElementById("descuento-general-reserva").textContent=formatPrice(descuentoSinCargo);
+      document.getElementById("descuento-crewpack-reserva").textContent=formatPrice(descuentoCrewPack);
+      document.getElementById("total-a-pagar-reserva").textContent=formatPrice(totalPagar);
+      reservationMessageEl.textContent=`Realiza la transferencia por el monto de ${formatPrice(totalPagar)} por ${totalEntradas} entrada${totalEntradas>1?'s':''}.`;
+      if(totalEntradasAcumuladas>1){ entradasAcumuladasReservaEl.textContent=`Si compras llevas acumuladas un total de ${totalEntradasAcumuladas} entradas conmigo.`; entradasAcumuladasReservaEl.style.display='block'; } else { entradasAcumuladasReservaEl.style.display='none'; }
     }
 
-    function showReservaConfirmSection() {
-      document.getElementById("form-section").style.display = 'none';
-      document.getElementById("confirm-section").style.display = 'none';
-      document.getElementById("reserva-confirm-section").style.display = 'flex';
-      const totalEntradas = cantidadGeneral + (cantidadCrewPack * 5);
-      const precioTotal = (cantidadGeneral * EVENTO.precioEntradaGeneral) + (cantidadCrewPack * EVENTO.precioCrewPack);
-      const descuentoSinCargo = (cantidadGeneral + (cantidadCrewPack * 5)) * EVENTO.descuentoGeneral;
-      const descuentoCrewPack = cantidadCrewPack * EVENTO.descuentoCrewPack;
-      const totalPagar = precioTotal - (descuentoSinCargo + descuentoCrewPack);
-      const totalEntradasAcumuladas = totalEntradas + entradasAcumuladas;
-
-      document.getElementById("cantidad-entradas-reserva").textContent = totalEntradas;
-      document.getElementById("precio-total-reserva").textContent = formatPrice(precioTotal);
-      document.getElementById("descuento-general-reserva").textContent = formatPrice(descuentoSinCargo);
-      document.getElementById("descuento-crewpack-reserva").textContent = formatPrice(descuentoCrewPack);
-      document.getElementById("total-a-pagar-reserva").textContent = formatPrice(totalPagar);
-      
-      reservationMessageEl.textContent = `Realiza la transferencia por el monto de ${formatPrice(totalPagar)} por ${totalEntradas} entrada${totalEntradas > 1 ? 's' : ''}.`;
-      
-      // Mostrar mensaje solo si las entradas acumuladas son > 1
-      if (totalEntradasAcumuladas > 1) {
-          entradasAcumuladasReservaEl.textContent = `Si compras llevas acumuladas un total de ${totalEntradasAcumuladas} entradas conmigo.`;
-          entradasAcumuladasReservaEl.style.display = 'block';
-      } else {
-          entradasAcumuladasReservaEl.style.display = 'none';
-      }
-    }
-
-    function showNewPage() {
+    function showNewPage(){
       limpiarFormulario();
-      document.getElementById('full-page-container').style.display = 'flex';
-      document.body.style.overflow = 'auto';
-      document.getElementById('form-section').style.display = 'block';
-      document.getElementById('confirm-section').style.display = 'none';
-      document.getElementById('unsubscribe-section').style.display = 'none';
-      document.getElementById('reserva-confirm-section').style.display = 'none';
-      document.getElementById('hsu-content').style.display = 'none';
-      topBanner.classList.add('dim-banner');
-      bottomBanner.classList.add('dim-banner');
+      document.getElementById('full-page-container').style.display='flex';
+      document.body.style.overflow='auto';
+      document.getElementById('form-section').style.display='block';
+      document.getElementById('confirm-section').style.display='none';
+      document.getElementById('unsubscribe-section').style.display='none';
+      document.getElementById('reserva-confirm-section').style.display='none';
+      document.getElementById('hsu-content').style.display='block';
+      topBanner.classList.add('dim-banner'); bottomBanner.classList.add('dim-banner');
     }
-    
-    function showFormPage() {
-        document.getElementById('form-section').style.display = 'block';
-        document.getElementById('unsubscribe-section').style.display = 'none';
-        unsubscribeCorreoInput.value = correoInput.value;
+    function showFormPage(){
+      document.getElementById('form-section').style.display='block';
+      document.getElementById('unsubscribe-section').style.display='none';
+      unsubscribeCorreoInput.value=correoInput.value;
     }
 
-    document.getElementById('register-link').addEventListener('click', function(e) {
-      e.preventDefault();
-      showNewPage();
-    });
-    document.getElementById('buy-tickets-link').addEventListener('click', function(e) {
-      e.preventDefault();
-      showNewPage();
-    });
-    document.getElementById('unsubscribe-btn').addEventListener('click', function() {
-        document.getElementById('form-section').style.display = 'none';
-        document.getElementById('unsubscribe-section').style.display = 'block';
-        unsubscribeCorreoInput.value = correoInput.value;
+    document.getElementById('register-link').addEventListener('click',function(e){ e.preventDefault(); showNewPage(); });
+    document.getElementById('unsubscribe-btn').addEventListener('click',function(){
+      document.getElementById('form-section').style.display='none';
+      document.getElementById('unsubscribe-section').style.display='block';
+      unsubscribeCorreoInput.value=correoInput.value;
     });
 
-    window.onload = function() {
-      setTimeout(() => {
-        if (typeof CountdownTimer !== 'undefined') {
-          CountdownTimer.init({ selector: '.countdown-timer', style: 'columns', timezone: 'America/Santiago', language: 'es', date: EVENTO.fecha, textcolor: '#ffffff', digitscolor: '#ffffff', unitscolor: '#ffffff' });
-        }
-      }, 500);
-
-      const djTop = document.getElementById('dj-top');
-      const djMiddle = document.getElementById('dj-middle');
-      const djBottom = document.getElementById('dj-bottom');
-      
-      currentIndex = 0;
-      djTop.textContent = EVENTO.djNames[(currentIndex - 1 + EVENTO.djNames.length) % EVENTO.djNames.length];
-      djMiddle.textContent = EVENTO.djNames[currentIndex];
-      djBottom.textContent = EVENTO.djNames[(currentIndex + 1) % EVENTO.djNames.length];
-      
+    /* Init */
+    window.onload=function(){
+      setTimeout(()=>{ if(typeof CountdownTimer!=='undefined'){ CountdownTimer.init({ selector:'.countdown-timer', style:'columns', timezone:'America/Santiago', language:'es', date:EVENTO.fecha, textcolor:'#ffffff', digitscolor:'#ffffff', unitscolor:'#ffffff' }); } },500);
+      const djTop=document.getElementById('dj-top'), djMiddle=document.getElementById('dj-middle'), djBottom=document.getElementById('dj-bottom');
+      currentIndex=0;
+      djTop.textContent=EVENTO.djNames[(currentIndex-1+EVENTO.djNames.length)%EVENTO.djNames.length];
+      djMiddle.textContent=EVENTO.djNames[currentIndex];
+      djBottom.textContent=EVENTO.djNames[(currentIndex+1)%EVENTO.djNames.length];
       djMiddle.classList.add('center');
-      setTimeout(() => {
-        updateDjSlots();
-      }, 2000);
+      setTimeout(()=>{ updateDjSlots(); },2000);
       actualizarTotales();
     };
   </script>
