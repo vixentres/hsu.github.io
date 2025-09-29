@@ -2,14 +2,14 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>HSU / SUPERKLUB</title>
 
   <link rel="canonical" href="https://vixentres.github.io/hsu.github.io/" />
-  <meta name="description" content="| HSU / SUPERKLUB / ENTRADAS SIN CARGO,43K | ig: Vixentres._"/>
+  <meta name="description" content="| HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._"/>
   <meta name="robots" content="index,follow" />
   
-  <meta property="og:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO,43K | ig: Vixentres._" />
+  <meta property="og:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._" />
   <meta property="og:description" content="⛓ Vicente 🌹 (@vixentres._) 3,928 seguidores, 1,349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram" />
   <meta property="og:image" content="https://vixentres.github.io/hsu.github.io/banner%201.jpg" />
   <meta property="og:image:width" content="1200" />
@@ -19,7 +19,7 @@
   <meta property="og:site_name" content="HSU / SUPERKLUB" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO,43K | ig: Vixentres._" />
+  <meta name="twitter:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._" />
   <meta name="twitter:description" content="⛓ Vicente 🌹 (@vixentres._) 3,928 seguidores, 1.349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram" />
   <meta name="twitter:image" content="https://vixentres.github.io/hsu.github.io/banner%201.jpg" />
 
@@ -113,8 +113,9 @@
       transform-origin:center; transition:transform .25s, box-shadow .25s, filter .25s;
       animation:ctaBreathe 2.4s ease-in-out infinite;
       overflow:hidden;
-      isolation:isolate;
+      isolation:isolate; /* asegura que los pseudo-elementos queden detrás */
     }
+    /* Borde animado magenta ⇄ turquesa */
     .register-text::after{
       content:""; position:absolute; inset:0; padding:2px; border-radius:999px;
       background:linear-gradient(130deg, var(--magenta), var(--turq), var(--magenta));
@@ -125,6 +126,7 @@
       opacity:.95;
       z-index:-1;
     }
+    /* Halo suave */
     .register-text::before{
       content:""; position:absolute; inset:-6px; border-radius:999px;
       background:linear-gradient(130deg, var(--magenta), var(--turq), var(--magenta));
@@ -211,8 +213,8 @@
       #dj-scroller-container{ bottom:200px; height:120px }
       .dj-name-item{ font-size:1.6em; height:40px }
       .dj-name-item.center{ font-size:2.4em }
-      #centered-bottom-text{ bottom:120px }
-      #cta-buttons{ bottom:52px }
+      #centered-bottom-text{ bottom:155px }
+      #cta-buttons{ bottom:88px }
       .btn{ padding:10px 12px; font-size:15px }
     }
     @media (max-width:480px){
@@ -284,19 +286,25 @@
         }});
       </script>
 
-      <!-- ÚNICO LOGO EN FRENTE -->
-      <a-entity id="front-logo"
-        gltf-model="#logo3d"
-		position="0 2 -3"
-		rotation="0 0 0"
-        scale="-0.5 0.5 0.5"
-        animation="property: rotation; from: 0 -15 0; to: 0 15 0; dir: alternate; dur: 2300; easing: easeInOutSine; loop: true;"
-      </a-entity>
+      <a-entity id="front-logo" gltf-model="#logo3d" position="0 1.6 -1.5" rotation="0 1 0" scale="-0.5 0.5 0.5"
+        animation="property: rotation; from: 0 -20 0; to: 0 20 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
+        look-at="[camera]"></a-entity>
 
-      <!-- Indicador en el piso (igual que antes) -->
-      <a-image src="#okPng" position="0 0.05 0" rotation="0 90 0" scale="0.5 0.5 0.5" look-at="[camera]"></a-image>
+      <a-entity id="right-logo" gltf-model="#logo3d" position="1.5 1.6 0" rotation="0 -90 0" scale="-0.5 0.5 0.5"
+        animation="property: rotation; from: 0 -110 0; to: 0 -70 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
+        look-at="[camera]"></a-entity>
 
-      <a-entity position="0 0.5 0" rotation="0 0 0">
+      <a-entity id="left-logo" gltf-model="#logo3d" position="-1.5 2 0" rotation="0 90 0" scale="-0.5 0.5 0.5"
+        animation="property: rotation; from: 0 70 0; to: 0 110 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
+        look-at="[camera]"></a-entity>
+
+      <a-entity id="back-logo" gltf-model="#logo3d" position="0 1.6 1.5" rotation="0 180 0" scale="-0.5 0.5 0.5"
+        animation="property: rotation; from: 0 160 0; to: 0 200 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
+        look-at="[camera]"></a-entity>
+
+      <a-image src="#okPng" position="0 0.05 0" rotation="-90 0 0" scale="0.5 0.5 0.5" look-at="[camera]"></a-image>
+
+      <a-entity position="0 0.5 0" rotation="0 90 0">
         <a-camera wasd-controls="enabled:true" look-controls="enabled:true; pointerLockEnabled:true" cursor="rayOrigin: mouse"></a-camera>
       </a-entity>
     </a-scene>
@@ -321,30 +329,31 @@
         </div>
         <div class="loading-text" id="loading-text" style="display:none;">Buscando perfil...</div>
 
-        <label for="nombre">Nombre completo</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Harder Style United" required disabled>
+		<label for="nombre">Nombre completo</label>
+		<input type="text" id="nombre" name="nombre" placeholder="Harder Style United" required>
 
-        <label for="instagram">Instagram</label>
-        <input type="text" id="instagram" name="instagram" placeholder="eventshsu.cl" disabled>
+		<label for="telefono">Número de contacto</label>
+		<input type="tel" id="telefono" name="telefono" placeholder="+569-XXXX-XXXX" maxlength="12">
 
-        <label for="telefono">Número de contacto</label>
-        <input type="tel" id="telefono" name="telefono" placeholder="+569-XXXX-XXXX" maxlength="12" disabled>
+		<label for="instagram">Instagram</label>
+		<input type="text" id="instagram" name="instagram" placeholder="eventshsu.cl">
+
 
         <div class="item">
           <div><h5 id="tipo-entrada-general"><b class="bold-label">Entrada General (1x)</b> <span>$46.000</span></h5></div>
           <div class="controls">
-            <button type="button" class="btn" id="minus-general" disabled>-</button>
+            <button type="button" class="btn" id="minus-general" >-</button>
             <div class="qty" id="qty-general">1</div>
-            <button type="button" class="btn" id="plus-general" disabled>+</button>
+            <button type="button" class="btn" id="plus-general" >+</button>
           </div>
         </div>
 
         <div class="item">
           <div><h5 id="tipo-entrada-crewpack"><b class="bold-label">CrewPack (5x)</b> <span>$230.000</span></h5></div>
           <div class="controls">
-            <button type="button" class="btn" id="minus-crewpack" disabled>-</button>
+            <button type="button" class="btn" id="minus-crewpack" >-</button>
             <div class="qty" id="qty-crewpack">0</div>
-            <button type="button" class="btn" id="plus-crewpack" disabled>+</button>
+            <button type="button" class="btn" id="plus-crewpack" >+</button>
           </div>
         </div>
 
@@ -363,8 +372,8 @@
           <div class="actions-quad">
             <button type="button" class="btn" id="reservar-btn" disabled>Reservar</button>
             <button type="submit" class="btn" id="comprar-btn" disabled>Comprar</button>
-            <button type="button" class="btn" id="unsubscribe-btn" disabled>Desuscribirse</button>
-            <button type="button" class="btn" id="copy-bank-data-btn" disabled>Datos Bancarios</button>
+            <button type="button" class="btn" id="unsubscribe-btn" >Desuscribirse</button>
+            <button type="button" class="btn" id="copy-bank-data-btn" >Datos Bancarios</button>
           </div>
 
           <div class="actions" style="margin-top:14px;">
@@ -441,7 +450,7 @@
       descuentoGeneral: 6000,
       descuentoCrewPack: 5000,
       fecha: '2026-01-10 00:00',
-      djNames: ["DIMITRI-K","MC.ROBS","RADICAL REDEMPTION","-"],
+      djNames: ["DIMITRI-K","MC.ROBS","RADICAL REDEMPTION"],
       hojaUrl: "https://script.google.com/macros/s/AKfycbx7KGD2K-BappVRLZPXkIc0f2QJDRgjxWENuCZuNqjPw68ylXfbkaCbYFonLL_4n-c_/exec",
       hojaClientesUrl: "https://script.google.com/macros/s/AKfycbxklOoDJgh0azEcUxxAr8mI6TkA3feUSNxTGIhDWtIMWHw3hrEoBDTOMdsWIBhgs2q3/exec",
       nombreEvento: "HSU / SUPERKLUB",
@@ -481,26 +490,45 @@
     function randomEmoji(){ return EMOJIS_CELEBRA[Math.floor(Math.random()*EMOJIS_CELEBRA.length)] }
     function lanzarConfeti(){ confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 }, zIndex: 3000 }); }
     function stopLoading(){ loadingSpinner.style.display='none'; loadingText.style.display='none'; }
-    function startLoading(){ loadingSpinner.style.display='block'; loadingText.style.display='block'; }
+    /* === Validación y búsqueda con cooldown (2s) === */
+	
+	function isValidEmail(v){
+	  // Validación simple y robusta
+	  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v).toLowerCase());
+	}
 
-    /* === Habilitar/Deshabilitar campos (excepto correo) === */
-    const toggleables = [
-      nombreInput, instagramInput, telefonoInput,
-      document.getElementById('minus-general'),
-      document.getElementById('plus-general'),
-      document.getElementById('minus-crewpack'),
-      document.getElementById('plus-crewpack'),
-      reservarBtn, comprarBtn, document.getElementById('unsubscribe-btn'),
-      document.getElementById('copy-bank-data-btn')
-    ];
-    let isFieldsEnabled = false;
+	// Forzar minúsculas en correo e instagram
+	  correoInput.addEventListener('input', (e)=>{
+	  const cur = e.target.selectionStart;
+	  e.target.value = e.target.value.toLowerCase();
+	  e.target.setSelectionRange(cur, cur);
+	  actualizarTotales(); // << reevalúa botones sin tocar cantidades
+	});
 
-    function setFieldsEnabled(enabled){
-      isFieldsEnabled = !!enabled;
-      toggleables.forEach(el=>{ if(el) el.disabled = !enabled; });
-      actualizarTotales();
-    }
-    setFieldsEnabled(false);
+	instagramInput.addEventListener('input',(e)=>{
+	  const cur = e.target.selectionStart;
+	  e.target.value = e.target.value.replace('@','').toLowerCase();
+	  e.target.setSelectionRange(cur, cur);
+	});
+
+	let emailDebounce = null;
+	function scheduleClienteFrecuenteLookup(){
+	  const v = correoInput.value.trim().toLowerCase();
+	  if(emailDebounce) clearTimeout(emailDebounce);
+	  emailDebounce = setTimeout(()=>{
+		if(isValidEmail(v)){
+		  startLoading();
+		  buscarClienteFrecuente(v);
+		}
+	  }, 2000); // 2 segundos sin tipear
+	}
+
+	// Dispara solo tras “pausa” de 2s y con email válido
+	correoInput.addEventListener('input', scheduleClienteFrecuenteLookup);
+	correoInput.addEventListener('blur', scheduleClienteFrecuenteLookup);
+
+	function startLoading(){ loadingSpinner.style.display='block'; loadingText.style.display='block'; }
+
 
     /* === Totales & cantidad === */
     function actualizarTotales(){
@@ -516,9 +544,15 @@
       descuentoCrewPackEl.textContent=formatPrice(descuentoCrewPack);
       totalAPagarEl.textContent=formatPrice(totalPagar);
 
-      const canAct = isFieldsEnabled && totalEntradas>0;
-      comprarBtn.disabled = !canAct;
-      reservarBtn.disabled = !canAct;
+      
+		/* Botones activos si: entradas>0, email válido, y nombre > 4 chars */
+		const correoOk = isValidEmail(correoInput.value);
+		const nombreOk = (nombreInput.value || '').trim().length > 4;
+		const canAct = (totalEntradas > 0) && correoOk && nombreOk;
+
+		comprarBtn.disabled = !canAct;
+		reservarBtn.disabled = !canAct;
+
     }
 
     document.getElementById("plus-general").addEventListener("click",()=>{
@@ -537,10 +571,14 @@
       qtyGeneralEl.textContent=cantidadGeneral; qtyCrewPackEl.textContent=cantidadCrewPack; actualizarTotales();
     });
 
-    nombreInput.addEventListener("input",(e)=>{
-      let v=e.target.value; e.target.value=v.toLowerCase().split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
-    });
-    instagramInput.addEventListener("input",(e)=>{ e.target.value=e.target.value.replace('@','') });
+    /* Normalizaciones */
+	nombreInput.addEventListener("input",(e)=>{
+	  let v=e.target.value;
+	  e.target.value = v.toLowerCase().split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
+	  actualizarTotales(); // << reevalúa botones si el nombre pasa de / cae bajo 5 chars
+	});
+
+    
     telefonoInput.addEventListener("blur",(e)=>{
       let valor=e.target.value.replace(/[^0-9+]/g,'');
       if(valor.startsWith('+')){ e.target.value=valor; e.target.dataset.clean=valor; return; }
@@ -549,55 +587,57 @@
       e.target.value=prefijo?prefijo+valor:valor; e.target.dataset.clean=e.target.value;
     });
 
-    const TLD_TRIGGER = [".com", ".cl"];
-    function maybeSearchByEmail(){
-      const v = correoInput.value.trim().toLowerCase();
-      if(!v){ stopLoading(); return; }
-      if(TLD_TRIGGER.some(tld => v.includes(tld))){
-        startLoading();
-        buscarClienteFrecuente(v);
-      }
-    }
-    correoInput.addEventListener('keyup', maybeSearchByEmail);
-    correoInput.addEventListener('change', maybeSearchByEmail);
 
+    /* === Buscar en hoja ClientesUrl (A=correo, B=entradas, C=nombre, D=instagram, E=numero) === */
     function buscarClienteFrecuente(correo){
       if(!correo){ stopLoading(); return; }
-      setFieldsEnabled(false);
+      
       const url=`${EVENTO.hojaClientesUrl}?correo=${encodeURIComponent(correo)}`;
       fetch(url).then(r=>r.json()).then(data=>{
         stopLoading();
-			if (data && data.status === 'success') {
-		  // ...(asignaciones existentes a nombre/instagram/telefono/entradasAcumuladas/clienteFrecuenteInfo)
-		  setFieldsEnabled(true);
-		  // ---> pasar al nombre
-		  nombreInput.removeAttribute('disabled');
-		  nombreInput.focus();
-		  nombreInput.select && nombreInput.select();
-		} else {
-		  entradasAcumuladas = 0;
-		  clienteFrecuenteInfo.textContent = '';
-		  clienteFrecuenteInfo.style.display = 'none';
-		  setFieldsEnabled(true);
-		  // ---> pasar al nombre aunque no exista en BD
-		  nombreInput.removeAttribute('disabled');
-		  nombreInput.focus();
-		}
-
-		}).catch(err=>{
-		  console.error('Error al buscar cliente frecuente:',err);
-		  stopLoading();
-		  entradasAcumuladas = 0;
-		  clienteFrecuenteInfo.textContent='';
-		  clienteFrecuenteInfo.style.display='none';
-		  setFieldsEnabled(true);
-		  // ---> NUEVO: igual pasamos al nombre
-		  nombreInput.removeAttribute('disabled');
-		  nombreInput.focus();
-		});
-
+        if(data && data.status==='success'){
+          if(data.nombre && String(data.nombre).trim()){
+            nombreInput.value = String(data.nombre).trim();
+          }
+          if(data.instagram && String(data.instagram).trim()){
+            instagramInput.value = String(data.instagram).trim().replace('@','');
+          }
+          if(data.numero && String(data.numero).trim()){
+            const numeroLimpio = String(data.numero).trim();
+            telefonoInput.value = numeroLimpio;
+            telefonoInput.dataset.clean = numeroLimpio;
+          }
+          const en = Number(data.entradas)||0;
+          entradasAcumuladas = en;
+          if(en>0){
+            const emoji=" "+randomEmoji();
+            clienteFrecuenteInfo.textContent=`¡Cliente frecuente! Llevas ${en} entradas compradas.${emoji}`;
+            clienteFrecuenteInfo.style.display='block';
+            lanzarConfeti();
+          }else{
+            clienteFrecuenteInfo.textContent='';
+            clienteFrecuenteInfo.style.display='none';
+          }
+          
+        }else{
+          entradasAcumuladas = 0;
+          clienteFrecuenteInfo.textContent='';
+          clienteFrecuenteInfo.style.display='none';
+          
+        }
+	}).catch(err=>{
+	  console.error('Error al buscar cliente frecuente:',err);
+	  stopLoading();
+	  entradasAcumuladas = 0;
+	  clienteFrecuenteInfo.textContent='';
+	  clienteFrecuenteInfo.style.display='none';
+	}).finally(()=>{
+	  // << asegúrate que los botones reflejen los campos autocompletados
+	  actualizarTotales();
+	});
     }
 
+    /* === Envío a hoja === */
     function enviarDatos(actionType){
       const correo=document.getElementById("correo").value;
       const nombre=document.getElementById("nombre").value;
@@ -644,6 +684,7 @@
     document.getElementById("reservaForm").addEventListener("submit",handleCompra);
     document.getElementById("reservar-btn").addEventListener("click",handleReserva);
 
+    // “Datos Bancarios”
     document.getElementById("copy-bank-data-btn").addEventListener("click",()=>{
       const correo=correoInput.value.trim();
       const nombre=nombreInput.value.trim();
@@ -668,6 +709,7 @@
       navigator.clipboard.writeText(datos).then(()=>{ console.log("Datos bancarios copiados."); }).catch(err=>{ console.error('Error al copiar: ',err); });
     }
 
+    /* ===== UI corrientes ===== */
     let currentIndex=0;
     function updateDjSlots(){
       const djTop=document.getElementById('dj-top');
@@ -692,7 +734,7 @@
       actualizarTotales();
       clienteFrecuenteInfo.style.display='none'; clienteFrecuenteInfo.textContent='';
       stopLoading();
-      setFieldsEnabled(false);
+      
     }
 
     function showHsuPage(){
@@ -744,7 +786,6 @@
       document.getElementById('full-page-container').style.display='flex';
       document.body.style.overflow='auto';
       document.getElementById('form-section').style.display='block';
-      document.getElementById('confirm-section');
       document.getElementById('confirm-section').style.display='none';
       document.getElementById('unsubscribe-section').style.display='none';
       document.getElementById('reserva-confirm-section').style.display='none';
@@ -764,6 +805,7 @@
       unsubscribeCorreoInput.value=correoInput.value;
     });
 
+    /* Init */
     window.onload=function(){
       setTimeout(()=>{ if(typeof CountdownTimer!=='undefined'){ CountdownTimer.init({ selector:'.countdown-timer', style:'columns', timezone:'America/Santiago', language:'es', date:EVENTO.fecha, textcolor:'#ffffff', digitscolor:'#ffffff', unitscolor:'#ffffff' }); } },500);
       const djTop=document.getElementById('dj-top'), djMiddle=document.getElementById('dj-middle'), djBottom=document.getElementById('dj-bottom');
@@ -776,87 +818,5 @@
       actualizarTotales();
     };
   </script>
-
-  <!-- === Componente A-Frame: gyro-wobble === -->
-  <script>
-    (function(){
-      const clamp = (v,min,max)=>Math.min(Math.max(v,min),max);
-
-      AFRAME.registerComponent('gyro-wobble',{
-        schema:{
-          sensitivity:{type:'number', default:0.2},
-          returnSpeed:{type:'number', default:0.08}, // 0..1 por segundo
-          maxOffset:{type:'vec3', default:{x:0.22,y:0.16,z:0}}
-        },
-        init:function(){
-          const el = this.el;
-          // posición base
-          this.base = el.object3D.position.clone();
-          this.offset = new THREE.Vector3(0,0,0);
-          this.target = new THREE.Vector3(0,0,0);
-          this._lastT = performance.now();
-
-          // Lectura de orientación
-          this._onOrient = (e)=>{
-            // beta: inclinación adelante/atrás (-180..180) | gamma: izquierda/derecha (-90..90)
-            const betaNorm  = clamp((e.beta||0)/45, -1, 1);   // sensibilidad suave
-            const gammaNorm = clamp((e.gamma||0)/45, -1, 1);
-
-            const sens = this.data.sensitivity;
-            const mx = this.data.maxOffset.x, my = this.data.maxOffset.y, mz = this.data.maxOffset.z;
-
-            // Mapeo: gamma → X, beta → Y (sujeto a límites)
-            const tx = clamp(gammaNorm * mx * sens, -mx, mx);
-            const ty = clamp(betaNorm  * my * sens, -my, my);
-            const tz = 0 * mz;
-
-            this.target.set(tx, ty, tz);
-          };
-
-          // Suscripción a deviceorientation
-          if (typeof window !== 'undefined'){
-            window.addEventListener('deviceorientation', this._onOrient, true);
-          }
-        },
-        tick:function(time, delta){
-          const dt = Math.max(0.001, (delta||16)/1000); // s
-          // 1) acercar offset hacia "target" (suavizado de reacción)
-          this.offset.lerp(this.target, 0.15);
-
-          // 2) amortiguar target hacia cero (retorno suave a la base)
-          const r = clamp(this.data.returnSpeed * dt, 0, 0.35);
-          this.target.lerp(new THREE.Vector3(0,0,0), r);
-
-          // 3) aplicar a posición
-          const newPos = new THREE.Vector3().copy(this.base).add(this.offset);
-          this.el.object3D.position.copy(newPos);
-        },
-        remove:function(){
-          if (typeof window !== 'undefined' && this._onOrient){
-            window.removeEventListener('deviceorientation', this._onOrient, true);
-          }
-        }
-      });
-    })();
-  </script>
-  <script>
-  // Bloquear Ctrl/Cmd + rueda y Ctrl/Cmd +/- (desktop)
-  window.addEventListener('wheel', function (e) {
-    if (e.ctrlKey) { e.preventDefault(); }
-  }, { passive: false });
-
-  window.addEventListener('keydown', function (e) {
-    const key = e.key || '';
-    if ((e.ctrlKey || e.metaKey) && (key === '+' || key === '-' || key === '=')) {
-      e.preventDefault();
-    }
-  });
-
-  // Bloquear gesto nativo de zoom en iOS Safari
-  window.addEventListener('gesturestart', function (e) {
-    e.preventDefault();
-  }, { passive: false });
-</script>
-
 </body>
 </html>
