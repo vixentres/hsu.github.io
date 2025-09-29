@@ -292,7 +292,7 @@
         scale="-0.5 0.5 0.5"
         animation="property: rotation; from: 0 -15 0; to: 0 15 0; dir: alternate; dur: 2300; easing: easeInOutSine; loop: true;"
         look-at="[camera]"
-        gyro-wobble="sensitivity:0.2; returnSpeed:0.08; maxOffset:0.22 0.16 0">
+        gyro-wobble="sensitivity:0.12; returnSpeed:0.12; maxOffset:0.14 0.10 0">
       </a-entity>
 
       <!-- Indicador en el piso (igual que antes) -->
@@ -823,7 +823,7 @@
         tick:function(time, delta){
           const dt = Math.max(0.001, (delta||16)/1000); // s
           // 1) acercar offset hacia "target" (suavizado de reacción)
-          this.offset.lerp(this.target, 0.15);
+          this.offset.lerp(this.target, 0.08); // antes 0.15 → responde más lento/suave
 
           // 2) amortiguar target hacia cero (retorno suave a la base)
           const r = clamp(this.data.returnSpeed * dt, 0, 0.35);
