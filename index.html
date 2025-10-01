@@ -239,6 +239,13 @@
       .btn{ padding:9px 11px; font-size:14px }
       .actions-quad{ grid-template-columns:1fr 1fr }
     }
+	.credit-text {
+	  text-align: center;
+	  font-size: 0.85em;   /* un poco más pequeño que el texto normal */
+	  color: #777;        /* gris medio */
+	  margin-top: 8px;    /* separación del botón */
+	  font-weight: 500;   /* opcional, para que no se vea tan débil */
+	}
   </style>
 </head>
 
@@ -341,7 +348,7 @@
         </div>
         <div class="loading-text" id="loading-text" style="display:none;">Buscando perfil...</div>
 
-		<label for="nombre">Nombre completo</label>
+		<label for="nombre">Nombre*</label>
 		<input type="text" id="nombre" name="nombre" placeholder="Harder Style United" required>
 
 		<label for="telefono">Número de contacto</label>
@@ -387,9 +394,12 @@
             <button type="button" class="btn" id="unsubscribe-btn" >Desuscribirse</button>
             <button type="button" class="btn" id="copy-bank-data-btn" >Datos Bancarios</button>
           </div>
+<div class="actions" style="margin-top:14px; justify-content:space-between; align-items:center; width:100%;">
+  <button type="button" class="btn" onclick="showHsuPage()">Volver</button>
+  <span class="credit-text">por @vixentres._</span>
+</div>
 
-          <div class="actions" style="margin-top:14px;">
-            <button type="button" class="btn" onclick="showHsuPage()">Volver</button>
+
           </div>
         </div>
       </form>
