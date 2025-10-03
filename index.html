@@ -8,10 +8,10 @@
   <title>HSU / SUPERKLUB</title>
 
   <link rel="canonical" href="https://vixentres.github.io/hsu.github.io/" />
-  <meta name="description" content="| HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._"/>
+  <meta name="description" content="| HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._"/> // aqui 40
   <meta name="robots" content="index,follow" />
   
-  <meta property="og:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._" />
+  <meta property="og:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._" /> // aqui 40
   <meta property="og:description" content="⛓ Vicente 🌹 (@vixentres._) 3,928 seguidores, 1,349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram" />
   <meta property="og:image" content="https://vixentres.github.io/hsu.github.io/banner%201.jpg" />
   <meta property="og:image:width" content="1200" />
@@ -21,16 +21,13 @@
   <meta property="og:site_name" content="HSU / SUPERKLUB" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._" />
+  <meta name="twitter:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._" /> // aqui 40
   <meta name="twitter:description" content="⛓ Vicente 🌹 (@vixentres._) 3,928 seguidores, 1.349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram" />
   <meta name="twitter:image" content="https://vixentres.github.io/hsu.github.io/banner%201.jpg" />
 
-  <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
-  <!-- Countdown -->
   <script src="https://cdn.logwork.com/widget/countdown.js"></script>
-  <!-- Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.0/dist/confetti.browser.js"></script>
 
   <style>
@@ -243,7 +240,6 @@
 </head>
 
 <body>
-  <!-- Barras -->
   <div id="top-scrolling-banner"><div id="top-scrolling-banner-content"></div></div>
 
   <div id="hsu-content">
@@ -258,12 +254,10 @@
       <div class="dj-name-item" id="dj-bottom"></div>
     </div>
 
-    <!-- CTA -->
     <div id="centered-bottom-text">
-      <a href="#" class="register-text" id="register-link">&gt; REGÍSTRATE &lt;</a>
+      <a href="#" class="register-text" id="register-link">> REGÍSTRATE <</a>
     </div>
 
-    <!-- Botones bajo CTA -->
     <div id="cta-buttons">
       <a href="https://www.ticketmaster.cl/event/superklub-centro-parque-2026-vicente-medel" target="_blank" class="svg-button" aria-label="Ticketmaster">
         <svg viewBox="0 0 24 24"><circle cx="7" cy="22" r="2"/><circle cx="17" cy="22" r="2"/><path d="M23.685,1.336a1,1,0,0,0-1.414,0L17.112,6.5,15.561,4.881a1,1,0,0,0-1.442,1.386l1.614,1.679a1.872,1.872,0,0,0,1.345.6h.033a1.873,1.873,0,0,0,1.335-.553L23.685,2.75A1,1,0,0,0,23.685,1.336Z"/><path d="M21.9,9.016a1,1,0,0,0-1.162.807l-.128.709A3,3,0,0,1,17.657,13H5.418l-.94-8H11a1,1,0,0,0,0-2H4.242L4.2,2.648A3,3,0,0,0,1.222,0H1A1,1,0,0,0,1,2h.222a1,1,0,0,1,.993.883l1.376,11.7A5,5,0,0,0,8.557,19H19a1,1,0,0,0,0-2H8.557a3,3,0,0,1-2.829-2H17.657a5,5,0,0,0,4.921-4.113l.128-.71A1,1,0,0,0,21.9,9.016Z"/></svg>
@@ -279,7 +273,6 @@
       </a>
     </div>
 
-    <!-- ESCENA A-FRAME -->
     <a-scene embedded vr-mode-ui="enabled:false" id="scene-container">
       <a-assets>
         <a-asset-item id="logo3d" src="https://vixentres.github.io/hsu.github.io/Crown.glb"></a-asset-item>
@@ -322,14 +315,12 @@
     </a-scene>
   </div>
 
-  <!-- Overlay formulario -->
   <div id="full-page-container">
     <div class="form-container" id="form-section">
       <div class="form-buttons-row"></div>
       <h2>COMPRA / RESERVA <br> TUS ENTRADAS</h2>
 
       <form id="reservaForm">
-        <!-- Mensaje de cliente frecuente -->
         <div class="cliente-frecuente-container">
           <span class="cliente-frecuente-message" id="cliente-frecuente-info" style="display:none;"></span>
         </div>
@@ -352,7 +343,7 @@
 
 
         <div class="item">
-          <div><h5 id="tipo-entrada-general"><b class="bold-label">Entrada General (1x)</b> <span>$46.000</span></h5></div>
+          <div><h5 id="tipo-entrada-general"><b class="bold-label">Entrada General (1x)</b> <span id="precio-general-con-cargo">$46.000</span></h5></div> 
           <div class="controls">
             <button type="button" class="btn" id="minus-general" >-</button>
             <div class="qty" id="qty-general">1</div>
@@ -361,7 +352,7 @@
         </div>
 
         <div class="item">
-          <div><h5 id="tipo-entrada-crewpack"><b class="bold-label">CrewPack (5x)</b> <span>$230.000</span></h5></div>
+          <div><h5 id="tipo-entrada-crewpack"><b class="bold-label">CrewPack (5x)</b> <span id="precio-crewpack-con-cargo">$230.000</span></h5></div>  
           <div class="controls">
             <button type="button" class="btn" id="minus-crewpack" >-</button>
             <div class="qty" id="qty-crewpack">0</div>
@@ -369,17 +360,15 @@
           </div>
         </div>
 
-        <!-- Resumen -->
         <h3 class="resumen-title">Resumen de compra</h3>
         <div class="total-box">
           <div class="total-row"><span id="label-cantidad-entradas">Cantidad de entradas</span><span id="cantidad-entradas">1</span></div>
           <div class="total-row"><span id="label-precio-total">Precio total</span><span id="precio-total">$46.000</span></div>
-          <div class="total-row"><span>Descuento sin cargo 15%</span><span class="tachado-rojo" id="descuento-general">$6.000</span></div>
+          <div class="total-row"><span>Descuento sin cargo 15%</span><span class="tachado-rojo" id="descuento-general">$6.000</span></div> 
           <div class="total-row"><span>Descuento crewpack</span><span class="tachado-rojo" id="descuento-crewpack">$0</span></div>
-          <div class="total-row total"><span>Total a pagar</span><span id="total-a-pagar">$40.000</span></div>
+          <div class="total-row total"><span>Total a pagar</span><span id="total-a-pagar">$40.000</span></div> 
         </div>
 
-        <!-- Botonera 2×2 -->
         <div class="form-actions">
           <div class="actions-quad">
             <button type="button" class="btn" id="reservar-btn" disabled>Reservar</button>
@@ -395,7 +384,6 @@
       </form>
     </div>
 
-    <!-- CONFIRM COMPRA -->
     <div class="form-container" id="confirm-section" style="display:none;">
       <h2 class="title">¡Gracias por tu confianza y preferencia!</h2>
       <p style="text-align:center; margin-bottom:12px;" id="confirmation-message"></p>
@@ -417,7 +405,6 @@
       </div>
     </div>
 
-    <!-- CONFIRM RESERVA -->
     <div class="form-container" id="reserva-confirm-section" style="display:none;">
       <h2 class="title">¡Gracias por tu reserva!</h2>
       <p style="text-align:center; margin-bottom:12px;" id="reservation-message"></p>
@@ -439,7 +426,6 @@
       </div>
     </div>
 
-    <!-- DESUSCRIPCIÓN -->
     <div class="form-container" id="unsubscribe-section" style="display:none;">
       <h2 class="title">Desuscribirse</h2>
       <p style="text-align:center; margin-bottom:20px;">¿Deseas no recibir más información o dejar de participar en posibles sorteos por parte del vendedor?</p>
@@ -457,10 +443,24 @@
   <script>
     /* === Config / estado === */
     const EVENTO = {
-      precioEntradaGeneral: 46000,
-      precioCrewPack: 230000,
-      descuentoGeneral: 6000,
-      descuentoCrewPack: 0,
+      // ///////////////////////////////////////////////////////////////////////////////////////////////////////
+      // // todo: PRECIOS - Solo modificar los dos valores MANUALES. El resto se calcula solo.
+      // ///////////////////////////////////////////////////////////////////////////////////////////////////////
+      // === VALORES MANUALES (¡Solo modificar estos dos!) ===
+      precioUnitarioSinCargo: 40000, // <--- Este es el precio base de la entrada sin el 15% de cargo
+      descuentoCrewPackManual: 3000,    // <--- Valor de descuento fijo adicional (fijo) por CrewPack (manual)
+
+      // === VALORES CALCULADOS (No modificar) ===
+      get cargoPorServicio() { return Math.round(this.precioUnitarioSinCargo * 0.15); }, // Precio unitario * 15%
+      // precioEntradaGeneral: 46000, // ahora calculado
+      get precioEntradaGeneral() { return this.precioUnitarioSinCargo + this.cargoPorServicio; },
+      // precioCrewPack: 230000, // ahora calculado
+      get precioCrewPack() { return this.precioEntradaGeneral * 5; }, 
+      // descuentoGeneral: 6000, // ahora calculado
+      get descuentoGeneral() { return this.cargoPorServicio; }, // El cargo por servicio unitario
+      // descuentoCrewPack: 0, // ahora usa el manual
+      get descuentoCrewPack() { return this.descuentoCrewPackManual; }, // Descuento fijo adicional por CrewPack
+
       fecha: '2026-01-10 00:00',
       djNames: ["DIMITRI-K","MC.ROBS","RADICAL REDEMPTION"],
       hojaUrl: "https://script.google.com/macros/s/AKfycbx7KGD2K-BappVRLZPXkIc0f2QJDRgjxWENuCZuNqjPw68ylXfbkaCbYFonLL_4n-c_/exec",
@@ -495,6 +495,10 @@
     const reservationMessageEl=document.getElementById("reservation-message");
     const entradasAcumuladasCompraEl=document.getElementById("entradas-acumuladas-compra");
     const entradasAcumuladasReservaEl=document.getElementById("entradas-acumuladas-reserva");
+    
+    // Nueva Referencias DOM para los precios en el formulario
+    const precioGeneralConCargoEl = document.getElementById("precio-general-con-cargo");
+    const precioCrewPackConCargoEl = document.getElementById("precio-crewpack-con-cargo");
 
     /* === Utils === */
     function formatPrice(v){ return `$${v.toLocaleString("es-CL")}` }
@@ -545,6 +549,8 @@
     /* === Totales & cantidad === */
     function actualizarTotales(){
       const totalEntradas=cantidadGeneral+(cantidadCrewPack*5);
+      
+      // La función usa las claves, que ahora son getters en EVENTO y funcionan con la lógica solicitada.
       const precioTotal=(cantidadGeneral*EVENTO.precioEntradaGeneral)+(cantidadCrewPack*EVENTO.precioCrewPack);
       const descuentoSinCargo=(cantidadGeneral+(cantidadCrewPack*5))*EVENTO.descuentoGeneral;
       const descuentoCrewPack=cantidadCrewPack*EVENTO.descuentoCrewPack;
@@ -656,6 +662,7 @@
       const instagram=document.getElementById("instagram").value;
       const telefono=document.getElementById("telefono").dataset.clean || document.getElementById("telefono").value;
 
+      // Se usa la lógica del cálculo, que es correcta
       const totalPagar=(cantidadGeneral*EVENTO.precioEntradaGeneral)+(cantidadCrewPack*EVENTO.precioCrewPack)-((cantidadGeneral+(cantidadCrewPack*5))*EVENTO.descuentoGeneral+cantidadCrewPack*EVENTO.descuentoCrewPack);
       let cantidadFinal=cantidadGeneral+(cantidadCrewPack*5);
 
@@ -819,6 +826,29 @@
 
     /* Init */
     window.onload=function(){
+      
+      // 1. Actualizar precios en el formulario (con cargo)
+      if (precioGeneralConCargoEl) precioGeneralConCargoEl.textContent = formatPrice(EVENTO.precioEntradaGeneral);
+      if (precioCrewPackConCargoEl) precioCrewPackConCargoEl.textContent = formatPrice(EVENTO.precioCrewPack);
+
+      // 2. Actualizar meta etiquetas con precio abreviado (40K)
+      const precioK = Math.round(EVENTO.precioUnitarioSinCargo / 1000);
+      const precioKString = `${precioK}K`;
+
+      const descMeta = document.querySelector('meta[name="description"]');
+      if (descMeta) {
+          descMeta.setAttribute('content', descMeta.getAttribute('content').replace('40K', precioKString));
+      }
+      const ogTitleMeta = document.querySelector('meta[property="og:title"]');
+      if (ogTitleMeta) {
+          ogTitleMeta.setAttribute('content', ogTitleMeta.getAttribute('content').replace('40K', precioKString));
+      }
+      const twitterTitleMeta = document.querySelector('meta[name="twitter:title"]');
+      if (twitterTitleMeta) {
+          twitterTitleMeta.setAttribute('content', twitterTitleMeta.getAttribute('content').replace('40K', precioKString));
+      }
+      
+      // 3. Resto de inicialización
       setTimeout(()=>{ if(typeof CountdownTimer!=='undefined'){ CountdownTimer.init({ selector:'.countdown-timer', style:'columns', timezone:'America/Santiago', language:'es', date:EVENTO.fecha, textcolor:'#ffffff', digitscolor:'#ffffff', unitscolor:'#ffffff' }); } },500);
       const djTop=document.getElementById('dj-top'), djMiddle=document.getElementById('dj-middle'), djBottom=document.getElementById('dj-bottom');
       currentIndex=0;
