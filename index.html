@@ -41,8 +41,8 @@
     :root{
       --btn-size:70px;
       --btn-gap:16px;
-      --title-size:4em; /* Valor base */
-      --countdown-top:140px; /* Valor base */
+      --title-size:4em;
+      --countdown-top:140px;
       --banner-h:40px;
       --azul:#024ddf;
       --magenta:#ff2aa6;
@@ -86,7 +86,7 @@
     #countdown-container{
       position:fixed; top:var(--countdown-top); width:100%; text-align:center; padding:10px 0; background:rgba(0,0,0,.7); z-index:1400; pointer-events:none;
     }
-    .countdown-timer{ font-size:1.5em; color:#fff; text-shadow:1px 1px 3px rgba(0,0,0,.8) } /* Valor base */
+    .countdown-timer{ font-size:1.5em; color:#fff; text-shadow:1px 1px 3px rgba(0,0,0,.8) }
 
     /* ===== DJs (listado rotativo) ===== */
     #dj-scroller-container{
@@ -95,7 +95,7 @@
       display:flex; flex-direction:column; justify-content:center; align-items:center;
     }
     .dj-name-item{ font-size:2em; transition:all .5s; white-space:nowrap; line-height:1.2; height:50px; display:flex; align-items:center; justify-content:center; opacity:.3; font-family:'Authority Regular',sans-serif }
-    .dj-name-item.center{ font-size:3.5em; opacity:1 } /* Valor base */
+    .dj-name-item.center{ font-size:3.5em; opacity:1 }
 
     /* ===== CTA principal ===== */
     #centered-bottom-text{
@@ -217,7 +217,7 @@
     body.form-mode #top-scrolling-banner-content,
     body.form-mode #scrolling-banner-content{ opacity:.8; filter:contrast(.9) brightness(.8); }
 
-    /* ===== Responsive - TABLET/MÓVIL MÁS GRANDE (hasta 768px) ===== */
+    /* ===== Responsive ===== */
     @media (max-width:768px){
       :root{ --btn-size:60px; --btn-gap:14px; --title-size:2.6em; --countdown-top:100px; --banner-h:34px }
       .countdown-timer{ font-size:1.15em }
@@ -228,7 +228,6 @@
       #cta-buttons{ bottom:88px }
       .btn{ padding:10px 12px; font-size:15px }
     }
-    /* ===== Responsive - MÓVIL PEQUEÑO (hasta 480px) ===== */
     @media (max-width:480px){
       :root{ --btn-size:50px; --btn-gap:12px; --title-size:2em; --countdown-top:88px; --banner-h:30px }
       #superklub-title{ top:calc(var(--banner-h) + 6px) }
@@ -238,29 +237,6 @@
       .form-container{ width:96vw; max-height:86vh; padding:16px }
       .btn{ padding:9px 11px; font-size:14px }
       .actions-quad{ grid-template-columns:1fr 1fr }
-    }
-    
-    /* ===== OPTIMIZACIÓN ESCRITORIO (min-width: 769px) ===== */
-    @media (min-width:769px) {
-        :root {
-            --title-size: 6em; /* Título más grande para impacto */
-            --countdown-top: 170px; /* Contador más bajo */
-            --btn-size: 80px; /* Botones un poco más grandes */
-            --banner-h: 45px; /* Banners un poco más altos */
-        }
-        #superklub-title { top: calc(var(--banner-h) + 12px); }
-        .countdown-timer { font-size: 2.2em; } /* Reloj más grande */
-        #dj-scroller-container { 
-            bottom: 250px; /* Lista de DJs más abajo */
-            height: 180px; /* Más altura para separación */
-        }
-        .dj-name-item { font-size: 2.5em; height: 60px; }
-        .dj-name-item.center { font-size: 4.5em; } /* DJ central más grande */
-        #centered-bottom-text { bottom: 170px; } /* CTA más centrado */
-        #cta-buttons { bottom: 65px; } /* Fila de botones más arriba */
-        
-        /* Ajuste de formulario para monitores muy grandes */
-        .form-container { width: 480px; max-width: 90vw; }
     }
   </style>
 </head>
