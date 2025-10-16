@@ -41,8 +41,8 @@
     :root{
       --btn-size:70px;
       --btn-gap:16px;
-      --title-size:4em;
-      --countdown-top:140px;
+      --title-size:4em; /* Valor base */
+      --countdown-top:140px; /* Valor base */
       --banner-h:40px;
       --azul:#024ddf;
       --magenta:#ff2aa6;
@@ -86,7 +86,7 @@
     #countdown-container{
       position:fixed; top:var(--countdown-top); width:100%; text-align:center; padding:10px 0; background:rgba(0,0,0,.7); z-index:1400; pointer-events:none;
     }
-    .countdown-timer{ font-size:1.5em; color:#fff; text-shadow:1px 1px 3px rgba(0,0,0,.8) }
+    .countdown-timer{ font-size:1.5em; color:#fff; text-shadow:1px 1px 3px rgba(0,0,0,.8) } /* Valor base */
 
     /* ===== DJs (listado rotativo) ===== */
     #dj-scroller-container{
@@ -95,11 +95,11 @@
       display:flex; flex-direction:column; justify-content:center; align-items:center;
     }
     .dj-name-item{ font-size:2em; transition:all .5s; white-space:nowrap; line-height:1.2; height:50px; display:flex; align-items:center; justify-content:center; opacity:.3; font-family:'Authority Regular',sans-serif }
-    .dj-name-item.center{ font-size:3.5em; opacity:1 }
+    .dj-name-item.center{ font-size:3.5em; opacity:1 } /* Valor base */
 
     /* ===== CTA principal ===== */
     #centered-bottom-text{
-      position:fixed; bottom:170px; width:100%; text-align:center; z-index:2100; pointer-events:auto
+      position:fixed; bottom:140px; width:100%; text-align:center; z-index:2100; pointer-events:auto
     }
 
     .register-text{
@@ -145,9 +145,13 @@
     .register-text:hover{ transform:scale(1.06); box-shadow:0 0 24px rgba(0,255,255,.55), inset 0 0 12px rgba(0,255,255,.18); filter:saturate(1.07) }
     @keyframes ctaBreathe{ 0%,100%{ transform:scale(1) } 50%{ transform:scale(1.035) } }
 
+    /* Garantizar que el CTA quede por encima de los botones */
+    #centered-bottom-text{ position:fixed; z-index:2100 }
+    #cta-buttons{ z-index:2000 }
+
     /* ===== Fila de botones bajo “REGÍSTRATE” ===== */
     #cta-buttons{
-      position:fixed; bottom:95px; width:100%; z-index:2000; display:flex; justify-content:center; gap:var(--btn-gap); padding:0 16px;
+      position:fixed; bottom:50px; width:100%; z-index:2000; display:flex; justify-content:center; gap:var(--btn-gap); padding:0 16px;
     }
     .svg-button{
       width:var(--btn-size); height:var(--btn-size); border-radius:50%; background:rgba(255,255,255,.1);
@@ -157,10 +161,6 @@
     .svg-button:hover{ transform:scale(1.1); box-shadow:0 0 20px rgba(0,255,255,.8),0 0 30px rgba(0,255,255,.6) }
     .svg-button svg{ width:60%; height:60%; fill:#fff; filter:drop-shadow(0 0 5px rgba(0,255,255,.7)) }
     @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,255,255,.7)}70%{box-shadow:0 0 0 15px rgba(0,255,255,0)}100%{box-shadow:0 0 0 0 rgba(0,255,255,0)}}
-
-    /* Garantizar que el CTA quede por encima de los botones */
-    #centered-bottom-text{ position:fixed; z-index:2100 }
-    #cta-buttons{ z-index:2000 }
 
     /* ===== A-Frame ===== */
     a-scene#scene-container{ width:100%; height:100%; position:fixed; top:0; left:0; z-index:1 }
@@ -207,6 +207,8 @@
     .actions-quad .btn{ width:100% }
     .actions{ display:flex; justify-content:center; gap:14px; margin-top:18px }
     #bank-info{ display:none }
+    
+    .initial-hidden{ display: none; }
 
     /* ===== Modo formulario: ver sólo bandas ===== */
     body.form-mode #hsu-content{ opacity:0; pointer-events:none; }
@@ -215,7 +217,7 @@
     body.form-mode #top-scrolling-banner-content,
     body.form-mode #scrolling-banner-content{ opacity:.8; filter:contrast(.9) brightness(.8); }
 
-    /* ===== Responsive ===== */
+    /* ===== Responsive - TABLET/MÓVIL MÁS GRANDE (hasta 768px) ===== */
     @media (max-width:768px){
       :root{ --btn-size:60px; --btn-gap:14px; --title-size:2.6em; --countdown-top:100px; --banner-h:34px }
       .countdown-timer{ font-size:1.15em }
@@ -226,6 +228,7 @@
       #cta-buttons{ bottom:88px }
       .btn{ padding:10px 12px; font-size:15px }
     }
+    /* ===== Responsive - MÓVIL PEQUEÑO (hasta 480px) ===== */
     @media (max-width:480px){
       :root{ --btn-size:50px; --btn-gap:12px; --title-size:2em; --countdown-top:88px; --banner-h:30px }
       #superklub-title{ top:calc(var(--banner-h) + 6px) }
@@ -235,6 +238,29 @@
       .form-container{ width:96vw; max-height:86vh; padding:16px }
       .btn{ padding:9px 11px; font-size:14px }
       .actions-quad{ grid-template-columns:1fr 1fr }
+    }
+    
+    /* ===== OPTIMIZACIÓN ESCRITORIO (min-width: 769px) ===== */
+    @media (min-width:769px) {
+        :root {
+            --title-size: 6em; /* Título más grande para impacto */
+            --countdown-top: 170px; /* Contador más bajo */
+            --btn-size: 80px; /* Botones un poco más grandes */
+            --banner-h: 45px; /* Banners un poco más altos */
+        }
+        #superklub-title { top: calc(var(--banner-h) + 12px); }
+        .countdown-timer { font-size: 2.2em; } /* Reloj más grande */
+        #dj-scroller-container { 
+            bottom: 250px; /* Lista de DJs más abajo */
+            height: 180px; /* Más altura para separación */
+        }
+        .dj-name-item { font-size: 2.5em; height: 60px; }
+        .dj-name-item.center { font-size: 4.5em; } /* DJ central más grande */
+        #centered-bottom-text { bottom: 170px; } /* CTA más centrado */
+        #cta-buttons { bottom: 65px; } /* Fila de botones más arriba */
+        
+        /* Ajuste de formulario para monitores muy grandes */
+        .form-container { width: 480px; max-width: 90vw; }
     }
   </style>
 </head>
@@ -266,14 +292,14 @@
         <svg viewBox="0 0 24 24"><path d="M12,0C5.373,0,0,5.373,0,12c0,6.628,5.373,12,12,12c6.628,0,12-5.372,12-12C24,5.373,18.628,0,12,0z M17.503,17.308c-0.216,0.354-0.676,0.464-1.028,0.249c-2.818-1.722-6.365-2.111-10.542-1.157c-0.403,0.092-0.804-0.16-0.896-0.562c-0.092-0.402,0.159-0.804,0.563-0.895c4.571-1.045,8.492-0.595,11.655,1.338C17.608,16.495,17.719,16.956,17.503,17.308zM18.972,14.041c-0.271,0.44-0.847,0.578-1.287,0.308c-3.225-1.982-8.142-2.557-11.958-1.398C5.233,13.1,4.71,12.821,4.56,12.327c-0.149-0.495,0.13-1.016,0.624-1.167c4.358-1.323,9.776-0.682,13.48,1.594C19.104,13.025,19.242,13.601,18.972,14.041zM19.098,10.638C15.23,8.341,8.85,8.13,5.157,9.251c-0.593,0.18-1.22-0.155-1.4-0.748c-0.18-0.593,0.155-1.22,0.748-1.4c4.239-1.287,11.285-1.038,15.738,1.605c0.533,0.317,0.708,1.005,0.392,1.538C20.32,10.779,19.63,10.955,19.098,10.638z"/></svg>
       </a>
       <a href="https://www.instagram.com/vixentres._/" target="_blank" class="svg-button" aria-label="Instagram">
-        <svg viewBox="0 0 24 24"><path style="fill-rule:evenodd;clip-rule:evenodd;" d="M12,2.162c3.204,0,3.584,0.012,4.849,0.07c1.308,0.06,2.655,0.358,3.608,1.311c0.962,0.962,1.251,2.296,1.311,3.608c0.058,1.265,0.07,1.645,0.07,4.849c0,3.204-0.012,3.584-0.07,4.849c-0.059,1.301-0.364,2.661-1.311,3.608c-0.962,0.962-2.295,1.251-3.608,1.311c-1.265,0.058-1.645,0.07-4.849,0.07s-3.584-0.012-4.849-0.07c-1.291-0.059-2.669-0.371-3.608-1.311c-0.957-0.957-1.251-2.304-1.311-3.608c-0.058-1.265-0.07-1.645-0.07-4.849c0-3.204,0.012-3.584,0.07-4.849c0.059-1.296,0.367-2.664,1.311-3.608c0.96-0.96,2.299-1.251,3.608-1.311C8.416,2.174,8.796,2.162,12,2.162 M12,0C8.741,0,8.332,0.014,7.052,0.072C5.197,0.157,3.355,0.673,2.014,2.014C0.668,3.36,0.157,5.198,0.072,7.052C0.014,8.332,0,8.741,0,12c0,3.259,0,3.668,0.072,4.948c0.085,1.853,0.603,3.7,1.942,5.038c1.345,1.345,3.186,1.857,5.038,1.942C8.332,23.986,8.741,24,12,24c3.259,0,3.668-0.014,4.948-0.072c1.854-0.085,3.698-0.602,5.038-1.942c1.347-1.347,1.857-3.184,1.942-5.038C23.986,15.668,24,15.259,24,12c0-3.259-0.014-3.668-0.072-4.948c-0.085-1.855-0.602-3.698-1.942-5.038c-1.343-1.343-3.189-1.858-5.038-1.942C15.668,0.014,15.259,0,12,0z"/><path d="M12,5.838c-3.403,0-6.162,2.759-6.162,6.162c0,3.403,2.759,6.162,6.162,6.162s6.162-2.759,6.162-6.162C18.162,8.597,15.403,5.838,12,5.838z M12,16c-2.209,0-4-1.791-4-4s1.791-4,4-4s4,1.791,4,4S14.209,16,12,16z"/><circle cx="18.406" cy="5.594" r="1.44"/></svg>
+        <svg viewBox="0 0 24 24"><path style="fill-rule:evenodd;clip-rule:evenodd;" d="M12,2.162c3.204,0,3.584,0.012,4.849,0.07c1.308,0.06,2.655,0.358,3.608,1.311c0.962,0.962,1.251,2.296,1.311,3.608c0.058,1.265,0.07,1.645,0.07,4.849c0,3.204-0.012,3.584-0.07,4.849c-0.059,1.301-0.364,2.661-1.311,3.608c-0.962,0.962-2.295,1.251-3.608,1.311c-1.265,0.058-1.645,0.07-4.849,0.07s-3.584-0.012-4.849-0.07c-1.291-0.059-2.669-0.371-3.608-1.311c-0.957-0.957-1.251-2.304-1.311-3.608c-0.058-1.265-0.07-1.645-0.07-4.849c0-3.204,0.012-3.584,0.07-4.849c0.059-1.296,0.367-2.664,1.311-3.608c0.96-0.96,2.299-1.251,3.608-1.311C8.416,2.174,8.796,2.162,12,2.162 M12,0C8.741,0,8.332,0.014,7.052,0.072C5.197,0.157,3.355,0.673,2.014,2.014C0.668,3.36,0.157,5.198,0.072,7.052C0.014,8.332,0,8.741,0,12c0,3.259,0,3.668,0.072,4.948c0.085,1.853,0.603,3.7,1.942,5.038c1.345,1.345,3.186,1.857,5.038,1.942C8.332,23.986,8.741,24,12,24c3.259,0,3.668-0.014,4.948-0.072c1.854-0.085,3.698-0.602,5.038-1.942c1.345-1.345,1.857-3.184,1.942-5.038C23.986,15.668,24,15.259,24,12c0-3.259-0.014-3.668-0.072-4.948c-0.085-1.855-0.602-3.698-1.942-5.038c-1.343-1.343-3.189-1.858-5.038-1.942C15.668,0.014,15.259,0,12,0z"/><path d="M12,5.838c-3.403,0-6.162,2.759-6.162,6.162c0,3.403,2.759,6.162,6.162,6.162s6.162-2.759,6.162-6.162C18.162,8.597,15.403,5.838,12,5.838z M12,16c-2.209,0-4-1.791-4-4s1.791-4,4-4s4,1.791,4,4S14.209,16,12,16z"/><circle cx="18.406" cy="5.594" r="1.44"/></svg>
       </a>
       <a href="https://wa.me/56987421967?text=Hola%20!!!%20tienes%20entradas%20para%20HSU%20%3F%3F" target="_blank" class="svg-button" aria-label="WhatsApp">
         <svg viewBox="0 0 24 24"><path d="M20.463,3.488C18.217,1.24,15.231,0.001,12.05,0C5.495,0,0.16,5.334,0.157,11.892c-0.001,2.096,0.547,4.142,1.588,5.946L0.057,24l6.304-1.654c1.737,0.948,3.693,1.447,5.683,1.448h0.005c6.554,0,11.89-5.335,11.893-11.893C23.944,8.724,22.708,5.735,20.463,3.488zM12.05,21.785h-0.004c-1.774,0-3.513-0.477-5.031-1.378l-0.361-0.214l-3.741,0.981l0.999-3.648l-0.235-0.374c-0.99-1.574-1.512-3.393-1.511-5.26c0.002-5.45,4.437-9.884,9.889-9.884c2.64,0,5.122,1.03,6.988,2.898c1.866,1.869,2.893,4.352,2.892,6.993C21.932,17.351,17.498,21.785,12.05,21.785zM17.472,14.382c-0.297-0.149-1.758-0.868-2.031-0.967c-0.272-0.099-0.47-0.149-0.669,0.148s-0.767,0.967-0.941,1.166c-0.173,0.198-0.347,0.223-0.644,0.074c-0.297-0.149-1.255-0.462-2.39-1.475c-0.883-0.788-1.48-1.761-1.653-2.059s-0.018-0.458,0.13-0.606c0.134-0.133,0.297-0.347,0.446-0.521C9.87,9.97,9.919,9.846,10.019,9.647c0.099-0.198,0.05-0.372-0.025-0.521C9.919,8.978,9.325,7.515,9.078,6.92c-0.241-0.58-0.486-0.501-0.669-0.51C8.236,6.401,8.038,6.4,7.839,6.4c-0.198,0-0.52,0.074-0.792,0.372c-0.272,0.298-1.04,1.017-1.04,2.479c0,1.463,1.065,2.876,1.213,3.074c0.148,0.198,2.095,3.2,5.076,4.487c0.709,0.306,1.263,0.489,1.694,0.626c0.712,0.226,1.36,0.194,1.872,0.118c0.571-0.085,1.758-0.719,2.006-1.413c0.248-0.694,0.248-1.29,0.173-1.413C17.967,14.605,17.769,14.531,17.472,14.382z"/></svg>
       </a>
     </div>
 
-    <a-scene embedded vr-mode-ui="enabled:false" id="scene-container">
+ <a-scene embedded vr-mode-ui="enabled:false" id="scene-container">
       <a-assets>
         <a-asset-item id="logo3d" src="https://vixentres.github.io/hsu.github.io/Crown.glb"></a-asset-item>
         <img id="okPng" src="https://vixentres.github.io/hsu.github.io/ok.png">
@@ -291,25 +317,13 @@
         }});
       </script>
 
-      <a-entity id="front-logo" gltf-model="#logo3d" position="0 1.6 -1.5" rotation="0 1 0" scale="-0.5 0.5 0.5"
-        animation="property: rotation; from: 0 -20 0; to: 0 20 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
-        look-at="[camera]"></a-entity>
+      <a-entity id="front-logo" gltf-model="#logo3d" position="0 1.6 -1.5" rotation="0 0 0" scale="-0.5 0.5 0.5"
+        animation="property: rotation; from: 0 -10 0; to: 0 10 0; dir: alternate; dur: 3000; easing: easeInOutQuad; loop: true"></a-entity>
 
-      <a-entity id="right-logo" gltf-model="#logo3d" position="1.5 1.6 0" rotation="0 -90 0" scale="-0.5 0.5 0.5"
-        animation="property: rotation; from: 0 -110 0; to: 0 -70 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
-        look-at="[camera]"></a-entity>
-
-      <a-entity id="left-logo" gltf-model="#logo3d" position="-1.5 2 0" rotation="0 90 0" scale="-0.5 0.5 0.5"
-        animation="property: rotation; from: 0 70 0; to: 0 110 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
-        look-at="[camera]"></a-entity>
-
-      <a-entity id="back-logo" gltf-model="#logo3d" position="0 1.6 1.5" rotation="0 180 0" scale="-0.5 0.5 0.5"
-        animation="property: rotation; from: 0 160 0; to: 0 200 0; dir: alternate; dur: 2000; easing: easeInOutSine; loop: true;"
-        look-at="[camera]"></a-entity>
 
       <a-image src="#okPng" position="0 0.05 0" rotation="-90 0 0" scale="0.5 0.5 0.5" look-at="[camera]"></a-image>
 
-      <a-entity position="0 0.5 0" rotation="0 90 0">
+      <a-entity position="0 0.5 0">
         <a-camera wasd-controls="enabled:true" look-controls="enabled:true; pointerLockEnabled:true" cursor="rayOrigin: mouse"></a-camera>
       </a-entity>
     </a-scene>
@@ -365,7 +379,7 @@
           <div class="total-row"><span id="label-cantidad-entradas">Cantidad de entradas</span><span id="cantidad-entradas">1</span></div>
           <div class="total-row"><span id="label-precio-total">Precio total</span><span id="precio-total">$46.000</span></div>
           <div class="total-row"><span>Descuento sin cargo 15%</span><span class="tachado-rojo" id="descuento-general">$6.000</span></div> 
-          <div class="total-row"><span>Descuento crewpack</span><span class="tachado-rojo" id="descuento-crewpack">$0</span></div>
+          <div class="total-row initial-hidden" id="crewpack-row"><span>Descuento crewpack</span><span class="tachado-rojo" id="descuento-crewpack">$0</span></div>
           <div class="total-row total"><span>Total a pagar</span><span id="total-a-pagar">$40.000</span></div> 
         </div>
 
@@ -393,7 +407,7 @@
         <div class="total-row"><span id="label-cantidad-entradas-confirm">Cantidad de entradas</span><span id="cantidad-entradas-confirm">0</span></div>
         <div class="total-row"><span id="label-precio-total-confirm">Precio total</span><span id="precio-total-confirm">$0</span></div>
         <div class="total-row"><span>Descuento sin cargo</span><span class="tachado-rojo" id="descuento-general-confirm">$0</span></div>
-        <div class="total-row"><span>Descuento crewpack</span><span class="tachado-rojo" id="descuento-crewpack-confirm">$0</span></div>
+        <div class="total-row initial-hidden" id="descuento-crewpack-confirm-row"><span>Descuento crewpack</span><span class="tachado-rojo" id="descuento-crewpack-confirm">$0</span></div>
         <div class="total-row total"><span>Total a pagar</span><span id="total-a-pagar-confirm">$0</span></div>
         <p style="text-align:center; margin-top:12px;">Una vez realizada la transferencia, notifica al vendedor para que te envíe las entradas.</p>
         <p style="text-align:center; margin-top:5px; color:#024ddf; font-weight:bold;" id="entradas-acumuladas-compra"></p>
@@ -414,7 +428,7 @@
         <div class="total-row"><span id="label-cantidad-entradas-reserva">Cantidad de entradas</span><span id="cantidad-entradas-reserva">0</span></div>
         <div class="total-row"><span id="label-precio-total-reserva">Precio total</span><span id="precio-total-reserva">$0</span></div>
         <div class="total-row"><span>Descuento sin cargo</span><span class="tachado-rojo" id="descuento-general-reserva">$0</span></div>
-        <div class="total-row"><span>Descuento crewpack</span><span class="tachado-rojo" id="descuento-crewpack-reserva">$0</span></div>
+        <div class="total-row initial-hidden" id="descuento-crewpack-reserva-row"><span>Descuento crewpack</span><span class="tachado-rojo" id="descuento-crewpack-reserva">$0</span></div>
         <div class="total-row total"><span>Total a pagar</span><span id="total-a-pagar-reserva">$0</span></div>
         <p style="text-align:center; margin-top:12px;">Por favor, avísame cuando desees concretar la compra</p>
         <p style="text-align:center; margin-top:5px; color:#024ddf; font-weight:bold;" id="entradas-acumuladas-reserva"></p>
@@ -470,6 +484,8 @@
     };
 
     let cantidadGeneral=1, cantidadCrewPack=0, entradasAcumuladas=0;
+    // Nueva variable para controlar si el descuento CrewPack se acaba de "descubrir"
+    let crewPackDiscountDiscovered = false;
 
     /* === Refs DOM === */
     const qtyGeneralEl=document.getElementById("qty-general");
@@ -495,6 +511,9 @@
     const reservationMessageEl=document.getElementById("reservation-message");
     const entradasAcumuladasCompraEl=document.getElementById("entradas-acumuladas-compra");
     const entradasAcumuladasReservaEl=document.getElementById("entradas-acumuladas-reserva");
+    const crewpackRowEl=document.getElementById("crewpack-row"); // Fila del descuento CrewPack
+    const descuentoCrewpackConfirmRowEl = document.getElementById("descuento-crewpack-confirm-row");
+    const descuentoCrewpackReservaRowEl = document.getElementById("descuento-crewpack-reserva-row");
     
     // Nueva Referencias DOM para los precios en el formulario
     const precioGeneralConCargoEl = document.getElementById("precio-general-con-cargo");
@@ -546,6 +565,29 @@
 	function startLoading(){ loadingSpinner.style.display='block'; loadingText.style.display='block'; }
 
 
+    /* === Lógica de Descuento CrewPack y Confeti === */
+    function activarConfetiYMostrarDescuento() {
+        if (cantidadCrewPack > 0 && !crewPackDiscountDiscovered) {
+            crewPackDiscountDiscovered = true;
+            lanzarConfeti();
+            // Mostrar la fila del descuento si estaba oculta
+            crewpackRowEl.classList.remove('initial-hidden');
+            // Opcional: animación temporal para destacarlo
+            crewpackRowEl.style.backgroundColor = 'rgba(2, 77, 223, 0.1)';
+            setTimeout(() => {
+                crewpackRowEl.style.backgroundColor = '';
+            }, 1500);
+        } else if (cantidadCrewPack === 0 && crewPackDiscountDiscovered) {
+            // Si el usuario quita el crewpack después de verlo, ocultarlo nuevamente.
+            crewPackDiscountDiscovered = false;
+            crewpackRowEl.classList.add('initial-hidden');
+        } else if (cantidadCrewPack > 0 && crewPackDiscountDiscovered) {
+            // Si ya lo descubrió, solo asegurarse de que esté visible
+             crewpackRowEl.classList.remove('initial-hidden');
+        }
+    }
+
+
     /* === Totales & cantidad === */
     function actualizarTotales(){
       const totalEntradas=cantidadGeneral+(cantidadCrewPack*5);
@@ -562,6 +604,8 @@
       descuentoCrewPackEl.textContent=formatPrice(descuentoCrewPack);
       totalAPagarEl.textContent=formatPrice(totalPagar);
 
+      // Llama a la nueva lógica de visibilidad/confeti
+      activarConfetiYMostrarDescuento();
       
 		/* Botones activos si: entradas>0, email válido, y nombre > 4 chars */
 		const correoOk = isValidEmail(correoInput.value);
@@ -581,9 +625,15 @@
       if(cantidadGeneral>0){cantidadGeneral--}else if(cantidadCrewPack>0){cantidadCrewPack--;cantidadGeneral=4}
       qtyGeneralEl.textContent=cantidadGeneral; qtyCrewPackEl.textContent=cantidadCrewPack; actualizarTotales();
     });
-    document.getElementById("plus-crewpack").addEventListener("click",()=>{
-      cantidadCrewPack++; cantidadGeneral=0; qtyGeneralEl.textContent=cantidadGeneral; qtyCrewPackEl.textContent=cantidadCrewPack; actualizarTotales();
-    });
+	 document.getElementById("plus-crewpack").addEventListener("click",()=>{
+		// MODIFICADO: Lanzar confeti en cada incremento
+		cantidadCrewPack++; 
+		cantidadGeneral=0; 
+		lanzarConfeti(); // ¡Activar el confeti en cada aumento!
+		qtyGeneralEl.textContent=cantidadGeneral; 
+		qtyCrewPackEl.textContent=cantidadCrewPack; 
+		actualizarTotales();
+	});
     document.getElementById("minus-crewpack").addEventListener("click",()=>{
       if(cantidadCrewPack>0){cantidadCrewPack--; cantidadGeneral=0}
       qtyGeneralEl.textContent=cantidadGeneral; qtyCrewPackEl.textContent=cantidadCrewPack; actualizarTotales();
@@ -631,7 +681,7 @@
             const emoji=" "+randomEmoji();
             clienteFrecuenteInfo.textContent=`¡Cliente frecuente! Llevas ${en} entradas compradas.${emoji}`;
             clienteFrecuenteInfo.style.display='block';
-            lanzarConfeti();
+            // Se elimina el lanzamiento de confeti aquí, ya que se activará al descubrir el descuento CrewPack.
           }else{
             clienteFrecuenteInfo.textContent='';
             clienteFrecuenteInfo.style.display='none';
@@ -690,6 +740,7 @@
       if(totalEntradas===0){ alert("Selecciona al menos 1 entrada para continuar."); return; }
       const correo=document.getElementById("correo").value;
       if(!correo){ alert("Es necesario ingresar un correo para poder enviar la/s entrada/s"); return; }
+      // Se elimina el lanzamiento de confeti aquí
       enviarDatos('compra'); showConfirmSection();
     }
     function handleReserva(){
@@ -697,6 +748,7 @@
       if(totalEntradas===0){ alert("Selecciona al menos 1 entrada para continuar."); return; }
       const correo=document.getElementById("correo").value;
       if(!correo){ alert("Es necesario ingresar un correo para poder realizar la reserva"); return; }
+      // Se elimina el lanzamiento de confeti aquí
       enviarDatos('reserva'); showReservaConfirmSection();
     }
 
@@ -750,6 +802,8 @@
       document.getElementById("reservaForm").reset();
       cantidadGeneral=1; cantidadCrewPack=0;
       qtyGeneralEl.textContent=cantidadGeneral; qtyCrewPackEl.textContent=cantidadCrewPack;
+      crewPackDiscountDiscovered = false; // Reiniciar estado al limpiar el formulario
+      crewpackRowEl.classList.add('initial-hidden'); // Ocultar al limpiar
       actualizarTotales();
       clienteFrecuenteInfo.style.display='none'; clienteFrecuenteInfo.textContent='';
       stopLoading();
@@ -779,6 +833,14 @@
       document.getElementById("descuento-crewpack-confirm").textContent=formatPrice(descuentoCrewPack);
       document.getElementById("total-a-pagar-confirm").textContent=formatPrice(totalPagar);
       confirmationMessageEl.textContent=`Realiza la transferencia por el monto de ${formatPrice(totalPagar)} por ${totalEntradas} entrada${totalEntradas>1?'s':''}.`;
+      
+      // Mostrar/Ocultar descuento crewpack en la confirmación
+      if (descuentoCrewPack > 0) {
+        descuentoCrewpackConfirmRowEl.classList.remove('initial-hidden');
+      } else {
+        descuentoCrewpackConfirmRowEl.classList.add('initial-hidden');
+      }
+
       if(totalEntradasAcumuladas>1){ entradasAcumuladasCompraEl.textContent=`Si compras llevas acumuladas un total de ${totalEntradasAcumuladas} entradas conmigo.`; entradasAcumuladasCompraEl.style.display='block'; } else { entradasAcumuladasCompraEl.style.display='none'; }
     }
     function showReservaConfirmSection(){
@@ -797,6 +859,14 @@
       document.getElementById("descuento-crewpack-reserva").textContent=formatPrice(descuentoCrewPack);
       document.getElementById("total-a-pagar-reserva").textContent=formatPrice(totalPagar);
       reservationMessageEl.textContent=`Realiza la transferencia por el monto de ${formatPrice(totalPagar)} por ${totalEntradas} entrada${totalEntradas>1?'s':''}.`;
+      
+      // Mostrar/Ocultar descuento crewpack en la reserva
+      if (descuentoCrewPack > 0) {
+        descuentoCrewpackReservaRowEl.classList.remove('initial-hidden');
+      } else {
+        descuentoCrewpackReservaRowEl.classList.add('initial-hidden');
+      }
+
       if(totalEntradasAcumuladas>1){ entradasAcumuladasReservaEl.textContent=`Si compras llevas acumuladas un total de ${totalEntradasAcumuladas} entradas conmigo.`; entradasAcumuladasReservaEl.style.display='block'; } else { entradasAcumuladasReservaEl.style.display='none'; }
     }
 
