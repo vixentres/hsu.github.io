@@ -333,7 +333,7 @@
 
 
         <div class="item">
-          <div><h5 id="tipo-entrada-general"><b class="bold-label">Entrada General (1x)</b> <span id="precio-general-con-cargo">$46.000</span></h5></div> 
+          <div><h5 id="tipo-entrada-general"><b class="bold-label">Entrada General (1x)</b> <span id="precio-general-con-cargo">$40.000</span></h5></div> 
           <div class="controls">
             <button type="button" class="btn" id="minus-general" >-</button>
             <div class="qty" id="qty-general">1</div>
@@ -342,7 +342,7 @@
         </div>
 
         <div class="item">
-          <div><h5 id="tipo-entrada-crewpack"><b class="bold-label">CrewPack (5x)</b> <span id="precio-crewpack-con-cargo">$230.000</span></h5></div>  
+          <div><h5 id="tipo-entrada-crewpack"><b class="bold-label">Entrada General (5x)</b> <span id="precio-crewpack-con-cargo">$200.000</span></h5></div>  
           <div class="controls">
             <button type="button" class="btn" id="minus-crewpack" >-</button>
             <div class="qty" id="qty-crewpack">0</div>
@@ -452,7 +452,7 @@
       get descuentoCrewPack() { return this.descuentoCrewPackManual; }, // Descuento fijo adicional por CrewPack
 
       fecha: '2026-01-10 00:00',
-      djNames: ["DIMITRI-K","MC.ROBS","RADICAL REDEMPTION"],
+      djNames: ["DIMITRI-K","MC.ROBS","RADICAL REDEMPTION", "JAY REEVE"],
       hojaUrl: "https://script.google.com/macros/s/AKfycbx7KGD2K-BappVRLZPXkIc0f2QJDRgjxWENuCZuNqjPw68ylXfbkaCbYFonLL_4n-c_/exec",
       hojaClientesUrl: "https://script.google.com/macros/s/AKfycbxklOoDJgh0azEcUxxAr8mI6TkA3feUSNxTGIhDWtIMWHw3hrEoBDTOMdsWIBhgs2q3/exec",
       nombreEvento: "HSU / SUPERKLUB",
@@ -653,15 +653,19 @@
           }
           const en = Number(data.entradas)||0;
           entradasAcumuladas = en;
-          if(en>0){
-            const emoji=" "+randomEmoji();
-            clienteFrecuenteInfo.textContent=`¡Cliente frecuente! Llevas ${en} entradas compradas.${emoji}`;
-            clienteFrecuenteInfo.style.display='block';
-            // Se elimina el lanzamiento de confeti aquí, ya que se activará al descubrir el descuento CrewPack.
-          }else{
-            clienteFrecuenteInfo.textContent='';
-            clienteFrecuenteInfo.style.display='none';
-          }
+			if(en>0){
+			  const emoji=" "+randomEmoji();
+			  clienteFrecuenteInfo.textContent=`¡Cliente frecuente! Llevas ${en} entradas compradas.${emoji}`;
+			  clienteFrecuenteInfo.style.display='block';
+
+			  // 🎉 Lanzar confeti al detectar cliente frecuente
+			  lanzarConfeti();
+
+			}else{
+			  clienteFrecuenteInfo.textContent='';
+			  clienteFrecuenteInfo.style.display='none';
+			}
+
           
         }else{
           entradasAcumuladas = 0;
@@ -904,6 +908,9 @@
       djMiddle.classList.add('center');
       setTimeout(()=>{ updateDjSlots(); },2000);
       actualizarTotales();
+	        // Abrir el panel de registro automáticamente al cargar
+      setTimeout(() => { showNewPage(); }, 0);
+
     };
   </script>
   <script>
