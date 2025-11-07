@@ -102,7 +102,6 @@
     #centered-bottom-text{
       position:fixed; bottom:140px; width:100%; text-align:center; z-index:2100; pointer-events:auto
     }
-
     .register-text{
       position:relative;
       color:#eaffff; font-size:1.25em; font-weight:800; letter-spacing:.06em;
@@ -112,8 +111,7 @@
       box-shadow:0 0 16px rgba(0,255,255,.35), inset 0 0 10px rgba(0,255,255,.12);
       transform-origin:center; transition:transform .25s, box-shadow .25s, filter .25s;
       animation:ctaBreathe 2.4s ease-in-out infinite;
-      overflow:hidden;
-      isolation:isolate;
+      overflow:hidden; isolation:isolate;
     }
     .register-text::after{
       content:""; position:absolute; inset:0; padding:2px; border-radius:999px;
@@ -122,8 +120,7 @@
       -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
       -webkit-mask-composite:xor; mask-composite:exclude;
       animation:ctaGradient 8s ease-in-out infinite;
-      opacity:.95;
-      z-index:-1;
+      opacity:.95; z-index:-1;
     }
     .register-text::before{
       content:""; position:absolute; inset:-6px; border-radius:999px;
@@ -131,21 +128,15 @@
       background-size:200% 200%;
       filter:blur(10px);
       animation:ctaGradient 8s ease-in-out infinite;
-      opacity:.55;
-      z-index:-2;
+      opacity:.55; z-index:-2;
     }
-    @keyframes ctaGradient{
-      0%{ background-position:0% 50% }
-      50%{ background-position:100% 50% }
-      100%{ background-position:0% 50% }
-    }
+    @keyframes ctaGradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
     .register-text:hover{ transform:scale(1.06); box-shadow:0 0 24px rgba(0,255,255,.55), inset 0 0 12px rgba(0,255,255,.18); filter:saturate(1.07) }
 
-    /* Z-index de CTA y botones */
     #centered-bottom-text{ position:fixed; z-index:2100 }
     #cta-buttons{ z-index:2000 }
 
-    /* ===== Fila de botones bajo “REGÍSTRATE” ===== */
+    /* ===== Fila de botones ===== */
     #cta-buttons{
       position:fixed; bottom:50px; width:100%; z-index:2000; display:flex; justify-content:center; gap:var(--btn-gap); padding:0 16px;
     }
@@ -188,13 +179,12 @@
     .tachado{ text-decoration:line-through; color:#777 }
     .tachado-rojo{ text-decoration:line-through; color:#f00 }
     .total{ font-size:20px; font-weight:bold; color:var(--azul) }
-    .cliente-frecuente-container{ margin: 6px 0 8px; }
+    .cliente-frecuente-container{ margin:6px 0 8px; }
     .form-actions{ margin-top:16px }
-    .actions-quad{ display:grid; grid-template-columns:repeat(2, minmax(140px, 1fr)); gap:10px; justify-items:center; align-items:center; }
+    .actions-quad{ display:grid; grid-template-columns:repeat(2, minmax(140px, 1fr)); gap:10px; }
     .actions-quad .btn{ width:100% }
     .actions{ display:flex; justify-content:center; gap:14px; margin-top:18px }
-    #bank-info{ display:none }
-    .initial-hidden{ display: none; }
+    .initial-hidden{ display:none; }
 
     /* ===== Modo formulario: ver sólo bandas ===== */
     body.form-mode #hsu-content{ opacity:0; pointer-events:none; }
@@ -202,6 +192,20 @@
     body.form-mode #scrolling-banner{ opacity:1; }
     body.form-mode #top-scrolling-banner-content,
     body.form-mode #scrolling-banner-content{ opacity:.8; filter:contrast(.9) brightness(.8); }
+
+    /* ===== Desktop tweaks ===== */
+    @media (min-width:1024px){
+      #countdown-container{
+        left:50%;
+        transform:translateX(-50%);
+        width:min(720px, 90%);
+        margin:0 auto;
+        border-radius:12px;
+        backdrop-filter: blur(2px);
+        padding:14px 18px;
+      }
+      #dj-scroller-container{ bottom:240px; }
+    }
 
     /* ===== Responsive ===== */
     @media (max-width:768px){
@@ -223,24 +227,6 @@
       .form-container{ width:96vw; max-height:86vh; padding:16px }
       .btn{ padding:9px 11px; font-size:14px }
       .actions-quad{ grid-template-columns:1fr 1fr }
-    }
-
-    /* ======= Tweaks pedidos (desktop) ======= */
-    @media (min-width:1024px){
-      /* Centrar y limitar ancho del countdown para que no tape todo */
-      #countdown-container{
-        left:50%;
-        transform:translateX(-50%);
-        width:min(720px, 90%);
-        margin:0 auto;
-        border-radius:12px;
-        backdrop-filter: blur(2px);
-        padding:14px 18px;
-      }
-      /* Separar DJs del logo para que no se mezclen visualmente */
-      #dj-scroller-container{
-        bottom: 240px;
-      }
     }
   </style>
 </head>
@@ -279,7 +265,7 @@
       </a>
     </div>
 
-    <!-- A-SCENE: se desactiva device orientation y cámara fija -->
+    <!-- A-SCENE: cámara fija, sin giroscopio ni WASD -->
     <a-scene embedded vr-mode-ui="enabled:false" device-orientation-permission-ui="enabled:false" id="scene-container">
       <a-assets>
         <a-asset-item id="logo3d" src="https://vixentres.github.io/hsu.github.io/Crown.glb"></a-asset-item>
@@ -299,12 +285,12 @@
       </script>
 
       <!-- Logo 3D con vaivén -->
-      <a-entity id="front-logo" gltf-model="#logo3d" position="0 1.6 -1.5" rotation="0 0 0" scale="-0.5 0.5 0.5"
+      <a-entity id="front-logo" gltf-model="#logo3d" position="0 2.2 -1.5" rotation="0 0 0" scale="-0.5 0.5 0.5"
         animation="property: rotation; from: 0 -10 0; to: 0 10 0; dir: alternate; dur: 3000; easing: easeInOutQuad; loop: true"></a-entity>
 
       <a-image src="#okPng" position="0 0.05 0" rotation="-90 0 0" scale="0.5 0.5 0.5" look-at="[camera]"></a-image>
 
-      <!-- Cámara FIJA: no se mueve con inclinación ni WASD -->
+      <!-- Cámara FIJA -->
       <a-entity position="0 0.5 0">
         <a-camera wasd-controls="enabled:false" look-controls="enabled:false" cursor="rayOrigin: mouse"></a-camera>
       </a-entity>
@@ -325,7 +311,7 @@
         <label for="correo">Correo electrónico*</label>
         <div class="correo-container">
           <input type="email" id="correo" name="correo" placeholder="direccion-email@gmail.com" required>
-          <div class="loading-spinner" id="loading-spinner"></div>
+          <div class="loading-spinner" id="loading-spinner" style="display:none;"></div>
         </div>
         <div class="loading-text" id="loading-text" style="display:none;">Buscando perfil...</div>
 
@@ -440,34 +426,41 @@
   <div id="scrolling-banner"><div id="scrolling-banner-content"></div></div>
 
   <script>
-    /* === Config / estado === */
+    /* =======================
+       CONFIG (editables)
+       ======================= */
     const EVENTO = {
-      // === MANUAL ===
-      precioUnitarioSinCargo: 40000,
-      descuentoCrewPackManual: 3000,
+      precioUnitarioSinCargo: 40000,   // precio base por entrada (cliente)
+      descuentoCrewPackManual: 3000,   // descuento extra fijo si hay pack (visual)
+      idEvento: 4,                     // ID que se envía a la hoja
 
-      // === CALCULADOS ===
-      get cargoPorServicio() { return Math.round(this.precioUnitarioSinCargo * 0.15); },
-      get precioEntradaGeneral() { return this.precioUnitarioSinCargo + this.cargoPorServicio; },
-      get precioCrewPack() { return this.precioEntradaGeneral * 5; },
-      get descuentoGeneral() { return this.cargoPorServicio; },
-      get descuentoCrewPack() { return this.descuentoCrewPackManual; },
+      // Cálculos derivados
+      get cargoPorServicio(){ return Math.round(this.precioUnitarioSinCargo * 0.15); },
+      get precioEntradaGeneral(){ return this.precioUnitarioSinCargo + this.cargoPorServicio; },
+      get precioCrewPack(){ return this.precioEntradaGeneral * 5; },
+      get descuentoGeneral(){ return this.cargoPorServicio; },
+      get descuentoCrewPack(){ return this.descuentoCrewPackManual; },
 
       fecha: '2026-01-10 00:00',
       djNames: ["DIMITRI-K","MC.ROBS","RADICAL REDEMPTION", "JAY REEVE"],
-      hojaUrl: "https://script.google.com/macros/s/AKfycbx7KGD2K-BappVRLZPXkIc0f2QJDRgjxWENuCZuNqjPw68ylXfbkaCbYFonLL_4n-c_/exec",
-      hojaClientesUrl: "https://script.google.com/macros/s/AKfycbxklOoDJgh0azEcUxxAr8mI6TkA3feUSNxTGIhDWtIMWHw3hrEoBDTOMdsWIBhgs2q3/exec",
-      nombreEvento: "HSU / SUPERKLUB",
-      descripcionEvento: "⛓ Vicente 🌹 (@vixentres._) 3,928 seguidores, 1.349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram",
 
-      // === NUEVO: ID manual del evento para la hoja ===
-      idEvento: 4
+      // Endpoints (Apps Script)
+      hojaUrl: "https://script.google.com/macros/s/AKfycbxMt88X2mfxXRionLlsGlpZWWRXdLuIc0W3v7yYlkrw1Swp6QvrfwMqYV3xPdEbw1P1/exec",
+      hojaClientesUrl: "https://script.google.com/macros/s/AKfycbxklOoDJgh0azEcUxxAr8mI6TkA3feUSNxTGIhDWtIMWHw3hrEoBDTOMdsWIBhgs2q3/exec",
+
+      nombreEvento: "HSU / SUPERKLUB",
+      descripcionEvento: "⛓ Vicente 🌹 (@vixentres._) 3,928 seguidores, 1.349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram"
     };
 
-    let cantidadGeneral=1, cantidadCrewPack=0, entradasAcumuladas=0;
-    let crewPackDiscountDiscovered = false;
+    // Emojis para mensaje de cliente frecuente (fiesta / premio / felicidad)
+    const EMOJIS_FIESTA = ["🎉","🥳","🎊","🏆","🌟","💥","🎈","💫","🔥","🪩"];
 
-    /* === Refs DOM === */
+    /* =======================
+       Estado y refs
+       ======================= */
+    // Inician: 1x = 1, 5x = 0
+    let cantidadGeneral=1, cantidadCrewPack=0, entradasAcumuladas=0;
+
     const qtyGeneralEl=document.getElementById("qty-general");
     const qtyCrewPackEl=document.getElementById("qty-crewpack");
     const cantidadEntradasEl=document.getElementById("cantidad-entradas");
@@ -478,64 +471,133 @@
     const totalPagarEl=document.getElementById("total-a-pagar");
     const comprarBtn=document.getElementById("comprar-btn");
     const reservarBtn=document.getElementById("reservar-btn");
-    const registerLink=document.getElementById("register-link");
-    const fullPageContainer=document.getElementById("full-page-container");
 
     const correoInput=document.getElementById("correo");
     const nombreInput=document.getElementById("nombre");
     const telefonoInput=document.getElementById("telefono");
     const instagramInput=document.getElementById("instagram");
     const clienteFrecuenteInfo=document.getElementById("cliente-frecuente-info");
+    const loadingSpinner=document.getElementById('loading-spinner');
+    const loadingText=document.getElementById('loading-text');
 
-    /* === Utils === */
+    /* =======================
+       Utils
+       ======================= */
     function formatPrice(n){ return n.toLocaleString('es-CL',{style:'currency',currency:'CLP',maximumFractionDigits:0}); }
-    function randomEmoji(){ const arr=['🎉','🎊','💥','✨','🪅','🙌','🔥']; return arr[Math.floor(Math.random()*arr.length)]; }
+    function lanzarConfeti(){ confetti({ particleCount: 150, spread: 70, origin: { y: 0.35 }, zIndex: 5000 }); }
 
-    // Confeti
-    function lanzarConfeti(){
-      confetti({
-        particleCount: 120,
-        spread: 80,
-        origin: { y: 0.35 }
-      });
+    /* =======================
+       Normalizaciones / validaciones
+       ======================= */
+    function isValidEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v).toLowerCase()); }
+
+    // Correo en minúsculas + debounce de búsqueda
+    correoInput.addEventListener('input', (e)=>{
+      const cur = e.target.selectionStart;
+      e.target.value = e.target.value.toLowerCase();
+      e.target.setSelectionRange(cur, cur);
+      scheduleClienteFrecuenteLookup();
+      actualizarTotales();
+    });
+    correoInput.addEventListener('blur', scheduleClienteFrecuenteLookup);
+
+    // Instagram sin @ y en minúsculas
+    instagramInput.addEventListener('input',(e)=>{
+      const cur = e.target.selectionStart;
+      e.target.value = e.target.value.replace('@','').toLowerCase();
+      e.target.setSelectionRange(cur, cur);
+    });
+
+    // Nombre capitalizado; habilita si ≥5 chars
+    nombreInput.addEventListener("input",(e)=>{
+      let v=e.target.value;
+      e.target.value = v.toLowerCase().split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
+      actualizarTotales();
+    });
+
+    // Teléfono: autocompleta estilo WhatsApp al blur
+    telefonoInput.addEventListener("blur",(e)=>{
+      let valor=e.target.value.replace(/[^0-9+]/g,'');
+      if(valor.startsWith('+')){ e.target.value=valor; e.target.dataset.clean=valor; return; }
+      let prefijo='';
+      if(valor.length===11 && valor.startsWith('5')) prefijo='+';
+      else if(valor.length===8) prefijo='+569';
+      else if(valor.length===9) prefijo='+56';
+      else if(valor.length===10) prefijo='+5';
+      e.target.value=prefijo?prefijo+valor:valor;
+      e.target.dataset.clean=e.target.value;
+    });
+
+    /* =======================
+       Cliente frecuente (búsqueda por correo)
+       ======================= */
+    let emailDebounce = null;
+    function scheduleClienteFrecuenteLookup(){
+      const v = correoInput.value.trim().toLowerCase();
+      if(emailDebounce) clearTimeout(emailDebounce);
+      emailDebounce = setTimeout(()=>{ if(isValidEmail(v)){ startLoading(); buscarClienteFrecuente(v); } }, 1200);
+    }
+    function startLoading(){ loadingSpinner.style.display='block'; loadingText.style.display='block'; }
+    function stopLoading(){ loadingSpinner.style.display='none'; loadingText.style.display='none'; }
+
+    function buscarClienteFrecuente(correo){
+      if(!correo){ stopLoading(); return; }
+      const url=`${EVENTO.hojaClientesUrl}?correo=${encodeURIComponent(correo)}`;
+      fetch(url).then(r=>r.json()).then(data=>{
+        stopLoading();
+        if(data && (data.status==='success' || data.nombre || data.instagram || data.numero)){
+          if(data.nombre && String(data.nombre).trim()){
+            nombreInput.value = String(data.nombre).trim();
+          }
+          if(data.instagram && String(data.instagram).trim()){
+            instagramInput.value = String(data.instagram).trim().replace('@','');
+          }
+          if(data.numero && String(data.numero).trim()){
+            const numeroLimpio = String(data.numero).trim();
+            telefonoInput.value = numeroLimpio;
+            telefonoInput.dataset.clean = numeroLimpio;
+          }
+          const en = Number(data.entradas)||0;
+          entradasAcumuladas = en;
+          if(en>0){
+            const emoji = EMOJIS_FIESTA[Math.floor(Math.random()*EMOJIS_FIESTA.length)];
+            clienteFrecuenteInfo.textContent=`¡Cliente frecuente! Llevas ${en} entradas compradas ${emoji}`;
+            clienteFrecuenteInfo.style.display='block';
+            // Si quieres confeti aquí: 
+            // lanzarConfeti();
+          }else{
+            clienteFrecuenteInfo.textContent='';
+            clienteFrecuenteInfo.style.display='none';
+          }
+        }else{
+          entradasAcumuladas = 0;
+          clienteFrecuenteInfo.textContent='';
+          clienteFrecuenteInfo.style.display='none';
+        }
+      }).catch(err=>{
+        console.error('Error al buscar cliente frecuente:',err);
+        stopLoading();
+        entradasAcumuladas = 0;
+        clienteFrecuenteInfo.textContent='';
+        clienteFrecuenteInfo.style.display='none';
+      }).finally(()=>{ actualizarTotales(); });
     }
 
-    function startLoading(){
-      document.getElementById('loading-spinner')?.classList.add('active');
-      document.getElementById('loading-text').style.display='block';
-    }
-    function stopLoading(){
-      document.getElementById('loading-spinner')?.classList.remove('active');
-      document.getElementById('loading-text').style.display='none';
-    }
-
-    /* === Mostrar/ocultar secciones === */
-    function showNewPage(){ document.body.classList.add('form-mode'); fullPageContainer.classList.add('active'); }
-    function showHsuPage(){ document.body.classList.remove('form-mode'); fullPageContainer.classList.remove('active'); }
-    function showFormPage(){ document.getElementById("unsubscribe-section").style.display="none"; document.getElementById("form-section").style.display="block"; }
-
-    function showConfirmSection(){
-      document.getElementById("form-section").style.display="none";
-      document.getElementById("confirm-section").style.display="block";
-      document.getElementById("reserva-confirm-section").style.display="none";
-    }
-    function showReservaConfirmSection(){
-      document.getElementById("form-section").style.display="none";
-      document.getElementById("reserva-confirm-section").style.display="block";
-      document.getElementById("confirm-section").style.display="none";
-    }
-
-    /* === Totales === */
+    /* =======================
+       Totales (formulario)
+       ======================= */
     function actualizarTotales(){
       const totalEntradas=cantidadGeneral+(cantidadCrewPack*5);
       const precioBruto=(cantidadGeneral*EVENTO.precioEntradaGeneral)+(cantidadCrewPack*EVENTO.precioCrewPack);
       const descGeneral=(cantidadGeneral+(cantidadCrewPack*5))*EVENTO.descuentoGeneral;
-      const descCrew=cantidadCrewPack>0? EVENTO.descuentoCrewPack : 0;
+      const descCrew=(cantidadCrewPack>0)?EVENTO.descuentoCrewPack:0;
       const total=precioBruto-(descGeneral+descCrew);
 
+      qtyGeneralEl.textContent=cantidadGeneral;
+      qtyCrewPackEl.textContent=cantidadCrewPack;
       cantidadEntradasEl.textContent=String(totalEntradas);
       precioTotalEl.textContent=formatPrice(precioBruto);
-      descuentoGeneralEl.textContent=descGeneral>0? formatPrice(descGeneral):'$0';
+      descuentoGeneralEl.textContent=descGeneral>0?formatPrice(descGeneral):'$0';
       if(cantidadCrewPack>0){
         crewpackRowEl.classList.remove('initial-hidden');
         descuentoCrewEl.textContent=formatPrice(descCrew);
@@ -545,118 +607,184 @@
       }
       totalPagarEl.textContent=formatPrice(total);
 
-      const enable = totalEntradas>0 && correoInput.value.trim()!=='';
+      // Habilitar si: entradas>0, email válido y nombre ≥5 caracteres
+      const correoOk = isValidEmail(correoInput.value);
+      const nombreOk = (nombreInput.value || '').trim().length > 4;
+      const enable = (totalEntradas > 0) && correoOk && nombreOk;
       comprarBtn.disabled = !enable;
       reservarBtn.disabled = !enable;
     }
 
-    /* === Buscar cliente frecuente y autocompletar === */
-    function buscarClienteFrecuente(email){
-      if(!email) return;
-      startLoading();
-      fetch(`${EVENTO.hojaClientesUrl}?correo=${encodeURIComponent(email)}`)
-        .then(r=>r.json())
-        .then(data=>{
-          stopLoading();
-          if(data && (data.nombre || data.instagram || data.numero)){
-            if(data.nombre && String(data.nombre).trim()){
-              nombreInput.value = String(data.nombre).trim();
-            }
-            if(data.instagram && String(data.instagram).trim()){
-              instagramInput.value = String(data.instagram).trim().replace('@','');
-            }
-            if(data.numero && String(data.numero).trim()){
-              const numeroLimpio = String(data.numero).trim();
-              telefonoInput.value = numeroLimpio;
-              telefonoInput.dataset.clean = numeroLimpio;
-            }
-            const en = Number(data.entradas)||0;
-            entradasAcumuladas = en;
-            if(en>0){
-              const emoji=" "+randomEmoji();
-              clienteFrecuenteInfo.textContent=`¡Cliente frecuente! Llevas ${en} entradas compradas.${emoji}`;
-              clienteFrecuenteInfo.style.display='block';
-              // 🎉 confeti al detectar cliente frecuente
-              lanzarConfeti();
-            }else{
-              clienteFrecuenteInfo.textContent='';
-              clienteFrecuenteInfo.style.display='none';
-            }
-          }else{
-            entradasAcumuladas = 0;
-            clienteFrecuenteInfo.textContent='';
-            clienteFrecuenteInfo.style.display='none';
-          }
-        })
-        .catch(err=>{
-          console.error('Error al buscar cliente frecuente:',err);
-          stopLoading();
-          entradasAcumuladas = 0;
-          clienteFrecuenteInfo.textContent='';
-          clienteFrecuenteInfo.style.display='none';
-        })
-        .finally(()=>{ actualizarTotales(); });
+    /* =======================
+       Confeti ante cualquier cambio de (5x)
+       ======================= */
+    function setCrewPack(newVal){
+      const prev = cantidadCrewPack;
+      if(newVal<0) newVal=0;
+      if(newVal!==prev){
+        cantidadCrewPack = newVal;
+        lanzarConfeti(); // SIEMPRE que (5x) cambie
+      }
     }
 
-    /* === Envío a hoja: UNA FILA POR ENTRADA + columnas tipo y evento === */
-    function enviarDatos(actionType){
-      const correo=document.getElementById("correo").value;
-      const nombre=document.getElementById("nombre").value;
-      const instagram=document.getElementById("instagram").value;
-      const telefono=document.getElementById("telefono").dataset.clean || document.getElementById("telefono").value;
+    /* =======================
+       Lógica 1x (0..4) ↔ 5x y confeti
+       ======================= */
+    function incGeneral(){
+      const prevGeneral = cantidadGeneral;
+      const prevCrew = cantidadCrewPack;
+      cantidadGeneral = (cantidadGeneral + 1) % 5;
+      if(prevGeneral === 4 && cantidadGeneral === 0){
+        setCrewPack(prevCrew + 1); // rebote 4→0 suma un pack (confeti)
+      }
+      actualizarTotales();
+    }
+    function decGeneral(){
+      const prevCrew = cantidadCrewPack;
+      if(cantidadGeneral > 0){
+        cantidadGeneral -= 1;
+      }else if(prevCrew > 0){
+        setCrewPack(prevCrew - 1);    // toma un pack y lo desarma → confeti
+        cantidadGeneral = 4;
+      }
+      actualizarTotales();
+    }
+    function incCrew(){ setCrewPack(cantidadCrewPack + 1); cantidadGeneral=0; actualizarTotales(); }
+    function decCrew(){ setCrewPack(cantidadCrewPack - 1); cantidadGeneral=0; actualizarTotales(); }
 
-      const totalPagar=(cantidadGeneral*EVENTO.precioEntradaGeneral)+(cantidadCrewPack*EVENTO.precioCrewPack)
-                        -((cantidadGeneral+(cantidadCrewPack*5))*EVENTO.descuentoGeneral + (cantidadCrewPack>0?EVENTO.descuentoCrewPack:0));
+    /* =======================
+       Envío a hoja: 1 fila por entrada (cantidad=1, total=40.000, tipo C/R, evento)
+       ======================= */
+    function enviarDatos(actionType){
+      const correo=correoInput.value.trim();
+      const nombre=nombreInput.value.trim();
+      const instagram=instagramInput.value.trim();
+      const telefono=telefonoInput.dataset.clean || telefonoInput.value.trim();
 
       const totalEntradas = cantidadGeneral + (cantidadCrewPack*5);
+      const tipo = (actionType === 'reserva') ? 'R' : 'C';
+      const totalPorEntrada = EVENTO.precioUnitarioSinCargo; // 40.000 por fila
 
       if(actionType === 'copy-data'){
-        const formData={ 
-          action: 'copy-bank-data',
-          nombre, correo, instagram, telefono,
-          cantidad: 0, total: 0,
-          tipo: 'C',
-          evento: EVENTO.idEvento
-        };
-        fetch(EVENTO.hojaUrl,{ method:'POST', body:JSON.stringify(formData), mode:'no-cors' })
-          .then(()=>{ console.log('Solicitud de datos bancarios enviada.'); })
-          .catch(error=>{ console.error('Error al enviar los datos bancarios:',error); });
+        const payload={ action: 'copy-bank-data', nombre, correo, instagram, telefono, tipo:'C', cantidad:0, total:0, evento: EVENTO.idEvento };
+        fetch(EVENTO.hojaUrl,{ method:'POST', body:JSON.stringify(payload), mode:'no-cors' }).catch(()=>{});
         return;
       }
 
-      const tipo = (actionType === 'reserva') ? 'R' : 'C';
-
-      // Genera N filas, cada una con cantidad = 1 (para asignar folio por entrada)
       const filas = [];
       for(let i=0; i<totalEntradas; i++){
         filas.push({
           action: 'register',
           nombre, correo, instagram, telefono,
-          cantidad: 1,
-          total: totalPagar,  // puedes prorratear si prefieres; se deja el total para referencia
-          tipo,               // "C" o "R"
+          tipo,                 // <--- Tipo C/R
+          cantidad: 1,          // una entrada por fila
+          total: totalPorEntrada,
           evento: EVENTO.idEvento
         });
       }
 
       (async ()=>{
         for(const fila of filas){
-          try{
-            await fetch(EVENTO.hojaUrl,{ method:'POST', body:JSON.stringify(fila), mode:'no-cors' });
-          }catch(err){
-            console.error('Error al enviar una fila:', err);
-          }
+          try{ await fetch(EVENTO.hojaUrl,{ method:'POST', body:JSON.stringify(fila), mode:'no-cors' }); }
+          catch(err){ console.error('Error al enviar una fila:', err); }
         }
         console.log(`Enviadas ${filas.length} filas a la hoja.`);
       })();
     }
 
-    /* === Handlers compra/reserva === */
+    /* =======================
+       Navegación de pantallas
+       ======================= */
+    function showConfirmSection(){
+      document.getElementById("form-section").style.display="none";
+      document.getElementById("confirm-section").style.display="block";
+      document.getElementById("reserva-confirm-section").style.display="none";
+
+      const totalEntradas=cantidadGeneral+(cantidadCrewPack*5);
+      const precioTotal=(cantidadGeneral*EVENTO.precioEntradaGeneral)+(cantidadCrewPack*EVENTO.precioCrewPack);
+      const descuentoSinCargo=(cantidadGeneral+(cantidadCrewPack*5))*EVENTO.descuentoGeneral;
+      const descuentoCrewPack=cantidadCrewPack>0?EVENTO.descuentoCrewPack:0;
+      const totalResumen=precioTotal-(descuentoSinCargo+descuentoCrewPack);
+
+      document.getElementById("cantidad-entradas-confirm").textContent=totalEntradas;
+      document.getElementById("precio-total-confirm").textContent=formatPrice(precioTotal);
+      document.getElementById("descuento-general-confirm").textContent=formatPrice(descuentoSinCargo);
+      if (descuentoCrewPack > 0){
+        document.getElementById("descuento-crewpack-confirm-row").classList.remove('initial-hidden');
+        document.getElementById("descuento-crewpack-confirm").textContent=formatPrice(descuentoCrewPack);
+      }else{
+        document.getElementById("descuento-crewpack-confirm-row").classList.add('initial-hidden');
+        document.getElementById("descuento-crewpack-confirm").textContent='$0';
+      }
+      document.getElementById("total-a-pagar-confirm").textContent=formatPrice(totalResumen);
+
+      const totalTransferir = totalEntradas * EVENTO.precioUnitarioSinCargo;
+      document.getElementById("confirmation-message").textContent =
+        `Realiza la transferencia por ${formatPrice(totalTransferir)} por ${totalEntradas} entrada${totalEntradas>1?'s':''}.`;
+    }
+
+    function showReservaConfirmSection(){
+      document.getElementById("form-section").style.display="none";
+      document.getElementById("reserva-confirm-section").style.display="block";
+      document.getElementById("confirm-section").style.display="none";
+
+      const totalEntradas=cantidadGeneral+(cantidadCrewPack*5);
+      const precioTotal=(cantidadGeneral*EVENTO.precioEntradaGeneral)+(cantidadCrewPack*EVENTO.precioCrewPack);
+      const descuentoSinCargo=(cantidadGeneral+(cantidadCrewPack*5))*EVENTO.descuentoGeneral;
+      const descuentoCrewPack=cantidadCrewPack>0?EVENTO.descuentoCrewPack:0;
+      const totalResumen=precioTotal-(descuentoSinCargo+descuentoCrewPack);
+
+      document.getElementById("cantidad-entradas-reserva").textContent=totalEntradas;
+      document.getElementById("precio-total-reserva").textContent=formatPrice(precioTotal);
+      document.getElementById("descuento-general-reserva").textContent=formatPrice(descuentoSinCargo);
+      if (descuentoCrewPack > 0){
+        document.getElementById("descuento-crewpack-reserva-row").classList.remove('initial-hidden');
+        document.getElementById("descuento-crewpack-reserva").textContent=formatPrice(descuentoCrewPack);
+      }else{
+        document.getElementById("descuento-crewpack-reserva-row").classList.add('initial-hidden');
+        document.getElementById("descuento-crewpack-reserva").textContent='$0';
+      }
+      document.getElementById("total-a-pagar-reserva").textContent=formatPrice(totalResumen);
+
+      const totalTransferir = totalEntradas * EVENTO.precioUnitarioSinCargo;
+      document.getElementById("reservation-message").textContent =
+        `Reserva registrada. Cuando compres, transfiere ${formatPrice(totalTransferir)} por ${totalEntradas} entrada${totalEntradas>1?'s':''}.`;
+    }
+
+    function showNewPage(){
+      document.getElementById('full-page-container').style.display='flex';
+      document.body.style.overflow='auto';
+      document.getElementById('form-section').style.display='block';
+      document.getElementById('confirm-section').style.display='none';
+      document.getElementById('unsubscribe-section').style.display='none';
+      document.getElementById('reserva-confirm-section').style.display='none';
+      document.getElementById('hsu-content').style.display='block';
+      document.body.classList.add('form-mode');
+      document.getElementById('correo').focus();
+    }
+    function showFormPage(){
+      document.getElementById('form-section').style.display='block';
+      document.getElementById('unsubscribe-section').style.display='none';
+      document.getElementById('unsubscribe-correo').value=document.getElementById('correo').value;
+    }
+    function showHsuPage(){
+      document.getElementById('full-page-container').style.display='none';
+      document.body.style.overflow='hidden';
+      document.getElementById('hsu-content').style.display='block';
+      document.body.classList.remove('form-mode');
+      // Reseteo básico de cantidades al volver
+      cantidadGeneral=1; cantidadCrewPack=0;
+      actualizarTotales();
+    }
+
+    /* =======================
+       Handlers compra / reserva
+       ======================= */
     function handleCompra(e){
       e.preventDefault();
       const totalEntradas=cantidadGeneral+(cantidadCrewPack*5);
       if(totalEntradas===0){ alert("Selecciona al menos 1 entrada para continuar."); return; }
-      const correo=document.getElementById("correo").value;
+      const correo=correoInput.value.trim();
       if(!correo){ alert("Es necesario ingresar un correo para poder enviar la/s entrada/s"); return; }
       enviarDatos('compra'); 
       showConfirmSection();
@@ -664,68 +792,17 @@
     function handleReserva(){
       const totalEntradas=cantidadGeneral+(cantidadCrewPack*5);
       if(totalEntradas===0){ alert("Selecciona al menos 1 entrada para continuar."); return; }
-      const correo=document.getElementById("correo").value;
+      const correo=correoInput.value.trim();
       if(!correo){ alert("Es necesario ingresar un correo para poder realizar la reserva"); return; }
       enviarDatos('reserva'); 
       showReservaConfirmSection();
     }
 
-    document.getElementById("reservaForm").addEventListener("submit",handleCompra);
-    document.getElementById("reservar-btn").addEventListener("click",handleReserva);
-
-    // “Datos Bancarios”
-    document.getElementById("copy-bank-data-btn").addEventListener("click",()=>{
-      const correo=correoInput.value.trim();
-      const nombre=nombreInput.value.trim();
-      if(!correo || !nombre){ alert("Ingresa tu correo y nombre antes de solicitar los datos bancarios."); return; }
-      enviarDatos('copy-data');
-      copiarDatos();
-    });
-
-    document.getElementById("unsubscribe-btn").addEventListener("click",()=>{
-      document.getElementById("form-section").style.display="none";
-      document.getElementById("unsubscribe-section").style.display="block";
-    });
-
-    document.getElementById("unsubscribeForm").addEventListener("submit",function(e){
-      e.preventDefault();
-      const correo=document.getElementById("unsubscribe-correo").value;
-      if(!correo){ alert("Por favor, ingresa un correo electrónico."); return; }
-      showHsuPage();
-      const formData={ action:'unsubscribe', correo, nombre:"XXX-DESUSCRITO-XXX", instagram:"XXX-DESUSCRITO-XXX", telefono:"XXX-DESUSCRITO-XXX", cantidad:0, total:0 };
-      fetch(EVENTO.hojaUrl,{ method:'POST', body:JSON.stringify(formData), mode:'no-cors' })
-        .then(()=>{ console.log('Correo de desuscripción enviado.'); alert("Tu solicitud de desuscripción ha sido enviada."); })
-        .catch(err=>{ console.error('Error al procesar la desuscripción:',err); alert("Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo."); });
-    });
-
-    function copiarDatos(){
-      const datos="VICENTE SEBASTIAN MEDEL\n19385365-K\nBanco Estado\nCuentaRUT\n19385365";
-      navigator.clipboard.writeText(datos).then(()=>{ console.log("Datos bancarios copiados."); }).catch(err=>{ console.error('Error al copiar: ',err); });
-    }
-
-    /* ===== Carrusel de DJs ===== */
-    let currentIndex=0;
-    function updateDjSlots(){
-      const djTop=document.getElementById('dj-top');
-      const djMiddle=document.getElementById('dj-middle');
-      const djBottom=document.getElementById('dj-bottom');
-      djMiddle.classList.remove('center');
-      setTimeout(()=>{
-        const nextTopText=djMiddle.textContent;
-        const nextMiddleText=djBottom.textContent;
-        currentIndex=(currentIndex+1)%EVENTO.djNames.length;
-        const nextBottomText=EVENTO.djNames[(currentIndex+1)%EVENTO.djNames.length];
-        djTop.textContent=nextTopText;
-        djMiddle.textContent=nextMiddleText;
-        djBottom.textContent=nextBottomText;
-        setTimeout(()=>{ djMiddle.classList.add('center'); },30);
-      },200);
-      setTimeout(()=>{ updateDjSlots(); }, 2000);
-    }
-
-    /* ===== INIT ===== */
+    /* =======================
+       INIT
+       ======================= */
     window.onload=function(){
-      // Precios en formulario
+      // Precios visibles
       const precioGeneralConCargoEl=document.getElementById('precio-general-con-cargo');
       const precioCrewPackConCargoEl=document.getElementById('precio-crewpack-con-cargo');
       if (precioGeneralConCargoEl) precioGeneralConCargoEl.textContent = formatPrice(EVENTO.precioEntradaGeneral);
@@ -741,7 +818,7 @@
       const twitterTitleMeta = document.querySelector('meta[name="twitter:title"]');
       if (twitterTitleMeta) { twitterTitleMeta.setAttribute('content', twitterTitleMeta.getAttribute('content').replace('40K', precioKString)); }
 
-      // Countdown (widget externo)
+      // Countdown
       setTimeout(()=>{ 
         if(typeof CountdownTimer!=='undefined'){ 
           CountdownTimer.init({ selector:'.countdown-timer', style:'columns', timezone:'America/Santiago', language:'es', date:EVENTO.fecha, textcolor:'#ffffff', digitscolor:'#ffffff', unitscolor:'#ffffff' }); 
@@ -750,40 +827,92 @@
 
       // DJs
       const djTop=document.getElementById('dj-top'), djMiddle=document.getElementById('dj-middle'), djBottom=document.getElementById('dj-bottom');
-      currentIndex=0;
+      let currentIndex=0;
+      function updateDjSlots(){
+        djMiddle.classList.remove('center');
+        setTimeout(()=>{
+          const nextTopText=djMiddle.textContent;
+          const nextMiddleText=djBottom.textContent;
+          currentIndex=(currentIndex+1)%EVENTO.djNames.length;
+          const nextBottomText=EVENTO.djNames[(currentIndex+1)%EVENTO.djNames.length];
+          djTop.textContent=nextTopText;
+          djMiddle.textContent=nextMiddleText;
+          djBottom.textContent=nextBottomText;
+          setTimeout(()=>{ djMiddle.classList.add('center'); },30);
+        },200);
+        setTimeout(updateDjSlots, 2000);
+      }
       djTop.textContent=EVENTO.djNames[(currentIndex-1+EVENTO.djNames.length)%EVENTO.djNames.length];
       djMiddle.textContent=EVENTO.djNames[currentIndex];
       djBottom.textContent=EVENTO.djNames[(currentIndex+1)%EVENTO.djNames.length];
       djMiddle.classList.add('center');
-      setTimeout(()=>{ updateDjSlots(); },2000);
+      setTimeout(updateDjSlots,2000);
 
-      actualizarTotales();
+      // Abrir formulario al cargar (si no quieres esto, comenta la línea siguiente)
+      showNewPage();
 
-      // 👉 Mostrar el formulario automáticamente al entrar
-      setTimeout(() => { showNewPage(); }, 0);
+      // Listeners de botones
+      document.getElementById('plus-general').addEventListener('click', incGeneral);
+      document.getElementById('minus-general').addEventListener('click', decGeneral);
+      document.getElementById('plus-crewpack').addEventListener('click', incCrew);
+      document.getElementById('minus-crewpack').addEventListener('click', decCrew);
 
-      // 👉 Ajuste del logo 3D en escritorio para que no se mezcle con los DJs
-      const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
-      const frontLogo = document.getElementById('front-logo');
-      if(frontLogo && isDesktop){
-        frontLogo.setAttribute('position', '0 1.3 -1.9');  // más atrás y un poco más abajo
-        frontLogo.setAttribute('scale', '-0.45 0.45 0.45'); // levemente más pequeño
+      // Botón “REGÍSTRATE” abre el formulario
+      document.getElementById('register-link').addEventListener('click',(e)=>{
+        e.preventDefault();
+        showNewPage();
+      });
+
+      // Compra / Reserva / Otros
+      document.getElementById("reservaForm").addEventListener("submit",handleCompra);
+      document.getElementById("reservar-btn").addEventListener("click",handleReserva);
+
+      document.getElementById("copy-bank-data-btn").addEventListener("click",()=>{
+        const correo=correoInput.value.trim();
+        const nombre=nombreInput.value.trim();
+        if(!correo || !nombre){ alert("Ingresa tu correo y nombre antes de solicitar los datos bancarios."); return; }
+        enviarDatos('copy-data');
+        copiarDatos();
+      });
+
+      document.getElementById("unsubscribe-btn").addEventListener("click",()=>{
+        document.getElementById("form-section").style.display="none";
+        document.getElementById("unsubscribe-section").style.display="block";
+        document.getElementById('unsubscribe-correo').value=correoInput.value;
+      });
+
+      document.getElementById("unsubscribeForm").addEventListener("submit",function(e){
+        e.preventDefault();
+        const correo=document.getElementById("unsubscribe-correo").value;
+        if(!correo){ alert("Por favor, ingresa un correo electrónico."); return; }
+        showHsuPage();
+        const formData={ action:'unsubscribe', correo, nombre:"XXX-DESUSCRITO-XXX", instagram:"XXX-DESUSCRITO-XXX", telefono:"XXX-DESUSCRITO-XXX", tipo:'C', cantidad:0, total:0, evento:EVENTO.idEvento };
+        fetch(EVENTO.hojaUrl,{ method:'POST', body:JSON.stringify(formData), mode:'no-cors' })
+          .then(()=>{ alert("Tu solicitud de desuscripción ha sido enviada."); })
+          .catch(err=>{ console.error('Error al procesar la desuscripción:',err); alert("Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo."); });
+      });
+
+      function copiarDatos(){
+        const datos="VICENTE SEBASTIAN MEDEL\n19385365-K\nBanco Estado\nCuentaRUT\n19385365";
+        navigator.clipboard.writeText(datos).catch(()=>{});
       }
 
-      // Eventos de entrada
-      correoInput.addEventListener('change', e=>buscarClienteFrecuente(e.target.value.trim()));
-      correoInput.addEventListener('blur', e=>buscarClienteFrecuente(e.target.value.trim()));
-      [correoInput, nombreInput, telefonoInput, instagramInput].forEach(el=>el.addEventListener('input', actualizarTotales));
-
-      // Botones de cantidad
-      document.getElementById('plus-general').addEventListener('click', ()=>{ cantidadGeneral++; qtyGeneralEl.textContent=cantidadGeneral; actualizarTotales(); });
-      document.getElementById('minus-general').addEventListener('click', ()=>{ cantidadGeneral=Math.max(0,cantidadGeneral-1); qtyGeneralEl.textContent=cantidadGeneral; actualizarTotales(); });
-      document.getElementById('plus-crewpack').addEventListener('click', ()=>{ cantidadCrewPack++; qtyCrewPackEl.textContent=cantidadCrewPack; actualizarTotales(); });
-      document.getElementById('minus-crewpack').addEventListener('click', ()=>{ cantidadCrewPack=Math.max(0,cantidadCrewPack-1); qtyCrewPackEl.textContent=cantidadCrewPack; actualizarTotales(); });
-
-      // CTA “Regístrate”
-      registerLink.addEventListener('click', (e)=>{ e.preventDefault(); showNewPage(); });
+      // primer render
+      actualizarTotales();
     };
+
+    // Utilidad global para bloquear zoom por ctrl/⌘ + rueda y atajos
+    document.addEventListener('wheel', function (e) {
+      if (e.ctrlKey) e.preventDefault();
+    }, { passive: false });
+    document.addEventListener('keydown', function (e) {
+      const combo = (e.ctrlKey || e.metaKey);
+      const keys = ['+', '-', '0', '=', '_'];
+      if (combo && keys.includes(e.key)) e.preventDefault();
+    });
+    ['gesturestart','gesturechange','gestureend'].forEach(evt => {
+      document.addEventListener(evt, function (e) { e.preventDefault(); }, { passive: false });
+    });
   </script>
 </body>
 </html>
