@@ -172,6 +172,11 @@
     .controls{ display:flex; align-items:center; gap:10px }
     .btn{ padding:10px 14px; font-size:16px; border:none; border-radius:6px; cursor:pointer; background:var(--azul); color:#fff }
     .btn:disabled{ background:#ccc; cursor:not-allowed }
+    .btn-gray-small {
+      background: transparent; color: #888; border: none; font-size: 13px; text-decoration: underline; margin-top: 8px; cursor: pointer; padding: 5px;
+    }
+    .btn-gray-small:hover { color: #555; }
+    
     .qty{ min-width:30px; text-align:center; font-weight:bold }
     .total-box{ margin-top:16px; padding-top:12px; border-top:1px solid #ddd }
     .resumen-title{ color:var(--azul); font-weight:800; font-size:1.05rem; margin:12px 0 6px; text-transform:uppercase; letter-spacing:.5px }
@@ -181,9 +186,10 @@
     .total{ font-size:20px; font-weight:bold; color:var(--azul) }
     .cliente-frecuente-container{ margin:6px 0 8px; }
     .form-actions{ margin-top:16px }
-    .actions-quad{ display:grid; grid-template-columns:repeat(2, minmax(140px, 1fr)); gap:10px; }
+    /* Ajustado para solo 2 botones */
+    .actions-quad{ display:grid; grid-template-columns:repeat(2, minmax(100px, 1fr)); gap:10px; }
     .actions-quad .btn{ width:100% }
-    .actions{ display:flex; justify-content:center; gap:14px; margin-top:18px }
+    .actions{ display:flex; flex-direction: column; align-items: center; justify-content:center; gap:5px; margin-top:18px }
     .initial-hidden{ display:none; }
 
     /* ===== Modo formulario: ver sólo bandas ===== */
@@ -226,7 +232,7 @@
       .countdown-timer{ font-size:1em }
       .form-container{ width:96vw; max-height:86vh; padding:16px }
       .btn{ padding:9px 11px; font-size:14px }
-      .actions-quad{ grid-template-columns:1fr 1fr }
+      /* grid se mantiene igual ya que son solo 2 botones */
     }
   </style>
 </head>
@@ -355,12 +361,11 @@
           <div class="actions-quad">
             <button type="button" class="btn" id="reservar-btn" disabled>Reservar</button>
             <button type="submit" class="btn" id="comprar-btn" disabled>Comprar</button>
-            <button type="button" class="btn" id="unsubscribe-btn" >Desuscribirse</button>
-            <button type="button" class="btn" id="copy-bank-data-btn" >Datos Bancarios</button>
           </div>
 
-          <div class="actions" style="margin-top:14px;">
-            <button type="button" class="btn" onclick="showHsuPage()">Volver</button>
+          <div class="actions">
+            <button type="button" class="btn" onclick="showHsuPage()" style="width:100%; max-width:140px;">Volver</button>
+            <button type="button" class="btn-gray-small" id="unsubscribe-btn">Desuscribirse</button>
           </div>
         </div>
       </form>
@@ -369,7 +374,7 @@
     <!-- Post-compra -->
     <div class="form-container" id="confirm-section" style="display:none;">
       <h2 class="title">¡Gracias por tu confianza y preferencia!</h2>
-      <p style="text-align:center; margin-bottom:12px;" id="confirmation-message"></p>
+      <p style="text-align:center; margin-bottom:12px;" id="confirmation-message"></p> <!-- Este mensaje se limpia vía JS -->
 
       <h3 class="resumen-title">Resumen de compra</h3>
       <div class="total-box">
@@ -378,13 +383,15 @@
         <div class="total-row"><span>Descuento sin cargo</span><span class="tachado-rojo" id="descuento-general-confirm">$0</span></div>
         <div class="total-row initial-hidden" id="descuento-crewpack-confirm-row"><span>Descuento crewpack</span><span class="tachado-rojo" id="descuento-crewpack-confirm">$0</span></div>
         <div class="total-row total"><span>Total a pagar</span><span id="total-a-pagar-confirm">$0</span></div>
-        <p style="text-align:center; margin-top:12px;">Una vez realizada la transferencia, notifica al vendedor para que te envíe las entradas.</p>
+        
+        <!-- Mensaje modificado Post Compra -->
+        <p style="text-align:center; margin-top:12px; font-weight:bold; color:var(--azul);">Datos bancarios copiados en el portapapeles, puedes usar tu app de banco</p>
+        
         <p style="text-align:center; margin-top:5px; color:#024ddf; font-weight:bold;" id="entradas-acumuladas-compra"></p>
       </div>
 
       <div class="actions">
         <button type="button" class="btn" onclick="showHsuPage()">Volver al inicio</button>
-        <button type="button" class="btn" onclick="copiarDatos()">Datos bancarios</button>
       </div>
     </div>
 
@@ -400,13 +407,15 @@
         <div class="total-row"><span>Descuento sin cargo</span><span class="tachado-rojo" id="descuento-general-reserva">$0</span></div>
         <div class="total-row initial-hidden" id="descuento-crewpack-reserva-row"><span>Descuento crewpack</span><span class="tachado-rojo" id="descuento-crewpack-reserva">$0</span></div>
         <div class="total-row total"><span>Total a pagar</span><span id="total-a-pagar-reserva">$0</span></div>
-        <p style="text-align:center; margin-top:12px;">Por favor, avísame cuando desees concretar la compra</p>
+        
+        <!-- Mensaje modificado Post Reserva -->
+        <p style="text-align:center; margin-top:12px;">Por favor, avísame cuando desees concretar la compra. Pronto me comunicaré contigo para preguntar si aún deseas la entrada.</p>
+        
         <p style="text-align:center; margin-top:5px; color:#024ddf; font-weight:bold;" id="entradas-acumuladas-reserva"></p>
       </div>
 
       <div class="actions">
         <button type="button" class="btn" onclick="showHsuPage()">Volver al inicio</button>
-        <button type="button" class="btn" onclick="copiarDatos()">Datos bancarios</button>
       </div>
     </div>
 
@@ -442,7 +451,7 @@
       get descuentoCrewPack(){ return this.descuentoCrewPackManual; },
 
       fecha: '2026-01-10 00:00',
-      djNames: ["DIMITRI-K","MC.ROBS","RADICAL REDEMPTION", "JAY REEVE"],
+      djNames: ["DIMITRI-K","MC.ROBS","RADICAL REDEMPTION", "JAY REEVE","KARINA ROSEE"],
 
       // Endpoints (Apps Script)
       hojaUrl: "https://script.google.com/macros/s/AKfycbxMt88X2mfxXRionLlsGlpZWWRXdLuIc0W3v7yYlkrw1Swp6QvrfwMqYV3xPdEbw1P1/exec",
@@ -718,9 +727,11 @@
       }
       document.getElementById("total-a-pagar-confirm").textContent=formatPrice(totalResumen);
 
-      const totalTransferir = totalEntradas * EVENTO.precioUnitarioSinCargo;
-      document.getElementById("confirmation-message").textContent =
-        `Realiza la transferencia por ${formatPrice(totalTransferir)} por ${totalEntradas} entrada${totalEntradas>1?'s':''}.`;
+      // Eliminamos el mensaje de "Realiza la transferencia por..."
+      document.getElementById("confirmation-message").textContent = "";
+      
+      // Copiar datos bancarios automáticamente al llegar aquí
+      copiarDatos();
     }
 
     function showReservaConfirmSection(){
@@ -746,9 +757,11 @@
       }
       document.getElementById("total-a-pagar-reserva").textContent=formatPrice(totalResumen);
 
-      const totalTransferir = totalEntradas * EVENTO.precioUnitarioSinCargo;
-      document.getElementById("reservation-message").textContent =
-        `Reserva registrada. Cuando compres, transfiere ${formatPrice(totalTransferir)} por ${totalEntradas} entrada${totalEntradas>1?'s':''}.`;
+      // Eliminamos el mensaje de "Reserva registrada..."
+      document.getElementById("reservation-message").textContent = "";
+
+      // Copiar datos bancarios automáticamente al llegar aquí
+      copiarDatos();
     }
 
     function showNewPage(){
@@ -867,14 +880,7 @@
       document.getElementById("reservaForm").addEventListener("submit",handleCompra);
       document.getElementById("reservar-btn").addEventListener("click",handleReserva);
 
-      document.getElementById("copy-bank-data-btn").addEventListener("click",()=>{
-        const correo=correoInput.value.trim();
-        const nombre=nombreInput.value.trim();
-        if(!correo || !nombre){ alert("Ingresa tu correo y nombre antes de solicitar los datos bancarios."); return; }
-        enviarDatos('copy-data');
-        copiarDatos();
-      });
-
+      // Desuscribirse
       document.getElementById("unsubscribe-btn").addEventListener("click",()=>{
         document.getElementById("form-section").style.display="none";
         document.getElementById("unsubscribe-section").style.display="block";
@@ -892,14 +898,34 @@
           .catch(err=>{ console.error('Error al procesar la desuscripción:',err); alert("Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo."); });
       });
 
-      function copiarDatos(){
-        const datos="VICENTE SEBASTIAN MEDEL\n19385365-K\nBanco Estado\nCuentaRUT\n19385365";
-        navigator.clipboard.writeText(datos).catch(()=>{});
-      }
-
       // primer render
       actualizarTotales();
     };
+    
+    // Función global para copiar datos
+    function copiarDatos(){
+      const datos="VICENTE SEBASTIAN MEDEL\n19385365-K\nBanco Estado\nCuentaRUT\n19385365";
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(datos).catch(err => {
+            console.error('Error al copiar:', err);
+        });
+      } else {
+        // Fallback para entornos antiguos o no seguros
+        const textArea = document.createElement("textarea");
+        textArea.value = datos;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+        } catch (err) {
+            console.error('Fallback: Error al copiar', err);
+        }
+        document.body.removeChild(textArea);
+      }
+    }
 
     // Utilidad global para bloquear zoom por ctrl/⌘ + rueda y atajos
     document.addEventListener('wheel', function (e) {
