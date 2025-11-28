@@ -8,10 +8,10 @@
   <title>HSU / SUPERKLUB</title>
 
   <link rel="canonical" href="https://vixentres.github.io/hsu.github.io/" />
-  <meta name="description" content="| HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._"/>
+  <meta name="description" content="| HSU / SUPERKLUB / ENTRADAS SIN CARGO, 36K (BLACK FRIDAY) | ig: Vixentres._"/>
   <meta name="robots" content="index,follow" />
   
-  <meta property="og:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._" />
+  <meta property="og:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO, 36K (BLACK FRIDAY) | ig: Vixentres._" />
   <meta property="og:description" content="⛓ Vicente 🌹 (@vixentres._) 3,928 seguidores, 1,349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram" />
   <meta property="og:image" content="https://vixentres.github.io/hsu.github.io/banner%201.jpg" />
   <meta property="og:image:width" content="1200" />
@@ -21,7 +21,7 @@
   <meta property="og:site_name" content="HSU / SUPERKLUB" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO, 40K | ig: Vixentres._" />
+  <meta name="twitter:title" content="HSU / SUPERKLUB / ENTRADAS SIN CARGO, 36K (BLACK FRIDAY) | ig: Vixentres._" />
   <meta name="twitter:description" content="⛓ Vicente 🌹 (@vixentres._) 3,928 seguidores, 1.349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram" />
   <meta name="twitter:image" content="https://vixentres.github.io/hsu.github.io/banner%201.jpg" />
 
@@ -181,15 +181,20 @@
     .total-box{ margin-top:16px; padding-top:12px; border-top:1px solid #ddd }
     .resumen-title{ color:var(--azul); font-weight:800; font-size:1.05rem; margin:12px 0 6px; text-transform:uppercase; letter-spacing:.5px }
     .total-row{ display:flex; justify-content:space-between; margin:6px 0; font-size:16px }
-    .tachado{ text-decoration:line-through; color:#777 }
-    .tachado-rojo{ text-decoration:line-through; color:#f00 }
+    
+    /* ESTILOS MODIFICADOS PARA PRECIOS */
+    .tachado{ text-decoration:line-through; color:#777; }
+    /* Nueva clase para descuentos: Rojo y sin tachar */
+    .texto-rojo{ color:#f00; font-weight:bold; }
+    
     .total{ font-size:20px; font-weight:bold; color:var(--azul) }
     .cliente-frecuente-container{ margin:6px 0 8px; }
     .form-actions{ margin-top:16px }
-    /* Ajustado para solo 2 botones */
-    .actions-quad{ display:grid; grid-template-columns:repeat(2, minmax(100px, 1fr)); gap:10px; }
-    .actions-quad .btn{ width:100% }
-    .actions{ display:flex; flex-direction: column; align-items: center; justify-content:center; gap:5px; margin-top:18px }
+    /* Solo 1 botón principal ahora */
+    .actions-main{ width:100%; margin-bottom: 10px; }
+    .actions-main .btn{ width:100%; font-size: 1.1em; padding: 12px; }
+    
+    .actions{ display:flex; flex-direction: column; align-items: center; justify-content:center; gap:5px; margin-top:10px }
     .initial-hidden{ display:none; }
 
     /* ===== Modo formulario: ver sólo bandas ===== */
@@ -232,7 +237,6 @@
       .countdown-timer{ font-size:1em }
       .form-container{ width:96vw; max-height:86vh; padding:16px }
       .btn{ padding:9px 11px; font-size:14px }
-      /* grid se mantiene igual ya que son solo 2 botones */
     }
   </style>
 </head>
@@ -307,7 +311,7 @@
     <!-- Formulario -->
     <div class="form-container" id="form-section">
       <div class="form-buttons-row"></div>
-      <h2>COMPRA / RESERVA <br> TUS ENTRADAS</h2>
+      <h2>REGISTRO DE<br>ENTRADAS</h2>
 
       <form id="reservaForm">
         <div class="cliente-frecuente-container">
@@ -351,16 +355,20 @@
         <h3 class="resumen-title">Resumen de compra</h3>
         <div class="total-box">
           <div class="total-row"><span id="label-cantidad-entradas">Cantidad de entradas</span><span id="cantidad-entradas">1</span></div>
-          <div class="total-row"><span id="label-precio-total">Precio total</span><span id="precio-total">$46.000</span></div>
-          <div class="total-row"><span>Descuento sin cargo 15%</span><span class="tachado-rojo" id="descuento-general">$6.000</span></div>
-          <div class="total-row initial-hidden" id="crewpack-row"><span>Descuento crewpack</span><span class="tachado-rojo" id="descuento-crewpack">$0</span></div>
-          <div class="total-row total"><span>Total a pagar</span><span id="total-a-pagar">$36.000</span></div>
+          <!-- PRECIO TOTAL AHORA TACHADO -->
+          <div class="total-row"><span id="label-precio-total">Precio total</span><span class="tachado" id="precio-total">$46.000</span></div>
+          <!-- Descuentos en ROJO y NEGATIVO -->
+          <div class="total-row"><span>Descuento sin cargo 15%</span><span class="texto-rojo" id="descuento-general">-$6.000</span></div>
+          <div class="total-row initial-hidden" id="crewpack-row"><span>Descuento crewpack</span><span class="texto-rojo" id="descuento-crewpack">-$0</span></div>
+          <div class="total-row initial-hidden" id="blackfriday-row"><span>Descuento Black Friday</span><span class="texto-rojo" id="descuento-blackfriday">-$0</span></div>
+          
+          <div class="total-row total"><span>Total a pagar</span><span id="total-a-pagar">$40.000</span></div>
         </div>
 
         <div class="form-actions">
-          <div class="actions-quad">
-            <button type="button" class="btn" id="reservar-btn" disabled>Reservar</button>
-            <button type="submit" class="btn" id="comprar-btn" disabled>Comprar</button>
+          <div class="actions-main">
+            <!-- Botón unificado -->
+            <button type="submit" class="btn" id="register-btn" disabled>Registrarse</button>
           </div>
 
           <div class="actions">
@@ -371,47 +379,24 @@
       </form>
     </div>
 
-    <!-- Post-compra -->
+    <!-- Post-registro (Unificado) -->
     <div class="form-container" id="confirm-section" style="display:none;">
       <h2 class="title">¡Gracias por tu confianza y preferencia!</h2>
-      <p style="text-align:center; margin-bottom:12px;" id="confirmation-message"></p> <!-- Este mensaje se limpia vía JS -->
+      <p style="text-align:center; margin-bottom:12px;" id="confirmation-message"></p> 
 
       <h3 class="resumen-title">Resumen de compra</h3>
       <div class="total-box">
         <div class="total-row"><span id="label-cantidad-entradas-confirm">Cantidad de entradas</span><span id="cantidad-entradas-confirm">0</span></div>
-        <div class="total-row"><span id="label-precio-total-confirm">Precio total</span><span id="precio-total-confirm">$0</span></div>
-        <div class="total-row"><span>Descuento sin cargo</span><span class="tachado-rojo" id="descuento-general-confirm">$0</span></div>
-        <div class="total-row initial-hidden" id="descuento-crewpack-confirm-row"><span>Descuento crewpack</span><span class="tachado-rojo" id="descuento-crewpack-confirm">$0</span></div>
+        <div class="total-row"><span id="label-precio-total-confirm">Precio total</span><span class="tachado" id="precio-total-confirm">$0</span></div>
+        <div class="total-row"><span>Descuento sin cargo</span><span class="texto-rojo" id="descuento-general-confirm">-$0</span></div>
+        <div class="total-row initial-hidden" id="descuento-crewpack-confirm-row"><span>Descuento crewpack</span><span class="texto-rojo" id="descuento-crewpack-confirm">-$0</span></div>
+        <div class="total-row initial-hidden" id="descuento-blackfriday-confirm-row"><span>Descuento Black Friday</span><span class="texto-rojo" id="descuento-blackfriday-confirm">-$0</span></div>
+        
         <div class="total-row total"><span>Total a pagar</span><span id="total-a-pagar-confirm">$0</span></div>
         
-        <!-- Mensaje modificado Post Compra -->
         <p style="text-align:center; margin-top:12px; font-weight:bold; color:var(--azul);">Datos bancarios copiados en el portapapeles, puedes usar tu app de banco</p>
         
         <p style="text-align:center; margin-top:5px; color:#024ddf; font-weight:bold;" id="entradas-acumuladas-compra"></p>
-      </div>
-
-      <div class="actions">
-        <button type="button" class="btn" onclick="showHsuPage()">Volver al inicio</button>
-      </div>
-    </div>
-
-    <!-- Post-reserva -->
-    <div class="form-container" id="reserva-confirm-section" style="display:none;">
-      <h2 class="title">¡Gracias por tu reserva!</h2>
-      <p style="text-align:center; margin-bottom:12px;" id="reservation-message"></p>
-
-      <h3 class="resumen-title">Resumen de compra</h3>
-      <div class="total-box">
-        <div class="total-row"><span id="label-cantidad-entradas-reserva">Cantidad de entradas</span><span id="cantidad-entradas-reserva">0</span></div>
-        <div class="total-row"><span id="label-precio-total-reserva">Precio total</span><span id="precio-total-reserva">$0</span></div>
-        <div class="total-row"><span>Descuento sin cargo</span><span class="tachado-rojo" id="descuento-general-reserva">$0</span></div>
-        <div class="total-row initial-hidden" id="descuento-crewpack-reserva-row"><span>Descuento crewpack</span><span class="tachado-rojo" id="descuento-crewpack-reserva">$0</span></div>
-        <div class="total-row total"><span>Total a pagar</span><span id="total-a-pagar-reserva">$0</span></div>
-        
-        <!-- Mensaje modificado Post Reserva -->
-        <p style="text-align:center; margin-top:12px;">Por favor, avísame cuando desees concretar la compra. Pronto me comunicaré contigo para preguntar si aún deseas la entrada.</p>
-        
-        <p style="text-align:center; margin-top:5px; color:#024ddf; font-weight:bold;" id="entradas-acumuladas-reserva"></p>
       </div>
 
       <div class="actions">
@@ -439,9 +424,10 @@
        CONFIG (editables)
        ======================= */
     const EVENTO = {
-      precioUnitarioSinCargo: 36000,   // precio base por entrada (cliente)
-      descuentoCrewPackManual: 3000,   // descuento extra fijo si hay pack (visual)
-      idEvento: 4,                     // ID que se envía a la hoja
+      precioUnitarioSinCargo: 40000,   // Precio Base
+      descuentoCrewPackManual: 3000,   // Descuento POR PACK
+      descuentoBlackFriday: 4000,      // Descuento POR ENTRADA (Black Friday)
+      idEvento: 4,
 
       // Cálculos derivados
       get cargoPorServicio(){ return Math.round(this.precioUnitarioSinCargo * 0.15); },
@@ -453,7 +439,6 @@
       fecha: '2026-01-10 00:00',
       djNames: ["DIMITRI-K","MC.ROBS","RADICAL REDEMPTION", "JAY REEVE","KARINA ROSEE"],
 
-      // Endpoints (Apps Script)
       hojaUrl: "https://script.google.com/macros/s/AKfycbxMt88X2mfxXRionLlsGlpZWWRXdLuIc0W3v7yYlkrw1Swp6QvrfwMqYV3xPdEbw1P1/exec",
       hojaClientesUrl: "https://script.google.com/macros/s/AKfycbxklOoDJgh0azEcUxxAr8mI6TkA3feUSNxTGIhDWtIMWHw3hrEoBDTOMdsWIBhgs2q3/exec",
 
@@ -461,13 +446,11 @@
       descripcionEvento: "⛓ Vicente 🌹 (@vixentres._) 3,928 seguidores, 1.349 seguidos, 51 publicaciones - Ver fotos y videos de Instagram"
     };
 
-    // Emojis para mensaje de cliente frecuente (fiesta / premio / felicidad)
     const EMOJIS_FIESTA = ["🎉","🥳","🎊","🏆","🌟","💥","🎈","💫","🔥","🪩"];
 
     /* =======================
        Estado y refs
        ======================= */
-    // Inician: 1x = 1, 5x = 0
     let cantidadGeneral=1, cantidadCrewPack=0, entradasAcumuladas=0;
 
     const qtyGeneralEl=document.getElementById("qty-general");
@@ -477,9 +460,15 @@
     const descuentoGeneralEl=document.getElementById("descuento-general");
     const descuentoCrewEl=document.getElementById("descuento-crewpack");
     const crewpackRowEl=document.getElementById("crewpack-row");
+    
+    // Refs Black Friday
+    const blackFridayRowEl=document.getElementById("blackfriday-row");
+    const descuentoBlackFridayEl=document.getElementById("descuento-blackfriday");
+
     const totalPagarEl=document.getElementById("total-a-pagar");
-    const comprarBtn=document.getElementById("comprar-btn");
-    const reservarBtn=document.getElementById("reservar-btn");
+    
+    // Solo un botón ahora
+    const registerBtn=document.getElementById("register-btn");
 
     const correoInput=document.getElementById("correo");
     const nombreInput=document.getElementById("nombre");
@@ -492,7 +481,12 @@
     /* =======================
        Utils
        ======================= */
-    function formatPrice(n){ return n.toLocaleString('es-CL',{style:'currency',currency:'CLP',maximumFractionDigits:0}); }
+    // Helper para formatear valores negativos o positivos con $
+    function formatPrice(n){ 
+      // toLocaleString maneja el negativo automáticamente poniéndolo antes o después según locale, 
+      // pero para asegurar "visual negativo", pasaremos el número negativo tal cual.
+      return n.toLocaleString('es-CL',{style:'currency',currency:'CLP',maximumFractionDigits:0}); 
+    }
     function lanzarConfeti(){ confetti({ particleCount: 150, spread: 70, origin: { y: 0.35 }, zIndex: 5000 }); }
 
     /* =======================
@@ -500,7 +494,6 @@
        ======================= */
     function isValidEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v).toLowerCase()); }
 
-    // Correo en minúsculas + debounce de búsqueda
     correoInput.addEventListener('input', (e)=>{
       const cur = e.target.selectionStart;
       e.target.value = e.target.value.toLowerCase();
@@ -510,21 +503,18 @@
     });
     correoInput.addEventListener('blur', scheduleClienteFrecuenteLookup);
 
-    // Instagram sin @ y en minúsculas
     instagramInput.addEventListener('input',(e)=>{
       const cur = e.target.selectionStart;
       e.target.value = e.target.value.replace('@','').toLowerCase();
       e.target.setSelectionRange(cur, cur);
     });
 
-    // Nombre capitalizado; habilita si ≥5 chars
     nombreInput.addEventListener("input",(e)=>{
       let v=e.target.value;
       e.target.value = v.toLowerCase().split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' ');
       actualizarTotales();
     });
 
-    // Teléfono: autocompleta estilo WhatsApp al blur
     telefonoInput.addEventListener("blur",(e)=>{
       let valor=e.target.value.replace(/[^0-9+]/g,'');
       if(valor.startsWith('+')){ e.target.value=valor; e.target.dataset.clean=valor; return; }
@@ -538,7 +528,7 @@
     });
 
     /* =======================
-       Cliente frecuente (búsqueda por correo)
+       Cliente frecuente
        ======================= */
     let emailDebounce = null;
     function scheduleClienteFrecuenteLookup(){
@@ -555,12 +545,8 @@
       fetch(url).then(r=>r.json()).then(data=>{
         stopLoading();
         if(data && (data.status==='success' || data.nombre || data.instagram || data.numero)){
-          if(data.nombre && String(data.nombre).trim()){
-            nombreInput.value = String(data.nombre).trim();
-          }
-          if(data.instagram && String(data.instagram).trim()){
-            instagramInput.value = String(data.instagram).trim().replace('@','');
-          }
+          if(data.nombre && String(data.nombre).trim()){ nombreInput.value = String(data.nombre).trim(); }
+          if(data.instagram && String(data.instagram).trim()){ instagramInput.value = String(data.instagram).trim().replace('@',''); }
           if(data.numero && String(data.numero).trim()){
             const numeroLimpio = String(data.numero).trim();
             telefonoInput.value = numeroLimpio;
@@ -572,8 +558,6 @@
             const emoji = EMOJIS_FIESTA[Math.floor(Math.random()*EMOJIS_FIESTA.length)];
             clienteFrecuenteInfo.textContent=`¡Cliente frecuente! Llevas ${en} entradas compradas ${emoji}`;
             clienteFrecuenteInfo.style.display='block';
-            // Si quieres confeti aquí: 
-            // lanzarConfeti();
           }else{
             clienteFrecuenteInfo.textContent='';
             clienteFrecuenteInfo.style.display='none';
@@ -584,7 +568,6 @@
           clienteFrecuenteInfo.style.display='none';
         }
       }).catch(err=>{
-        console.error('Error al buscar cliente frecuente:',err);
         stopLoading();
         entradasAcumuladas = 0;
         clienteFrecuenteInfo.textContent='';
@@ -593,58 +576,85 @@
     }
 
     /* =======================
-       Totales (formulario)
+       Totales (formulario) - MODIFICADO
        ======================= */
     function actualizarTotales(){
       const totalEntradas=cantidadGeneral+(cantidadCrewPack*5);
+      // Precio lista (bruto)
       const precioBruto=(cantidadGeneral*EVENTO.precioEntradaGeneral)+(cantidadCrewPack*EVENTO.precioCrewPack);
+      
+      // Descuento cargo por servicio (siempre aplica)
       const descGeneral=(cantidadGeneral+(cantidadCrewPack*5))*EVENTO.descuentoGeneral;
-      const descCrew=(cantidadCrewPack>0)?EVENTO.descuentoCrewPack:0;
-      const total=precioBruto-(descGeneral+descCrew);
+      
+      // Descuento Crewpack: 3000 por cada pack (cantidadCrewPack * 3000)
+      // Ajuste: si cantidadCrewPack es 2 (10 entradas), desc es 6000.
+      const descCrew = cantidadCrewPack * EVENTO.descuentoCrewPackManual;
+
+      // Descuento Black Friday: por cada entrada total
+      const descBlackFriday = (totalEntradas * EVENTO.descuentoBlackFriday);
+
+      // Total final a pagar
+      const total = precioBruto - (descGeneral + descCrew + descBlackFriday);
 
       qtyGeneralEl.textContent=cantidadGeneral;
       qtyCrewPackEl.textContent=cantidadCrewPack;
       cantidadEntradasEl.textContent=String(totalEntradas);
+      
+      // Mostrar precio bruto (será tachado por CSS)
       precioTotalEl.textContent=formatPrice(precioBruto);
-      descuentoGeneralEl.textContent=descGeneral>0?formatPrice(descGeneral):'$0';
+      
+      // Mostrar descuentos en negativo
+      descuentoGeneralEl.textContent=descGeneral>0?formatPrice(-descGeneral):'$0';
+      
+      // Crewpack Row
       if(cantidadCrewPack>0){
         crewpackRowEl.classList.remove('initial-hidden');
-        descuentoCrewEl.textContent=formatPrice(descCrew);
+        descuentoCrewEl.textContent=formatPrice(-descCrew);
       }else{
         crewpackRowEl.classList.add('initial-hidden');
-        descuentoCrewEl.textContent='$0';
+        descuentoCrewEl.textContent='-$0';
       }
+
+      // Black Friday Row
+      if(descBlackFriday > 0){
+        blackFridayRowEl.classList.remove('initial-hidden');
+        descuentoBlackFridayEl.textContent = formatPrice(-descBlackFriday);
+      } else {
+        blackFridayRowEl.classList.add('initial-hidden');
+        descuentoBlackFridayEl.textContent = '-$0';
+      }
+
       totalPagarEl.textContent=formatPrice(total);
 
-      // Habilitar si: entradas>0, email válido y nombre ≥5 caracteres
+      // Habilitar botón único
       const correoOk = isValidEmail(correoInput.value);
       const nombreOk = (nombreInput.value || '').trim().length > 4;
       const enable = (totalEntradas > 0) && correoOk && nombreOk;
-      comprarBtn.disabled = !enable;
-      reservarBtn.disabled = !enable;
+      
+      registerBtn.disabled = !enable;
     }
 
     /* =======================
-       Confeti ante cualquier cambio de (5x)
+       Confeti
        ======================= */
     function setCrewPack(newVal){
       const prev = cantidadCrewPack;
       if(newVal<0) newVal=0;
       if(newVal!==prev){
         cantidadCrewPack = newVal;
-        lanzarConfeti(); // SIEMPRE que (5x) cambie
+        lanzarConfeti();
       }
     }
 
     /* =======================
-       Lógica 1x (0..4) ↔ 5x y confeti
+       Lógica Contadores
        ======================= */
     function incGeneral(){
       const prevGeneral = cantidadGeneral;
       const prevCrew = cantidadCrewPack;
       cantidadGeneral = (cantidadGeneral + 1) % 5;
       if(prevGeneral === 4 && cantidadGeneral === 0){
-        setCrewPack(prevCrew + 1); // rebote 4→0 suma un pack (confeti)
+        setCrewPack(prevCrew + 1);
       }
       actualizarTotales();
     }
@@ -653,7 +663,7 @@
       if(cantidadGeneral > 0){
         cantidadGeneral -= 1;
       }else if(prevCrew > 0){
-        setCrewPack(prevCrew - 1);    // toma un pack y lo desarma → confeti
+        setCrewPack(prevCrew - 1);
         cantidadGeneral = 4;
       }
       actualizarTotales();
@@ -662,7 +672,7 @@
     function decCrew(){ setCrewPack(cantidadCrewPack - 1); cantidadGeneral=0; actualizarTotales(); }
 
     /* =======================
-       Envío a hoja: 1 fila por entrada (cantidad=1, total=40.000, tipo C/R, evento)
+       Envío a hoja
        ======================= */
     function enviarDatos(actionType){
       const correo=correoInput.value.trim();
@@ -671,22 +681,16 @@
       const telefono=telefonoInput.dataset.clean || telefonoInput.value.trim();
 
       const totalEntradas = cantidadGeneral + (cantidadCrewPack*5);
-      const tipo = (actionType === 'reserva') ? 'R' : 'C';
-      const totalPorEntrada = EVENTO.precioUnitarioSinCargo; // 40.000 por fila
+      const totalPorEntrada = EVENTO.precioUnitarioSinCargo; 
 
-      if(actionType === 'copy-data'){
-        const payload={ action: 'copy-bank-data', nombre, correo, instagram, telefono, tipo:'C', cantidad:0, total:0, evento: EVENTO.idEvento };
-        fetch(EVENTO.hojaUrl,{ method:'POST', body:JSON.stringify(payload), mode:'no-cors' }).catch(()=>{});
-        return;
-      }
+      if(actionType === 'copy-data'){ return; }
 
       const filas = [];
       for(let i=0; i<totalEntradas; i++){
         filas.push({
           action: 'register',
           nombre, correo, instagram, telefono,
-          tipo,                 // <--- Tipo C/R
-          cantidad: 1,          // una entrada por fila
+          cantidad: 1,          
           total: totalPorEntrada,
           evento: EVENTO.idEvento
         });
@@ -707,60 +711,45 @@
     function showConfirmSection(){
       document.getElementById("form-section").style.display="none";
       document.getElementById("confirm-section").style.display="block";
-      document.getElementById("reserva-confirm-section").style.display="none";
 
       const totalEntradas=cantidadGeneral+(cantidadCrewPack*5);
       const precioTotal=(cantidadGeneral*EVENTO.precioEntradaGeneral)+(cantidadCrewPack*EVENTO.precioCrewPack);
+      
       const descuentoSinCargo=(cantidadGeneral+(cantidadCrewPack*5))*EVENTO.descuentoGeneral;
-      const descuentoCrewPack=cantidadCrewPack>0?EVENTO.descuentoCrewPack:0;
-      const totalResumen=precioTotal-(descuentoSinCargo+descuentoCrewPack);
+      
+      // Calculo correcto para el resumen final (cantidad packs * valor descuento pack)
+      const descuentoCrewPackVal = cantidadCrewPack * EVENTO.descuentoCrewPackManual;
+      
+      const descuentoBlackFriday = (totalEntradas * EVENTO.descuentoBlackFriday);
+      
+      const totalResumen=precioTotal-(descuentoSinCargo+descuentoCrewPackVal+descuentoBlackFriday);
 
       document.getElementById("cantidad-entradas-confirm").textContent=totalEntradas;
       document.getElementById("precio-total-confirm").textContent=formatPrice(precioTotal);
-      document.getElementById("descuento-general-confirm").textContent=formatPrice(descuentoSinCargo);
-      if (descuentoCrewPack > 0){
+      document.getElementById("descuento-general-confirm").textContent=formatPrice(-descuentoSinCargo);
+      
+      if (descuentoCrewPackVal > 0){
         document.getElementById("descuento-crewpack-confirm-row").classList.remove('initial-hidden');
-        document.getElementById("descuento-crewpack-confirm").textContent=formatPrice(descuentoCrewPack);
+        document.getElementById("descuento-crewpack-confirm").textContent=formatPrice(-descuentoCrewPackVal);
       }else{
         document.getElementById("descuento-crewpack-confirm-row").classList.add('initial-hidden');
-        document.getElementById("descuento-crewpack-confirm").textContent='$0';
+        document.getElementById("descuento-crewpack-confirm").textContent='-$0';
       }
-      document.getElementById("total-a-pagar-confirm").textContent=formatPrice(totalResumen);
 
-      // Eliminamos el mensaje de "Realiza la transferencia por..."
+      // Black Friday Confirm
+      const bfRowConfirm = document.getElementById("descuento-blackfriday-confirm-row");
+      const bfValConfirm = document.getElementById("descuento-blackfriday-confirm");
+      if(descuentoBlackFriday > 0){
+        bfRowConfirm.classList.remove('initial-hidden');
+        bfValConfirm.textContent = formatPrice(-descuentoBlackFriday);
+      } else {
+        bfRowConfirm.classList.add('initial-hidden');
+        bfValConfirm.textContent = '-$0';
+      }
+
+      document.getElementById("total-a-pagar-confirm").textContent=formatPrice(totalResumen);
       document.getElementById("confirmation-message").textContent = "";
       
-      // Copiar datos bancarios automáticamente al llegar aquí
-      copiarDatos();
-    }
-
-    function showReservaConfirmSection(){
-      document.getElementById("form-section").style.display="none";
-      document.getElementById("reserva-confirm-section").style.display="block";
-      document.getElementById("confirm-section").style.display="none";
-
-      const totalEntradas=cantidadGeneral+(cantidadCrewPack*5);
-      const precioTotal=(cantidadGeneral*EVENTO.precioEntradaGeneral)+(cantidadCrewPack*EVENTO.precioCrewPack);
-      const descuentoSinCargo=(cantidadGeneral+(cantidadCrewPack*5))*EVENTO.descuentoGeneral;
-      const descuentoCrewPack=cantidadCrewPack>0?EVENTO.descuentoCrewPack:0;
-      const totalResumen=precioTotal-(descuentoSinCargo+descuentoCrewPack);
-
-      document.getElementById("cantidad-entradas-reserva").textContent=totalEntradas;
-      document.getElementById("precio-total-reserva").textContent=formatPrice(precioTotal);
-      document.getElementById("descuento-general-reserva").textContent=formatPrice(descuentoSinCargo);
-      if (descuentoCrewPack > 0){
-        document.getElementById("descuento-crewpack-reserva-row").classList.remove('initial-hidden');
-        document.getElementById("descuento-crewpack-reserva").textContent=formatPrice(descuentoCrewPack);
-      }else{
-        document.getElementById("descuento-crewpack-reserva-row").classList.add('initial-hidden');
-        document.getElementById("descuento-crewpack-reserva").textContent='$0';
-      }
-      document.getElementById("total-a-pagar-reserva").textContent=formatPrice(totalResumen);
-
-      // Eliminamos el mensaje de "Reserva registrada..."
-      document.getElementById("reservation-message").textContent = "";
-
-      // Copiar datos bancarios automáticamente al llegar aquí
       copiarDatos();
     }
 
@@ -770,7 +759,6 @@
       document.getElementById('form-section').style.display='block';
       document.getElementById('confirm-section').style.display='none';
       document.getElementById('unsubscribe-section').style.display='none';
-      document.getElementById('reserva-confirm-section').style.display='none';
       document.getElementById('hsu-content').style.display='block';
       document.body.classList.add('form-mode');
       document.getElementById('correo').focus();
@@ -785,44 +773,34 @@
       document.body.style.overflow='hidden';
       document.getElementById('hsu-content').style.display='block';
       document.body.classList.remove('form-mode');
-      // Reseteo básico de cantidades al volver
       cantidadGeneral=1; cantidadCrewPack=0;
       actualizarTotales();
     }
 
     /* =======================
-       Handlers compra / reserva
+       Handlers
        ======================= */
-    function handleCompra(e){
+    function handleRegister(e){
       e.preventDefault();
       const totalEntradas=cantidadGeneral+(cantidadCrewPack*5);
       if(totalEntradas===0){ alert("Selecciona al menos 1 entrada para continuar."); return; }
       const correo=correoInput.value.trim();
       if(!correo){ alert("Es necesario ingresar un correo para poder enviar la/s entrada/s"); return; }
-      enviarDatos('compra'); 
+      
+      enviarDatos('registro'); 
       showConfirmSection();
-    }
-    function handleReserva(){
-      const totalEntradas=cantidadGeneral+(cantidadCrewPack*5);
-      if(totalEntradas===0){ alert("Selecciona al menos 1 entrada para continuar."); return; }
-      const correo=correoInput.value.trim();
-      if(!correo){ alert("Es necesario ingresar un correo para poder realizar la reserva"); return; }
-      enviarDatos('reserva'); 
-      showReservaConfirmSection();
     }
 
     /* =======================
        INIT
        ======================= */
     window.onload=function(){
-      // Precios visibles
       const precioGeneralConCargoEl=document.getElementById('precio-general-con-cargo');
       const precioCrewPackConCargoEl=document.getElementById('precio-crewpack-con-cargo');
       if (precioGeneralConCargoEl) precioGeneralConCargoEl.textContent = formatPrice(EVENTO.precioEntradaGeneral);
       if (precioCrewPackConCargoEl) precioCrewPackConCargoEl.textContent = formatPrice(EVENTO.precioCrewPack);
 
-      // Meta con precio abreviado
-      const precioK = Math.round(EVENTO.precioUnitarioSinCargo / 1000);
+      const precioK = Math.round((EVENTO.precioUnitarioSinCargo - EVENTO.descuentoBlackFriday) / 1000); // 36K
       const precioKString = `${precioK}K`;
       const descMeta = document.querySelector('meta[name="description"]');
       if (descMeta) { descMeta.setAttribute('content', descMeta.getAttribute('content').replace('40K', precioKString)); }
@@ -831,14 +809,12 @@
       const twitterTitleMeta = document.querySelector('meta[name="twitter:title"]');
       if (twitterTitleMeta) { twitterTitleMeta.setAttribute('content', twitterTitleMeta.getAttribute('content').replace('40K', precioKString)); }
 
-      // Countdown
       setTimeout(()=>{ 
         if(typeof CountdownTimer!=='undefined'){ 
           CountdownTimer.init({ selector:'.countdown-timer', style:'columns', timezone:'America/Santiago', language:'es', date:EVENTO.fecha, textcolor:'#ffffff', digitscolor:'#ffffff', unitscolor:'#ffffff' }); 
         } 
       },500);
 
-      // DJs
       const djTop=document.getElementById('dj-top'), djMiddle=document.getElementById('dj-middle'), djBottom=document.getElementById('dj-bottom');
       let currentIndex=0;
       function updateDjSlots(){
@@ -861,26 +837,20 @@
       djMiddle.classList.add('center');
       setTimeout(updateDjSlots,2000);
 
-      // Abrir formulario al cargar (si no quieres esto, comenta la línea siguiente)
       showNewPage();
 
-      // Listeners de botones
       document.getElementById('plus-general').addEventListener('click', incGeneral);
       document.getElementById('minus-general').addEventListener('click', decGeneral);
       document.getElementById('plus-crewpack').addEventListener('click', incCrew);
       document.getElementById('minus-crewpack').addEventListener('click', decCrew);
 
-      // Botón “REGÍSTRATE” abre el formulario
       document.getElementById('register-link').addEventListener('click',(e)=>{
         e.preventDefault();
         showNewPage();
       });
 
-      // Compra / Reserva / Otros
-      document.getElementById("reservaForm").addEventListener("submit",handleCompra);
-      document.getElementById("reservar-btn").addEventListener("click",handleReserva);
+      document.getElementById("reservaForm").addEventListener("submit", handleRegister);
 
-      // Desuscribirse
       document.getElementById("unsubscribe-btn").addEventListener("click",()=>{
         document.getElementById("form-section").style.display="none";
         document.getElementById("unsubscribe-section").style.display="block";
@@ -898,11 +868,9 @@
           .catch(err=>{ console.error('Error al procesar la desuscripción:',err); alert("Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo."); });
       });
 
-      // primer render
       actualizarTotales();
     };
     
-    // Función global para copiar datos
     function copiarDatos(){
       const datos="VICENTE SEBASTIAN MEDEL\n19385365-K\nBanco Estado\nCuentaRUT\n19385365";
       if (navigator.clipboard && window.isSecureContext) {
@@ -910,7 +878,6 @@
             console.error('Error al copiar:', err);
         });
       } else {
-        // Fallback para entornos antiguos o no seguros
         const textArea = document.createElement("textarea");
         textArea.value = datos;
         textArea.style.position = "fixed";
@@ -918,19 +885,12 @@
         document.body.appendChild(textArea);
         textArea.focus();
         textArea.select();
-        try {
-            document.execCommand('copy');
-        } catch (err) {
-            console.error('Fallback: Error al copiar', err);
-        }
+        try { document.execCommand('copy'); } catch (err) { console.error('Fallback: Error al copiar', err); }
         document.body.removeChild(textArea);
       }
     }
 
-    // Utilidad global para bloquear zoom por ctrl/⌘ + rueda y atajos
-    document.addEventListener('wheel', function (e) {
-      if (e.ctrlKey) e.preventDefault();
-    }, { passive: false });
+    document.addEventListener('wheel', function (e) { if (e.ctrlKey) e.preventDefault(); }, { passive: false });
     document.addEventListener('keydown', function (e) {
       const combo = (e.ctrlKey || e.metaKey);
       const keys = ['+', '-', '0', '=', '_'];
