@@ -359,8 +359,8 @@
           <div class="total-row"><span id="label-precio-total">Precio total</span><span class="tachado" id="precio-total">$46.000</span></div>
           <!-- Descuentos en ROJO y NEGATIVO -->
           <div class="total-row"><span>Descuento sin cargo 15%</span><span class="texto-rojo" id="descuento-general">-$6.000</span></div>
-          <div class="total-row initial-hidden" id="crewpack-row"><span>Descuento crewpack</span><span class="texto-rojo" id="descuento-crewpack">-$0</span></div>
-          <div class="total-row initial-hidden" id="blackfriday-row"><span>Descuento Black Friday</span><span class="texto-rojo" id="descuento-blackfriday">-$0</span></div>
+          <div class="total-row initial-hidden" id="crewpack-row"><span>Descuento Team</span><span class="texto-rojo" id="descuento-crewpack">-$0</span></div>
+          <div class="total-row initial-hidden" id="blackfriday-row"><span>Descuento Navidad</span><span class="texto-rojo" id="descuento-blackfriday">-$0</span></div>
           
           <div class="total-row total"><span>Total a pagar</span><span id="total-a-pagar">$40.000</span></div>
         </div>
@@ -389,8 +389,8 @@
         <div class="total-row"><span id="label-cantidad-entradas-confirm">Cantidad de entradas</span><span id="cantidad-entradas-confirm">0</span></div>
         <div class="total-row"><span id="label-precio-total-confirm">Precio total</span><span class="tachado" id="precio-total-confirm">$0</span></div>
         <div class="total-row"><span>Descuento sin cargo</span><span class="texto-rojo" id="descuento-general-confirm">-$0</span></div>
-        <div class="total-row initial-hidden" id="descuento-crewpack-confirm-row"><span>Descuento crewpack</span><span class="texto-rojo" id="descuento-crewpack-confirm">-$0</span></div>
-        <div class="total-row initial-hidden" id="descuento-blackfriday-confirm-row"><span>Descuento Black Friday</span><span class="texto-rojo" id="descuento-blackfriday-confirm">-$0</span></div>
+        <div class="total-row initial-hidden" id="descuento-crewpack-confirm-row"><span>Descuento Team</span><span class="texto-rojo" id="descuento-crewpack-confirm">-$0</span></div>
+        <div class="total-row initial-hidden" id="descuento-blackfriday-confirm-row"><span>Descuento Navidad</span><span class="texto-rojo" id="descuento-blackfriday-confirm">-$0</span></div>
         
         <div class="total-row total"><span>Total a pagar</span><span id="total-a-pagar-confirm">$0</span></div>
         
@@ -426,7 +426,7 @@
     const EVENTO = {
       precioUnitarioSinCargo: 40000,   // Precio Base
       descuentoCrewPackManual: 3000,   // Descuento POR PACK
-      descuentoBlackFriday: 0,      // Descuento POR ENTRADA (Black Friday)
+      descuentoBlackFriday: 1000,      // Descuento POR ENTRADA (Black Friday)
       idEvento: 4,
 
       // Cálculos derivados
