@@ -860,7 +860,7 @@
         const correo=document.getElementById("unsubscribe-correo").value;
         if(!correo){ alert("Por favor, ingresa un correo electrónico."); return; }
         showHsuPage();
-        const formData={ action:'unsubscribe', correo, nombre:"XXX-DESUSCRITO-XXX", instagram:"XXX-DESUSCRITO-XXX", telefono:"XXX-DESUSCRITO-XXX", tipo:'C', cantidad:0, total:0, evento:EVENTO.idEvento };
+        const formData={ action:'unsubscribe', correo, nombre:"XXX-DESUSCRITO-XXX", instagram:"XXX-DESUSCRITO-XXX", telefono:"XXX-DESUSCRITO-XXX", evento:EVENTO.idEvento };
         fetch(EVENTO.hojaUrl,{ method:'POST', body:JSON.stringify(formData), mode:'no-cors' })
           .then(()=>{ alert("Tu solicitud de desuscripción ha sido enviada."); })
           .catch(err=>{ console.error('Error al procesar la desuscripción:',err); alert("Hubo un error al procesar tu solicitud. Por favor, inténtalo de nuevo."); });
