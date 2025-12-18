@@ -685,14 +685,19 @@
       if(actionType === 'copy-data'){ return; }
 
       const filas = [];
-      for(let i=0; i<totalEntradas; i++){
+      for (let i = 0; i < totalEntradas; i++) {
         filas.push({
           action: 'register',
-          nombre, correo, instagram, telefono,
-          cantidad: 1,          
-          evento: EVENTO.idEvento
+          nombre, // Nombre
+          correo, // Correo
+          instagram, // Instagram
+          telefono, // Teléfono
+          cantidad: 1, // Cantidad (por cada fila)
+          evento: EVENTO.idEvento, // Evento = 4
+          // "Total" y "Tipo" no se incluyen
         });
       }
+
 
       (async ()=>{
         for(const fila of filas){
