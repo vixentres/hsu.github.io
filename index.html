@@ -353,18 +353,19 @@
         .then(r => r.json())
         .then(res => {
           const infoDiv = document.getElementById('cliente-frecuente-info');
-          if (res.status === 'success' && res.entradas > 0) {
-            infoDiv.innerHTML = `⭐ ¡CLIENTE FRECUENTE! ⭐<br>Llevas ${res.entradas} entradas registradas con nosotros.`;
-            infoDiv.style.display = 'block';
-            
-// LANZAR EL CONFETI
-    confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#ff2aa6', '#024ddf', '#16e0d1']
-    });
-}
+      if (res.status === 'success' && res.entradas > 0) {
+          const infoDiv = document.getElementById('cliente-frecuente-info');
+          infoDiv.innerHTML = `⭐ ¡CLIENTE FRECUENTE! ⭐<br>Llevas ${res.entradas} entradas compradas.`;
+          infoDiv.style.display = 'block';
+      
+          // AÑADE ESTO PARA EL CONFETI
+          confetti({
+              particleCount: 150,
+              spread: 70,
+              origin: { y: 0.6 },
+              colors: ['#ff2aa6', '#024ddf', '#16e0d1']
+          });
+      }
     
     // 3. Modificar la función enviarDatos para incluir la nota
     // Dentro de enviarDatos(), agrega esto al objeto que se envía:
@@ -774,29 +775,43 @@
     /* =======================
        Envío a hoja
        ======================= */
-    function enviarDatos(actionType){
-      const correo=correoInput.value.trim();
-      const nombre=nombreInput.value.trim();
-      const instagram=instagramInput.value.trim();
-      const telefono=telefonoInput.dataset.clean || telefonoInput.value.trim();
-      const totalEntradas = cantidadGeneral + (cantidadCrewPack*5);
+    function enviarDatos(actionType) {
+      const correo = correoInput.value.trim();
+      const nombre = nombreInput.value.trim();
+      const instagram = instagramInput.value.trim();
+      const telefono = telefonoInput.dataset.clean || telefonoInput.value.trim();
+      const totalEntradas = cantidadGeneral + (cantidadCrewPack * 5);
+      
+      // Capturamos el valor del textarea
       const notaValue = document.getElementById('nota-input').value.trim();
 
-      if(actionType === 'copy-data'){ return; }
+      if (actionType === 'copy-data') { return; }
 
       const filas = [];
       for (let i = 0; i < totalEntradas; i++) {
         filas.push({
-          action: 'register',
-          nombre, // Nombre
-          correo, // Correo
-          instagram, // Instagram
-          telefono, // Teléfono
-          cantidad: 1, // Cantidad (por cada fila)
-          evento: EVENTO.idEvento, // Evento = 4
-          nota: nota
+          nombre: nombre,
+          correo: correo,
+          instagram: instagram,
+          telefono: telefono,
+          cantidad: 1,
+          evento: EVENTO.idEvento,
+          nota: notaValue // <--- Ahora sí se envía correctamente
         });
       }
+
+      // Enviar cada fila a Google Sheets
+      filas.forEach(payload => {
+        fetch(EVENTO.hojaUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+        .then(() => console.log("Fila registrada con éxito"))
+        .catch(err => console.error("Error al registrar fila:", err));
+      });
+    }
 
 
       (async ()=>{
