@@ -252,15 +252,15 @@
     }
 
     /* Estilo del Campo Nota */
-    #nota-input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-family: inherit;
-      resize: none;
-    }
+#nota-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: inherit;
+    resize: none; /* Esto evita que el usuario agrande el cuadro y rompa el diseño */
+}
     #nota-input::placeholder {
       font-style: italic;
       font-size: 0.85em;
@@ -356,20 +356,15 @@
           if (res.status === 'success' && res.entradas > 0) {
             infoDiv.innerHTML = `⭐ ¡CLIENTE FRECUENTE! ⭐<br>Llevas ${res.entradas} entradas registradas con nosotros.`;
             infoDiv.style.display = 'block';
-            lanzarConfetiFrecuente();
             
-            // LANZAR CONFETI
-            confetti({
-              particleCount: 150,
-              spread: 70,
-              origin: { y: 0.6 },
-              colors: ['#ff2aa6', '#024ddf', '#16e0d1']
-            });
-          } else {
-            infoDiv.style.display = 'none';
-          }
-        });
-    }
+// LANZAR EL CONFETI
+    confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#ff2aa6', '#024ddf', '#16e0d1']
+    });
+}
     
     // 3. Modificar la función enviarDatos para incluir la nota
     // Dentro de enviarDatos(), agrega esto al objeto que se envía:
@@ -799,7 +794,7 @@
           telefono, // Teléfono
           cantidad: 1, // Cantidad (por cada fila)
           evento: EVENTO.idEvento, // Evento = 4
-          nota: notaValue
+          nota: nota
         });
       }
 
@@ -902,6 +897,22 @@
     /* =======================
        INIT
        ======================= */
+
+    const notaInput = document.getElementById('nota-input');
+    const ejemplos = [
+      "ejemplo: Reservar 1 entrada...",
+      "ejemplo: Vengo de parte de...",
+      "ejemplo: La otra semana te la compro...",
+      "ejemplo: Guárdame 2 entradas...",
+      "ejemplo: Me pagan el 15 y transfiero..."
+    ];
+    let idx = 0;
+    setInterval(() => {
+      idx = (idx + 1) % ejemplos.length;
+      if(notaInput) notaInput.placeholder = ejemplos[idx];
+    }, 4000);
+
+    
     window.onload=function(){
       const precioGeneralConCargoEl=document.getElementById('precio-general-con-cargo');
       const precioCrewPackConCargoEl=document.getElementById('precio-crewpack-con-cargo');
