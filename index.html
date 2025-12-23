@@ -238,6 +238,45 @@
       .form-container{ width:96vw; max-height:86vh; padding:16px }
       .btn{ padding:9px 11px; font-size:14px }
     }
+    /* Mensaje Cliente Frecuente Centrado y Animado */
+    #cliente-frecuente-info {
+      display: none;
+      text-align: center;
+      color: #ff2aa6;
+      font-weight: 800;
+      font-size: 0.95em;
+      margin: 10px 0;
+      padding: 12px;
+      border: 2px dashed #ff2aa6;
+      border-radius: 10px;
+      background: rgba(255, 42, 166, 0.05);
+      animation: pulseGlow 2s infinite;
+    }
+    
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 5px rgba(255, 42, 166, 0.2); }
+      50% { box-shadow: 0 0 15px rgba(255, 42, 166, 0.4); }
+      100% { box-shadow: 0 0 5px rgba(255, 42, 166, 0.2); }
+    }
+    
+    /* Estilo para la Nota */
+    #nota-input::placeholder {
+      font-style: italic;
+      font-size: 0.85em;
+      color: #999;
+      transition: opacity 0.5s ease;
+    }
+    
+    #nota-input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: inherit;
+      resize: none;
+    }
+    
   </style>
 </head>
 
@@ -292,6 +331,69 @@
           el.setAttribute('cursor-listener','');
           el.addEventListener('click',function(){ if(data.href) window.open(data.href,'_blank'); });
         }});
+
+    // 1. Configuración del Placeholder Rotativo
+    const notaInput = document.getElementById('nota-input');
+    const ejemplos = [
+      "ejemplo: Reservar 1 entrada...",
+      "ejemplo: Vengo de parte de...",
+      "ejemplo: La otra semana te la compro...",
+      "ejemplo: Guárdame 2 entradas...",
+      "ejemplo: Me pagan el 15 y te transfiero..."
+    ];
+    
+    let indexEjemplo = 0;
+    function rotarPlaceholder() {
+      notaInput.style.opacity = 0.5; // Efecto de parpadeo suave
+      setTimeout(() => {
+        notaInput.placeholder = ejemplos[indexEjemplo];
+        notaInput.style.opacity = 1;
+        indexEjemplo = (indexEjemplo + 1) % ejemplos.length;
+      }, 500);
+    }
+    setInterval(rotarPlaceholder, 4000);
+    rotarPlaceholder();
+    
+    // 2. Modificar la función de buscarClienteFrecuente para el CONFETI
+    // Busca tu función existente y asegúrate de que incluya esto:
+    function buscarClienteFrecuente(correo) {
+      if (!correo.includes('@')) return;
+      
+      fetch(`${EVENTO.hojaClientesUrl}?correo=${encodeURIComponent(correo)}`)
+        .then(r => r.json())
+        .then(res => {
+          const infoDiv = document.getElementById('cliente-frecuente-info');
+          if (res.status === 'success' && res.entradas > 0) {
+            infoDiv.innerHTML = `⭐ ¡CLIENTE FRECUENTE! ⭐<br>Llevas ${res.entradas} entradas registradas con nosotros.`;
+            infoDiv.style.display = 'block';
+            
+            // LANZAR CONFETI
+            confetti({
+              particleCount: 150,
+              spread: 70,
+              origin: { y: 0.6 },
+              colors: ['#ff2aa6', '#024ddf', '#16e0d1']
+            });
+          } else {
+            infoDiv.style.display = 'none';
+          }
+        });
+    }
+    
+    // 3. Modificar la función enviarDatos para incluir la nota
+    // Dentro de enviarDatos(), agrega esto al objeto que se envía:
+    function enviarDatos(actionType) {
+      // ... (tus otras constantes)
+      const nota = document.getElementById('nota-input').value.trim();
+    
+      // En el bucle donde creas las 'filas' para el fetch:
+      filas.push({
+        // ... otros campos
+        nota: nota // <--- Agregamos el valor de la nota
+      });
+      // ... resto del fetch
+    }
+
       </script>
 
       <!-- Logo 3D con vaivén -->
@@ -325,7 +427,7 @@
         </div>
         <div class="loading-text" id="loading-text" style="display:none;">Buscando perfil...</div>
 
-        <label for="nombre">Nombre*</label>
+        <label for="nombre">Nombre completo*</label>
         <input type="text" id="nombre" name="nombre" placeholder="Harder Style United" required>
 
         <label for="telefono">Número de contacto</label>
@@ -333,7 +435,12 @@
 
         <label for="instagram">Instagram</label>
         <input type="text" id="instagram" name="instagram" placeholder="eventshsu.cl">
-
+        
+        <label for="nota-input">Nota opcional</label>
+        <textarea id="nota-input" rows="2" placeholder=""></textarea>
+        
+        <div id="cliente-frecuente-info"></div>
+        
         <div class="item">
           <div><h5 id="tipo-entrada-general"><b class="bold-label">Entrada General (1x)</b> <span id="precio-general-con-cargo">$40.000</span></h5></div>
           <div class="controls">
