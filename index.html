@@ -39,6 +39,37 @@
       font-weight: normal;
       font-style: normal;
     }
+
+/* Estilos nuevos para Nota y Cliente Frecuente */
+    #cliente-frecuente-info {
+      display: none;
+      text-align: center;
+      color: #ff2aa6;
+      font-weight: 800;
+      margin: 10px 0;
+      padding: 10px;
+      border: 2px dashed #ff2aa6;
+      border-radius: 8px;
+      background: rgba(255, 42, 166, 0.05);
+    }
+
+    #nota-input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-family: inherit;
+      resize: none;
+    }
+
+    #nota-input::placeholder {
+      font-style: italic;
+      font-size: 0.85em;
+      color: #999;
+    }
+
+    
     :root{
       --btn-size:70px;
       --btn-gap:16px;
@@ -251,22 +282,7 @@
       background: rgba(255, 42, 166, 0.05);
     }
 
-    /* Estilo del Campo Nota */
-#nota-input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-family: inherit;
-    resize: none; 
-}
-#nota-input::placeholder {
-    font-style: italic;
-    color: #999;
-    font-size: 0.85em;
-}
-    
+   
   </style>
 </head>
 
@@ -346,26 +362,29 @@
     
     // 2. Modificar la función de buscarClienteFrecuente para el CONFETI
     // Busca tu función existente y asegúrate de que incluya esto:
-    function buscarClienteFrecuente(correo) {
-      if (!correo.includes('@')) return;
-      
-      fetch(`${EVENTO.hojaClientesUrl}?correo=${encodeURIComponent(correo)}`)
-        .then(r => r.json())
-        .then(res => {
-          const infoDiv = document.getElementById('cliente-frecuente-info');
-      if (res.status === 'success' && res.entradas > 0) {
-          const infoDiv = document.getElementById('cliente-frecuente-info');
+    async function buscarClienteFrecuente(correo){
+      if(!correo.includes('@')) return;
+      try {
+        const resp = await fetch(`${EVENTO.hojaClientesUrl}?correo=${encodeURIComponent(correo)}`);
+        const res = await resp.json();
+        const infoDiv = document.getElementById('cliente-frecuente-info');
+        
+        if (res.status === 'success' && res.entradas > 0) {
           infoDiv.innerHTML = `⭐ ¡CLIENTE FRECUENTE! ⭐<br>Llevas ${res.entradas} entradas compradas.`;
           infoDiv.style.display = 'block';
-      
-          // AÑADE ESTO PARA EL CONFETI
+          
+          // ACTIVAR CONFETI
           confetti({
-              particleCount: 150,
-              spread: 70,
-              origin: { y: 0.6 },
-              colors: ['#ff2aa6', '#024ddf', '#16e0d1']
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#ff2aa6', '#024ddf', '#16e0d1']
           });
-      }
+        } else {
+          infoDiv.style.display = 'none';
+        }
+      } catch(e){ console.error("Error buscando cliente:", e); }
+    }
     
     // 3. Modificar la función enviarDatos para incluir la nota
     // Dentro de enviarDatos(), agrega esto al objeto que se envía:
@@ -775,17 +794,17 @@
     /* =======================
        Envío a hoja
        ======================= */
-    function enviarDatos(actionType) {
+    function enviarDatos(actionType){
       const correo = correoInput.value.trim();
       const nombre = nombreInput.value.trim();
       const instagram = instagramInput.value.trim();
       const telefono = telefonoInput.dataset.clean || telefonoInput.value.trim();
-      const totalEntradas = cantidadGeneral + (cantidadCrewPack * 5);
+      const totalEntradas = cantidadGeneral + (cantidadCrewPack*5);
       
-      // Capturamos el valor del textarea
+      // Capturamos el valor de la nota
       const notaValue = document.getElementById('nota-input').value.trim();
 
-      if (actionType === 'copy-data') { return; }
+      if(actionType === 'copy-data'){ return; }
 
       const filas = [];
       for (let i = 0; i < totalEntradas; i++) {
@@ -796,20 +815,17 @@
           telefono: telefono,
           cantidad: 1,
           evento: EVENTO.idEvento,
-          nota: notaValue // <--- Ahora sí se envía correctamente
+          nota: notaValue // Corregido: antes decía nota (error) ahora notaValue
         });
       }
 
-      // Enviar cada fila a Google Sheets
       filas.forEach(payload => {
         fetch(EVENTO.hojaUrl, {
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
-        })
-        .then(() => console.log("Fila registrada con éxito"))
-        .catch(err => console.error("Error al registrar fila:", err));
+        });
       });
     }
 
